@@ -20,38 +20,41 @@ import javax.naming.NamingException;
  * @author vPalomo
  */
 public class GestionEstadosBD {
-    static final int LIBRE=0;
-    static final int VENDIDA=1;
-    static final int RESERVADA=2;
-    static final int NO_VENDER=3;
-    static final int INVITACION=4;
-    static final int ABONO=5;
+    static final int LIBRE=1;
+    static final int VENDIDA=2;
+    static final int RESERVADA=3;
+    static final int NO_VENDER=4;
+    static final int INVITACION=5;
+    static final int ABONO=6;
     static final int OTROS=99;
+    static final boolean conBD=false; //Haremos que no busque en la base de datos, es más pesada la carga. En un futuro se puede solucionar con un Singleton
     
-    static String getEstado2(String estado){
-        if("0".equalsIgnoreCase(estado)){
-            return "LIBRE";
-        }else if("1".equalsIgnoreCase(estado)){
-            return "VENDIDA";
+    private static EstadoBean getEstadoSinBD(String estado){
+        if("1".equalsIgnoreCase(estado)){
+            return new EstadoBean(1, "Libre", "00FF00");
         }else if("2".equalsIgnoreCase(estado)){
-            return "RESERVADA";
+            return new EstadoBean(2, "Vendida", "FF0000");
         }else if("3".equalsIgnoreCase(estado)){
-            return "NO VENDER";
+            return new EstadoBean(3, "Reservada", "FF9900");
         }else if("4".equalsIgnoreCase(estado)){
-            return "INVITACION";
+            return new EstadoBean(4, "No vender", "000000");
         }else if("5".equalsIgnoreCase(estado)){
-            return "ABONO";
-        }else if("99".equalsIgnoreCase(estado)){
-            return "OTROS";
+            return new EstadoBean(5, "Invitación", "3B83BD");
+        }else if("6".equalsIgnoreCase(estado)){
+            return new EstadoBean(6, "Abono", "EA899A");
         }else{
-            return "DESCONOCIDO";
+            return new EstadoBean();
         }
     }
     public static EstadoBean getEstado(int estado){
-        return getEstado(""+estado);
+        if(conBD){
+            return getEstadoConBD(""+estado);
+        }else{
+            return getEstadoSinBD(""+estado);
+        }
     }
     
-    public static EstadoBean getEstado(String estado){
+    private static EstadoBean getEstadoConBD(String estado){
         EstadoBean result = null;
         Connection conexion = null;
         try {
