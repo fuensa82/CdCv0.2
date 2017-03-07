@@ -21,14 +21,14 @@ import javax.naming.NamingException;
  * @author vPalomo
  */
 public class GestionAuditorioBD {
-    public static ArrayList getEstadoButacas(String idActividad, String idSesion){
+    public static ArrayList getEstadoButacas(int idActividad, int idSesion){
         ArrayList result=new ArrayList();
         Connection conexion = null;
         try {
             conexion=ConectorBD.getConnection();
             PreparedStatement consulta = conexion.prepareStatement("select idButaca, idActividad, idSesion, idEstado, Motivo from butacassesion where idActividad=? and idSesion=?");
-            consulta.setString(1, idActividad);
-            consulta.setString(2, idSesion);
+            consulta.setString(1, ""+idActividad);
+            consulta.setString(2, ""+idSesion);
             ResultSet resultado = consulta.executeQuery();
             while(resultado.next()){
                 ButacaSesion b=new ButacaSesion();
@@ -109,7 +109,7 @@ public class GestionAuditorioBD {
             Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
-                System.out.println("Saliendo de la base de datos");
+                //System.out.println("Saliendo de la base de datos");
                 conexion.close();
             } catch (SQLException ex) {
                 Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,7 +139,7 @@ public class GestionAuditorioBD {
             result=Integer.parseInt(resultado.getString(1));
             //result="Fila "+resultado.getString(1)+", asiento "+resultado.getString(1);
             
-            System.out.println("Total butacas estado "+estado+": "+result);
+            //System.out.println("Total butacas estado "+estado+": "+result);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,7 +147,7 @@ public class GestionAuditorioBD {
             Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
-                System.out.println("Saliendo de la base de datos");
+                //System.out.println("Saliendo de la base de datos");
                 conexion.close();
             } catch (SQLException ex) {
                 Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);

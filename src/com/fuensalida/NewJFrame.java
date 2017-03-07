@@ -33,7 +33,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private MiHasMap2 allButacas;
     private static final int totalButacas=466;
     
-    private int idActividad=3;
+    private int idActividad=4;
     private int idSesion=1;
     /**
      * Creates new form NewJFrame
@@ -51,7 +51,7 @@ public class NewJFrame extends javax.swing.JFrame {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-        inicializarButacas();
+        inicializarButacas(idActividad,idSesion);
         inicializarContadores(idActividad,idSesion);
         
         butacasSel=new ArrayList();
@@ -590,6 +590,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         Depurar = new javax.swing.JMenuItem();
@@ -5330,10 +5333,53 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         jButton4.setText("jButton4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("jButton5");
 
         jButton6.setText("jButton6");
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jPanel5.setBackground(new java.awt.Color(0, 255, 0));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jLabel24.setText("Libres");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel24)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jMenu2.setText("Archivo");
 
@@ -5384,7 +5430,8 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -5409,11 +5456,13 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(jButton3)
                             .addComponent(jButton4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5444,7 +5493,17 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         idActividad=4;
         idSesion=1;
+        inicializarButacas(idActividad, idSesion);
+        inicializarContadores(idActividad,idSesion);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        idActividad=3;
+        idSesion=1;
+        inicializarButacas(idActividad, idSesion);
+        inicializarContadores(idActividad,idSesion);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -5964,6 +6023,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -5991,6 +6051,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel labelAbonos;
     private javax.swing.JLabel labelInvitaciones;
     private javax.swing.JLabel labelLastSelect;
@@ -6004,12 +6066,13 @@ public class NewJFrame extends javax.swing.JFrame {
      * Busca en la base de datos las butacas de la sesion y las guarda en la
      * tabla de butacas y colorea los botones de cada una
      */
-    private void coloreaButacas() {
-        ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas("3","1");
+    private void coloreaButacas(int idActividad, int idSesion) {
+        System.out.println("Colorea butacas: "+idActividad+" "+idSesion);
+        ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas(idActividad,idSesion);
         for (int i = 0; i < estadoButacas.size(); i++) {
             ButacaSesion b = (ButacaSesion) estadoButacas.get(i);
             allButacas.put(b);
-            System.out.println("Butaca " + b.getIdButaca() + " está " + GestionEstadosBD.getEstado(b.getIdEstado()));
+            //System.out.println("Butaca " + b.getIdButaca() + " está " + GestionEstadosBD.getEstado(b.getIdEstado()));
             JToggleButton bJT = allButacas.getButacaJT(b.getIdButaca());
             ponColorButaca(b, bJT);
         }
@@ -6024,15 +6087,9 @@ public class NewJFrame extends javax.swing.JFrame {
                         Integer.valueOf(estado.getColor().substring(2, 4), 16),
                         Integer.valueOf(estado.getColor().substring(4, 6), 16)));
         
-        //Color color=new Color(ERROR, WIDTH, ABORT, ABORT);
-        System.out.println("Color R:"+Integer.valueOf(estado.getColor().substring(0, 2), 16));
-        System.out.println("Color G:"+Integer.valueOf(estado.getColor().substring(2, 4), 16));
-        System.out.println("Color B:"+Integer.valueOf(estado.getColor().substring(4, 6), 16));
-        
     }
 
-    private void inicializarButacas() {
-        ArrayList butacasJT;
+    private void inicializarButacas(int idActividad, int idSesion) {
         allButacas = new MiHasMap2();
         allButacas.put(1, b1);
         allButacas.put(2, b2);
@@ -6501,7 +6558,7 @@ public class NewJFrame extends javax.swing.JFrame {
         allButacas.put(465, b465);
         allButacas.put(466, b466);
         addAllListenerToButacas();
-        coloreaButacas();
+        coloreaButacas(idActividad, idSesion);
 
     }
 
@@ -6516,13 +6573,16 @@ public class NewJFrame extends javax.swing.JFrame {
         this.labelSeleccionadas.setText("0");
         butacasSel=new ArrayList();
     }
-    
+    /**
+     * Añade la funcionalidad a las butacas, hace que se sumen, que se añadan al array de butacas sel, ...
+     */
     private void addAllListenerToButacas() {
         Iterator it = allButacas.getButacaJT().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry par = (Map.Entry) it.next();
             int nBucata = (int) par.getKey();
             JToggleButton bJT = (JToggleButton) par.getValue();
+            bJT.setBackground(new Color(0,255,0));
             bJT.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     if (bJT.isSelected()) {
