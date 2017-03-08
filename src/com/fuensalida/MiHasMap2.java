@@ -16,9 +16,19 @@ import javax.swing.JToggleButton;
 public class MiHasMap2 {
     private HashMap butaca;
     private HashMap butacaJT;
+    
     public MiHasMap2(){
         butaca=new HashMap();
         butacaJT=new HashMap();
+    }
+    public int sizeB(){
+        return butaca.size();
+    }
+    public int sizeBJT(){
+        return butacaJT.size();
+    }
+    public String toString(){
+        return butaca.toString();
     }
     /**
      * 

@@ -60,7 +60,7 @@ public class NewJFrame extends javax.swing.JFrame {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-        inicializarButacas(idActividad,idSesion);
+        inicializarButacas(idActividad,idSesion, true);
         inicializarContadores(idActividad,idSesion);
         cargarTablaSesiones();
         
@@ -5543,11 +5543,11 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void DepurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepurarActionPerformed
-        
+        debug();
     }//GEN-LAST:event_DepurarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cambiarSesion(4, 1);
+        cambiarSesion(4, 2);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -6141,7 +6141,7 @@ public class NewJFrame extends javax.swing.JFrame {
         
     }
 
-    private void inicializarButacas(int idActividad, int idSesion) {
+    private void inicializarButacas(int idActividad, int idSesion, boolean firstTime) {
         allButacas = new MiHasMap2();
         allButacas.put(1, b1);
         allButacas.put(2, b2);
@@ -6609,7 +6609,9 @@ public class NewJFrame extends javax.swing.JFrame {
         allButacas.put(464, b464);
         allButacas.put(465, b465);
         allButacas.put(466, b466);
-        addAllListenerToButacas();
+        if(firstTime){
+            addAllListenerToButacas();
+        }
         coloreaButacas(idActividad, idSesion);
 
     }
@@ -6669,6 +6671,19 @@ public class NewJFrame extends javax.swing.JFrame {
     private void imprimeArrayButacasSel(){
         System.out.println("Array de butacas seleccionadas: "+butacasSel);
     }
+    private void debug(){
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Butacas sel: "+butacasSel.size());
+        imprimeArrayButacasSel();
+        
+        System.out.println("numButacasSel: "+numButacasSel);
+        System.out.println("estadoButacasSel: "+estadoButacasSel);
+        
+        System.out.println("Butacas: "+this.allButacas.sizeB());
+        System.out.println("ButacasJT: "+this.allButacas.sizeBJT());
+        System.out.println(this.allButacas);
+        System.out.println("---------------------------------------------------------");
+    }
      private void inicializarContadores(int actividad, int sesion) {
         int ocupadas=GestionAuditorioBD.getOcupadas(actividad, sesion);
         labelLibres.setText(""+(totalButacas-ocupadas));
@@ -6715,7 +6730,7 @@ public class NewJFrame extends javax.swing.JFrame {
         idActividad=idActividad;
         idSesion=idSesion;
         deseleccionarTodo();
-        inicializarButacas(idActividad, idSesion);
+        inicializarButacas(idActividad, idSesion, false);
         inicializarContadores(idActividad,idSesion);
     }
 

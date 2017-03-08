@@ -42,6 +42,8 @@ public class GestionEstadosBD {
             return new EstadoBean(5, "Invitación", "3B83BD");
         }else if("6".equalsIgnoreCase(estado)){
             return new EstadoBean(6, "Abono", "EA899A");
+        }else if("0".equalsIgnoreCase(estado)){
+            return new EstadoBean(1, "Libre", "00FF00");
         }else{
             return new EstadoBean();
         }

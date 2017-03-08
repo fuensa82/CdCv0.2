@@ -17,13 +17,18 @@ public class ButacaSesion {
     private String motivo;
     private String fechaMotivo;
 
+    /**
+     * Crea una butaca con el id que se le pasa y con el estado 1 (libre), el resto vacío
+     * @param id 
+     */
     public ButacaSesion(int id){
         idButaca=id;
+        idEstado=1;
     }
     public ButacaSesion(){}
     
     public String toString(){
-        return getIdButaca()+" "+getIdEstado();
+        return "Butaca: "+getIdButaca()+" Estado:"+getIdEstado();
     }
     
     public int getIdButaca() {

@@ -14,6 +14,10 @@ public class EstadoBean {
     private String descripcion;
     private String color;
 
+    public String toString(){
+        return idEstado+ " "+descripcion+" "+color;
+    } 
+    
     public EstadoBean(){}
     public EstadoBean(int idEstado, String descripcion, String color){
         this.idEstado=idEstado;
