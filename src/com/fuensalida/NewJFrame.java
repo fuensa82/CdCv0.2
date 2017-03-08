@@ -12,6 +12,7 @@ import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.EstadoBean;
 import com.fuensalida.beans.SesionBean;
 import com.fuensalida.printer.Imprimir;
+import com.fuensalida.utils.FechasUtils;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,7 +61,7 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         inicializarButacas(idActividad,idSesion);
         inicializarContadores(idActividad,idSesion);
-        cargarTabla();
+        cargarTablaSesiones();
         
         butacasSel=new ArrayList();
         b1.setSelected(false);
@@ -5393,19 +5394,19 @@ public class NewJFrame extends javax.swing.JFrame {
 
         tActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Actividad", "Fecha", "Hora", "Compañía"
+                "Actividad", "Fecha", "Hora", "Compañía", "idActividad", "idSesion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -5418,6 +5419,14 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         tActividades.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tActividades);
+        if (tActividades.getColumnModel().getColumnCount() > 0) {
+            tActividades.getColumnModel().getColumn(4).setMinWidth(0);
+            tActividades.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tActividades.getColumnModel().getColumn(4).setMaxWidth(0);
+            tActividades.getColumnModel().getColumn(5).setMinWidth(0);
+            tActividades.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tActividades.getColumnModel().getColumn(5).setMaxWidth(0);
+        }
 
         jMenu2.setText("Archivo");
 
@@ -5537,18 +5546,12 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_DepurarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        idActividad=4;
-        idSesion=1;
-        inicializarButacas(idActividad, idSesion);
-        inicializarContadores(idActividad,idSesion);
+        cambiarSesion(4, 1);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        idActividad=3;
-        idSesion=1;
-        inicializarButacas(idActividad, idSesion);
-        inicializarContadores(idActividad,idSesion);
+        cambiarSesion(3, 1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -6675,19 +6678,32 @@ public class NewJFrame extends javax.swing.JFrame {
         labelAbonos.setText(""+GestionAuditorioBD.getButacasAbonos(actividad, sesion));
     }
 
-    private void cargarTabla() {
-        ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones("2007-01-20");
+    private void cargarTablaSesiones() {
+        cargarTablaSesiones(FechasUtils.fechaActualString());
+    }
+    private void cargarTablaSesiones(String fecha) {
+        ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(FechasUtils.fechaParaMysql(fecha));
         System.out.println("Sesiones totales: "+listaSesiones);
-        /*
+        
         DefaultTableModel modelo=(DefaultTableModel) tActividades.getModel();
         tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int a=tActividades.getSelectedColumn();
-                System.out.println("b"+a);
+                if(!e.getValueIsAdjusting()){
+                    System.out.println(e+" "+e.getValueIsAdjusting());
+                    tActividades.getSelectedColumn();
+                }
             }
-        });*/
+        });
         
+    }
+    
+    private void cambiarSesion(int idActividad, int idSesion){
+        idActividad=idActividad;
+        idSesion=idSesion;
+        deseleccionarTodo();
+        inicializarButacas(idActividad, idSesion);
+        inicializarContadores(idActividad,idSesion);
     }
 
 }
