@@ -28,6 +28,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -5394,19 +5395,19 @@ public class NewJFrame extends javax.swing.JFrame {
 
         tActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Actividad", "Fecha", "Hora", "Compañía", "idActividad", "idSesion"
+                "Actividad", "Fecha", "Hora", "Compañía", "Precio", "idActividad", "idSesion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -5420,12 +5421,12 @@ public class NewJFrame extends javax.swing.JFrame {
         tActividades.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tActividades);
         if (tActividades.getColumnModel().getColumnCount() > 0) {
-            tActividades.getColumnModel().getColumn(4).setMinWidth(0);
-            tActividades.getColumnModel().getColumn(4).setPreferredWidth(0);
-            tActividades.getColumnModel().getColumn(4).setMaxWidth(0);
             tActividades.getColumnModel().getColumn(5).setMinWidth(0);
             tActividades.getColumnModel().getColumn(5).setPreferredWidth(0);
             tActividades.getColumnModel().getColumn(5).setMaxWidth(0);
+            tActividades.getColumnModel().getColumn(6).setMinWidth(0);
+            tActividades.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tActividades.getColumnModel().getColumn(6).setMaxWidth(0);
         }
 
         jMenu2.setText("Archivo");
@@ -5542,7 +5543,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void DepurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepurarActionPerformed
-        imprimeArrayButacasSel();
+        
     }//GEN-LAST:event_DepurarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -6683,7 +6684,19 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     private void cargarTablaSesiones(String fecha) {
         ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(FechasUtils.fechaParaMysql(fecha));
-        System.out.println("Sesiones totales: "+listaSesiones);
+        System.out.println("Sesiones totales: "+listaSesiones.size());
+        TableModel datosTabla=tActividades.getModel();
+        for (int i=0;i<listaSesiones.size();i++){
+            datosTabla.setValueAt(listaSesiones.get(i).getDescripcion(), i,0);
+            datosTabla.setValueAt(listaSesiones.get(i).getFecha(), i,1);
+            datosTabla.setValueAt(listaSesiones.get(i).getHora(), i,2);
+            datosTabla.setValueAt(listaSesiones.get(i).getCompania(), i,3);
+            datosTabla.setValueAt(listaSesiones.get(i).getPrecio(), i,4);
+            datosTabla.setValueAt(listaSesiones.get(i).getIdActividad(), i,5);
+            datosTabla.setValueAt(listaSesiones.get(i).getIdSesion(), i,6);
+        }
+        
+        
         
         DefaultTableModel modelo=(DefaultTableModel) tActividades.getModel();
         tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

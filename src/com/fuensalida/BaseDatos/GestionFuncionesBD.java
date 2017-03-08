@@ -44,6 +44,12 @@ public class GestionFuncionesBD {
                 sesion.setIdActividad(resultado.getInt(1));
                 sesion.setDescripcion(resultado.getString(2));
                 
+                sesion.setCompania(resultado.getString(3));
+                sesion.setIdSesion(resultado.getInt(4));
+                sesion.setFecha(resultado.getString(5));
+                sesion.setHora(resultado.getString(6));
+                sesion.setPrecio(resultado.getInt(7));
+                
                 result.add(sesion);
             }
             
