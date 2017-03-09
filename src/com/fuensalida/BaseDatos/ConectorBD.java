@@ -18,7 +18,6 @@ public class ConectorBD {
 
     
     public static Connection getConnection() throws NamingException, SQLException {
-        System.out.println("Nueva conexion");
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser(ConectorBD.usuario);
         dataSource.setPassword(ConectorBD.contrasenia);

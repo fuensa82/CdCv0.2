@@ -46,7 +46,7 @@ public class GestionFuncionesBD {
                 
                 sesion.setCompania(resultado.getString(3));
                 sesion.setIdSesion(resultado.getInt(4));
-                sesion.setFecha(resultado.getString(5));
+                sesion.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
                 sesion.setHora(resultado.getString(6));
                 sesion.setPrecio(resultado.getInt(7));
                 

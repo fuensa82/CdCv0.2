@@ -577,6 +577,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         labelLastSelect = new javax.swing.JLabel();
+        labelNButaca = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel3 = new javax.swing.JLabel();
@@ -5118,6 +5119,10 @@ public class NewJFrame extends javax.swing.JFrame {
         labelLastSelect.setText(" ");
         labelLastSelect.setToolTipText("");
 
+        labelNButaca.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        labelNButaca.setForeground(new java.awt.Color(153, 153, 153));
+        labelNButaca.setText(" ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -5129,12 +5134,14 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLayeredPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(510, 510, 510)
                         .addComponent(jLabel12)
+                        .addGap(20, 20, 20)
+                        .addComponent(labelLastSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelLastSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(labelNButaca)))
+                .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5143,10 +5150,11 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(labelLastSelect)))
+                    .addComponent(labelLastSelect)
+                    .addComponent(labelNButaca)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -5395,16 +5403,14 @@ public class NewJFrame extends javax.swing.JFrame {
 
         tActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Actividad", "Fecha", "Hora", "Compañía", "Precio", "idActividad", "idSesion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -5421,12 +5427,10 @@ public class NewJFrame extends javax.swing.JFrame {
         tActividades.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tActividades);
         if (tActividades.getColumnModel().getColumnCount() > 0) {
-            tActividades.getColumnModel().getColumn(5).setMinWidth(0);
-            tActividades.getColumnModel().getColumn(5).setPreferredWidth(0);
-            tActividades.getColumnModel().getColumn(5).setMaxWidth(0);
-            tActividades.getColumnModel().getColumn(6).setMinWidth(0);
-            tActividades.getColumnModel().getColumn(6).setPreferredWidth(0);
-            tActividades.getColumnModel().getColumn(6).setMaxWidth(0);
+            tActividades.getColumnModel().getColumn(5).setMinWidth(23);
+            tActividades.getColumnModel().getColumn(5).setMaxWidth(23);
+            tActividades.getColumnModel().getColumn(6).setMinWidth(23);
+            tActividades.getColumnModel().getColumn(6).setMaxWidth(23);
         }
 
         jMenu2.setText("Archivo");
@@ -6108,6 +6112,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelInvitaciones;
     private javax.swing.JLabel labelLastSelect;
     private javax.swing.JLabel labelLibres;
+    private javax.swing.JLabel labelNButaca;
     private javax.swing.JLabel labelOcupadas;
     private javax.swing.JLabel labelReservas;
     private javax.swing.JLabel labelSeleccionadas;
@@ -6609,9 +6614,8 @@ public class NewJFrame extends javax.swing.JFrame {
         allButacas.put(464, b464);
         allButacas.put(465, b465);
         allButacas.put(466, b466);
-        if(firstTime){
-            addAllListenerToButacas();
-        }
+        addAllListenerToButacas(firstTime);
+        
         coloreaButacas(idActividad, idSesion);
 
     }
@@ -6630,33 +6634,35 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Añade la funcionalidad a las butacas, hace que se sumen, que se añadan al array de butacas sel, ...
      */
-    private void addAllListenerToButacas() {
+    private void addAllListenerToButacas(boolean firstTime) {
         Iterator it = allButacas.getButacaJT().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry par = (Map.Entry) it.next();
             int nBucata = (int) par.getKey();
             JToggleButton bJT = (JToggleButton) par.getValue();
             bJT.setBackground(new Color(0,255,0));
-            bJT.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    if (bJT.isSelected()) {
-                        ButacaSesion b=allButacas.getButaca(nBucata);
-                        if(numButacasSel!=0 && estadoButacasSel!=b.getIdEstado()){
-                            JOptionPane.showMessageDialog(null, "No se pueden seleccionar butacas con estados difrentes");
-                            bJT.setSelected(false);
-                        }else{
-                            estadoButacasSel=b.getIdEstado();
-                            butacasSel.add(b);
-                            labelLastSelect.setText(GestionAuditorioBD.getNumButaca(nBucata));
-                            sumaButacaSel(true);
+            if(firstTime){
+                bJT.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        if (bJT.isSelected()) {
+                            ButacaSesion b=allButacas.getButaca(nBucata);
+                            if(numButacasSel!=0 && estadoButacasSel!=b.getIdEstado()){
+                                JOptionPane.showMessageDialog(null, "No se pueden seleccionar butacas con estados difrentes");
+                                bJT.setSelected(false);
+                            }else{
+                                estadoButacasSel=b.getIdEstado();
+                                butacasSel.add(b);
+                                labelLastSelect.setText(GestionAuditorioBD.getNumButaca(nBucata));
+                                sumaButacaSel(true);
+                            }
+                        } else {
+                            sumaButacaSel(false);
                         }
-                    } else {
-                        sumaButacaSel(false);
+                        labelNButaca.setText("" + nBucata);
+                        System.out.println("Indice: " + nBucata);
                     }
-                    labelLibres.setText("" + nBucata);
-                    System.out.println("Indice: " + nBucata);
-                }
-            });
+                });
+            }
         }
     }
 
@@ -6700,26 +6706,28 @@ public class NewJFrame extends javax.swing.JFrame {
     private void cargarTablaSesiones(String fecha) {
         ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(FechasUtils.fechaParaMysql(fecha));
         System.out.println("Sesiones totales: "+listaSesiones.size());
-        TableModel datosTabla=tActividades.getModel();
+        DefaultTableModel datosTabla=(DefaultTableModel) tActividades.getModel();
+        tActividades.getColumnModel();
+        
         for (int i=0;i<listaSesiones.size();i++){
-            datosTabla.setValueAt(listaSesiones.get(i).getDescripcion(), i,0);
-            datosTabla.setValueAt(listaSesiones.get(i).getFecha(), i,1);
-            datosTabla.setValueAt(listaSesiones.get(i).getHora(), i,2);
-            datosTabla.setValueAt(listaSesiones.get(i).getCompania(), i,3);
-            datosTabla.setValueAt(listaSesiones.get(i).getPrecio(), i,4);
-            datosTabla.setValueAt(listaSesiones.get(i).getIdActividad(), i,5);
-            datosTabla.setValueAt(listaSesiones.get(i).getIdSesion(), i,6);
-        }
-        
-        
-        
-        DefaultTableModel modelo=(DefaultTableModel) tActividades.getModel();
+            datosTabla.addRow(new String[]{
+                listaSesiones.get(i).getDescripcion(),
+                listaSesiones.get(i).getFecha(),
+                listaSesiones.get(i).getHora(),
+                listaSesiones.get(i).getCompania(),
+                ""+listaSesiones.get(i).getPrecio(),
+                ""+listaSesiones.get(i).getIdActividad(),
+                ""+listaSesiones.get(i).getIdSesion()
+            });
+        }        
         tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if(!e.getValueIsAdjusting()){
-                    System.out.println(e+" "+e.getValueIsAdjusting());
-                    tActividades.getSelectedColumn();
+                    int indice=e.getFirstIndex();
+                    int idActividad=Integer.parseInt((String) tActividades.getModel().getValueAt(indice, 5));
+                    int idSesion=Integer.parseInt((String) tActividades.getModel().getValueAt(indice, 6));
+                    cambiarSesion(idActividad, idSesion);
                 }
             }
         });
@@ -6727,6 +6735,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     
     private void cambiarSesion(int idActividad, int idSesion){
+        System.out.println("---Cambiando sesion ("+idActividad+","+idSesion+")");
         idActividad=idActividad;
         idSesion=idSesion;
         deseleccionarTodo();
