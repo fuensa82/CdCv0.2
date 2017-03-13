@@ -6738,7 +6738,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     
     private void cambiarSesion(int idActividad, int idSesion){
-        System.out.println("---Cambiando sesion ("+idActividad+","+idSesion+")");
+        System.out.println("--- Cambiando sesion ("+idActividad+","+idSesion+")");
         idActividad=idActividad;
         idSesion=idSesion;
         deseleccionarTodo();
