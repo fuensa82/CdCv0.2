@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
@@ -5424,6 +5425,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tActividades.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tActividades.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tActividades);
         if (tActividades.getColumnModel().getColumnCount() > 0) {
@@ -6724,7 +6726,8 @@ public class NewJFrame extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if(!e.getValueIsAdjusting()){
-                    int indice=e.getFirstIndex();
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    int indice=lsm.getMinSelectionIndex();
                     int idActividad=Integer.parseInt((String) tActividades.getModel().getValueAt(indice, 5));
                     int idSesion=Integer.parseInt((String) tActividades.getModel().getValueAt(indice, 6));
                     cambiarSesion(idActividad, idSesion);
