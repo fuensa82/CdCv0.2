@@ -61,6 +61,16 @@ public class FechasUtils {
         int num = Integer.parseInt(aux);
         return num;
     }
+    
+    public static String dameAnoFechaActual(){
+        String hoy=FechasUtils.fechaActualString();
+        return hoy.substring(hoy.lastIndexOf("-")+1);
+    }
+    
+    public static String dameMesFechaActual(){
+        String hoy=FechasUtils.fechaActualString();
+        return hoy.substring(hoy.indexOf("-")+1, hoy.indexOf("-")+3);
+    }
 
     /**
      * Devuelve la fecha de hoy en formado dd-mm-aaaa

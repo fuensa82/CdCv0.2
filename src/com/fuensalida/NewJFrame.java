@@ -19,6 +19,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
@@ -64,6 +67,8 @@ public class NewJFrame extends javax.swing.JFrame {
         inicializarButacas(idActividad,idSesion, true);
         inicializarContadores(idActividad,idSesion);
         cargarTablaSesiones();
+        cargaAnos();
+        selectMesActual();
         
         butacasSel=new ArrayList();
         b1.setSelected(false);
@@ -598,13 +603,15 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         labelSeleccionadas = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jAnos = new javax.swing.JComboBox<>();
+        jLabel35 = new javax.swing.JLabel();
+        jMes = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tActividades = new javax.swing.JTable();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -5346,24 +5353,6 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("jButton5");
-
-        jButton6.setText("jButton6");
-
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel5.setBackground(new java.awt.Color(0, 255, 0));
@@ -5402,6 +5391,28 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel33.setText("Año:");
+
+        jAnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jAnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAnosActionPerformed(evt);
+            }
+        });
+
+        jLabel35.setText("Mes:");
+
+        jMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        jButton3.setText("Cargar Sesiones");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         tActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -5429,11 +5440,49 @@ public class NewJFrame extends javax.swing.JFrame {
         tActividades.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tActividades);
         if (tActividades.getColumnModel().getColumnCount() > 0) {
-            tActividades.getColumnModel().getColumn(5).setMinWidth(23);
-            tActividades.getColumnModel().getColumn(5).setMaxWidth(23);
-            tActividades.getColumnModel().getColumn(6).setMinWidth(23);
-            tActividades.getColumnModel().getColumn(6).setMaxWidth(23);
+            tActividades.getColumnModel().getColumn(0).setMinWidth(100);
+            tActividades.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tActividades.getColumnModel().getColumn(0).setMaxWidth(350);
+            tActividades.getColumnModel().getColumn(5).setMinWidth(0);
+            tActividades.getColumnModel().getColumn(5).setMaxWidth(0);
+            tActividades.getColumnModel().getColumn(6).setMinWidth(0);
+            tActividades.getColumnModel().getColumn(6).setMaxWidth(0);
         }
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(jAnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35)
+                    .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         jMenu2.setText("Archivo");
 
@@ -5464,24 +5513,14 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(256, 256, 256)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton6))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(381, 381, 381)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(368, 368, 368)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -5491,31 +5530,16 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(368, 368, 368)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(139, 139, 139)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton5)
-                                    .addComponent(jButton6)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton3)
-                                    .addComponent(jButton4))))
-                        .addGap(24, 24, 24))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(3, 3, 3)
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -5552,14 +5576,13 @@ public class NewJFrame extends javax.swing.JFrame {
         debug();
     }//GEN-LAST:event_DepurarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cambiarSesion(4, 2);
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jAnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAnosActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        cambiarSesion(3, 1);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -6057,12 +6080,10 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton b97;
     private javax.swing.JToggleButton b98;
     private javax.swing.JToggleButton b99;
+    private javax.swing.JComboBox<String> jAnos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -6089,7 +6110,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
@@ -6104,11 +6127,13 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JComboBox<String> jMes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAbonos;
     private javax.swing.JLabel labelInvitaciones;
@@ -6148,6 +6173,14 @@ public class NewJFrame extends javax.swing.JFrame {
         
     }
 
+    /**
+     * Inicialica los array de butacas necesarios para la aplicacion. También añade los manejadores, pero hay que
+     * decirle si es la primera vez o no, ya que los manejadores solo se deben añadir una vez.
+     * 
+     * @param idActividad
+     * @param idSesion
+     * @param firstTime 
+     */
     private void inicializarButacas(int idActividad, int idSesion, boolean firstTime) {
         allButacas = new MiHasMap2();
         allButacas.put(1, b1);
@@ -6703,10 +6736,13 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     private void cargarTablaSesiones() {
-        cargarTablaSesiones(FechasUtils.fechaActualString());
+        String ano=FechasUtils.dameAnoFechaActual();
+        String mes=FechasUtils.dameMesFechaActual();
+        System.out.println("fecha por defecto: "+mes+" "+ano);
+        cargarTablaSesiones(ano, mes);
     }
-    private void cargarTablaSesiones(String fecha) {
-        ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(FechasUtils.fechaParaMysql(fecha));
+    private void cargarTablaSesiones(String ano, String mes) {
+        ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(ano, mes);
         System.out.println("Sesiones totales: "+listaSesiones.size());
         DefaultTableModel datosTabla=(DefaultTableModel) tActividades.getModel();
         tActividades.getColumnModel();
@@ -6722,6 +6758,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 ""+listaSesiones.get(i).getIdSesion()
             });
         }        
+        // Añadimos los listener a los botones de las butacas.
         tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -6745,5 +6782,24 @@ public class NewJFrame extends javax.swing.JFrame {
         inicializarButacas(idActividad, idSesion, false);
         inicializarContadores(idActividad,idSesion);
     }
-
+    /**
+     * Carga los años en el combo de años. Se cargan todos los años existentes entre la mayor de las fechas y la menos de las fechas de las sesiones.
+     */
+    private void cargaAnos(){
+        int mayor=Integer.parseInt(GestionFuncionesBD.getMaxMinAnoSesiones(true));
+        int menor=Integer.parseInt(GestionFuncionesBD.getMaxMinAnoSesiones(false));
+        System.out.println("Años: "+mayor+" - "+menor);
+        String[] modelo = new String[(mayor-menor)+1];
+        int indice=0;
+        while(menor<=mayor){
+            modelo[indice]=""+menor;
+            menor++;
+            indice++;
+        }
+        jAnos.setModel(new DefaultComboBoxModel<String>(modelo));
+    }
+    private void selectMesActual(){
+        String mes=FechasUtils.dameMesFechaActual();
+        jMes.setSelectedIndex(Integer.parseInt(mes)-1);
+    }
 }
