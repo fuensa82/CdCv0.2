@@ -45,9 +45,10 @@ public class NewJFrame extends javax.swing.JFrame {
     private int estadoButacasSel;
     private MiHasMap2 allButacas;
     private static final int totalButacas=466;
+    private SesionBean sesionSelecionada;
     
-    private int idActividad=4;
-    private int idSesion=1;
+    //private int idActividad=4;
+    //private int idSesion=1;
     /**
      * Creates new form NewJFrame
      */
@@ -63,9 +64,10 @@ public class NewJFrame extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        sesionSelecionada=selecionaSesion();
         initComponents();
-        inicializarButacas(idActividad,idSesion, true);
-        inicializarContadores(idActividad,idSesion);
+        inicializarButacas(sesionSelecionada, true);
+        inicializarContadores(sesionSelecionada);
         cargarTablaSesiones();
         cargaAnos();
         selectMesActual();
@@ -5581,9 +5583,17 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jAnosActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            String ano=jAnos.getItemAt(jAnos.getSelectedIndex());
+            String mes=FechasUtils.getNumMes(jMes.getItemAt(jMes.getSelectedIndex()));
+            this.cargarTablaSesiones(ano, mes);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -6150,9 +6160,9 @@ public class NewJFrame extends javax.swing.JFrame {
      * Busca en la base de datos las butacas de la sesion y las guarda en la
      * tabla de butacas y colorea los botones de cada una
      */
-    private void coloreaButacas(int idActividad, int idSesion) {
-        System.out.println("Colorea butacas: "+idActividad+" "+idSesion);
-        ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas(idActividad,idSesion);
+    private void coloreaButacas(SesionBean sesion) {
+        System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
+        ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas(sesion.getIdActividad(),sesion.getIdSesion());
         for (int i = 0; i < estadoButacas.size(); i++) {
             ButacaSesion b = (ButacaSesion) estadoButacas.get(i);
             allButacas.put(b);
@@ -6162,6 +6172,11 @@ public class NewJFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Colorea el jButton con respecto al estado de la butaca que se le pasa
+     * @param b Butaca, se necesita para poder saber el estado de la misma
+     * @param j Boton que se va a cambiar de color.
+     */
     private void ponColorButaca(ButacaSesion b, JToggleButton j) {
         j.setForeground(Color.BLACK);
         EstadoBean estado= GestionEstadosBD.getEstado(b.getIdEstado());
@@ -6181,7 +6196,7 @@ public class NewJFrame extends javax.swing.JFrame {
      * @param idSesion
      * @param firstTime 
      */
-    private void inicializarButacas(int idActividad, int idSesion, boolean firstTime) {
+    private void inicializarButacas(SesionBean sesion, boolean firstTime) {
         allButacas = new MiHasMap2();
         allButacas.put(1, b1);
         allButacas.put(2, b2);
@@ -6651,10 +6666,13 @@ public class NewJFrame extends javax.swing.JFrame {
         allButacas.put(466, b466);
         addAllListenerToButacas(firstTime);
         
-        coloreaButacas(idActividad, idSesion);
+        coloreaButacas(sesion);
 
     }
 
+    /**
+     * 
+     */
     private void deseleccionarTodo(){
         Iterator it = allButacas.getButacaJT().entrySet().iterator();
         while (it.hasNext()) {
@@ -6668,6 +6686,8 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     /**
      * Añade la funcionalidad a las butacas, hace que se sumen, que se añadan al array de butacas sel, ...
+     * @param firstTime Necesita saber si es la primera vez que se hace la carga, ya que los manejadores solo
+     * se deben añadir una vez.
      */
     private void addAllListenerToButacas(boolean firstTime) {
         Iterator it = allButacas.getButacaJT().entrySet().iterator();
@@ -6712,6 +6732,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private void imprimeArrayButacasSel(){
         System.out.println("Array de butacas seleccionadas: "+butacasSel);
     }
+    /**
+     * Metodo para hacer pruebecillas
+     */
     private void debug(){
         System.out.println("---------------------------------------------------------");
         System.out.println("Butacas sel: "+butacasSel.size());
@@ -6723,30 +6746,47 @@ public class NewJFrame extends javax.swing.JFrame {
         System.out.println("Butacas: "+this.allButacas.sizeB());
         System.out.println("ButacasJT: "+this.allButacas.sizeBJT());
         System.out.println(this.allButacas);
+        System.out.println("Sesion: "+sesionSelecionada);
         System.out.println("---------------------------------------------------------");
     }
-     private void inicializarContadores(int actividad, int sesion) {
-        int ocupadas=GestionAuditorioBD.getOcupadas(actividad, sesion);
+    /**
+     * Carga los contadores laretales de la aplicacion. Son los contadores relativos a la sesion y
+     * actividad pasadas por parámtros
+     * @param actividad id de la actividad que se quiere cargar
+     * @param sesion id de la sesion que se quiere cargar.
+     */
+     private void inicializarContadores(SesionBean sesion) {
+        int ocupadas=GestionAuditorioBD.getOcupadas(sesion.getIdActividad(), sesion.getIdSesion());
         labelLibres.setText(""+(totalButacas-ocupadas));
         labelOcupadas.setText(""+ocupadas);
-        labelVentas.setText(""+GestionAuditorioBD.getButacasVendidas(actividad, sesion));
-        labelReservas.setText(""+GestionAuditorioBD.getButacasReservadas(actividad, sesion));
-        labelInvitaciones.setText(""+GestionAuditorioBD.getButacasInvitaciones(actividad, sesion));
-        labelAbonos.setText(""+GestionAuditorioBD.getButacasAbonos(actividad, sesion));
+        labelVentas.setText(""+GestionAuditorioBD.getButacasVendidas(sesion.getIdActividad(), sesion.getIdSesion()));
+        labelReservas.setText(""+GestionAuditorioBD.getButacasReservadas(sesion.getIdActividad(), sesion.getIdSesion()));
+        labelInvitaciones.setText(""+GestionAuditorioBD.getButacasInvitaciones(sesion.getIdActividad(), sesion.getIdSesion()));
+        labelAbonos.setText(""+GestionAuditorioBD.getButacasAbonos(sesion.getIdActividad(), sesion.getIdSesion()));
     }
 
+     /**
+      * Carga la tabla con las sesiones del mes actual.
+      */
     private void cargarTablaSesiones() {
         String ano=FechasUtils.dameAnoFechaActual();
         String mes=FechasUtils.dameMesFechaActual();
         System.out.println("fecha por defecto: "+mes+" "+ano);
         cargarTablaSesiones(ano, mes);
     }
+    /**
+     * Carga la tabla se sesiones con las del mes y año que se pasan por parámetro
+     * @param ano Año de las sesiones que se quieren cargar
+     * @param mes Mes de las sesiones que se quieren cargar
+     */
     private void cargarTablaSesiones(String ano, String mes) {
         ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(ano, mes);
-        System.out.println("Sesiones totales: "+listaSesiones.size());
         DefaultTableModel datosTabla=(DefaultTableModel) tActividades.getModel();
-        tActividades.getColumnModel();
-        
+        for (int i = datosTabla.getRowCount(); i >0 ; i--) {
+            datosTabla.removeRow(i-1);
+            
+        }
+       
         for (int i=0;i<listaSesiones.size();i++){
             datosTabla.addRow(new String[]{
                 listaSesiones.get(i).getDescripcion(),
@@ -6757,30 +6797,32 @@ public class NewJFrame extends javax.swing.JFrame {
                 ""+listaSesiones.get(i).getIdActividad(),
                 ""+listaSesiones.get(i).getIdSesion()
             });
-        }        
+        }     
         // Añadimos los listener a los botones de las butacas.
         tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()){
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    int indice=lsm.getMinSelectionIndex();
-                    int idActividad=Integer.parseInt((String) tActividades.getModel().getValueAt(indice, 5));
-                    int idSesion=Integer.parseInt((String) tActividades.getModel().getValueAt(indice, 6));
-                    cambiarSesion(idActividad, idSesion);
+                ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                int indice=lsm.getMinSelectionIndex();
+                if(!e.getValueIsAdjusting() && indice!=-1){
+                    String idActividad=(String) tActividades.getModel().getValueAt(indice, 5);
+                    String idSesion= (String) tActividades.getModel().getValueAt(indice, 6);
+                    sesionSelecionada=GestionFuncionesBD.getSesion(idActividad, idSesion);
+                    cambiarSesion(sesionSelecionada);
                 }
             }
         });
+        if(tActividades.getModel().getRowCount()>0){
+            tActividades.getSelectionModel().setSelectionInterval(0, 0);
+        }
         
     }
     
-    private void cambiarSesion(int idActividad, int idSesion){
-        System.out.println("--- Cambiando sesion ("+idActividad+","+idSesion+")");
-        idActividad=idActividad;
-        idSesion=idSesion;
+    private void cambiarSesion(SesionBean sesion){
+        System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
         deseleccionarTodo();
-        inicializarButacas(idActividad, idSesion, false);
-        inicializarContadores(idActividad,idSesion);
+        inicializarButacas(sesion, false);
+        inicializarContadores(sesion);
     }
     /**
      * Carga los años en el combo de años. Se cargan todos los años existentes entre la mayor de las fechas y la menos de las fechas de las sesiones.
@@ -6788,7 +6830,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private void cargaAnos(){
         int mayor=Integer.parseInt(GestionFuncionesBD.getMaxMinAnoSesiones(true));
         int menor=Integer.parseInt(GestionFuncionesBD.getMaxMinAnoSesiones(false));
-        System.out.println("Años: "+mayor+" - "+menor);
         String[] modelo = new String[(mayor-menor)+1];
         int indice=0;
         while(menor<=mayor){
@@ -6798,8 +6839,14 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         jAnos.setModel(new DefaultComboBoxModel<String>(modelo));
     }
+    
     private void selectMesActual(){
         String mes=FechasUtils.dameMesFechaActual();
         jMes.setSelectedIndex(Integer.parseInt(mes)-1);
+        tActividades.getSelectionModel().setSelectionInterval(0, 0);
+    }
+
+    private SesionBean selecionaSesion() {
+        return GestionFuncionesBD.getSesionDefault();
     }
 }

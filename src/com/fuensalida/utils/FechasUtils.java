@@ -97,4 +97,35 @@ public class FechasUtils {
         }
         return dia + "-" + mes + "-" + anio;
     }
+    
+    public static String getNumMes(String mes) throws Exception{
+        if("Enero".equalsIgnoreCase(mes)){
+            return "01";
+        }else if("Febrero".equalsIgnoreCase(mes)){
+            return "02";
+        }else if("Marzo".equalsIgnoreCase(mes)){
+            return "03";
+        }else if("Abril".equalsIgnoreCase(mes)){
+            return "04";
+        }else if("Mayo".equalsIgnoreCase(mes)){
+            return "05";
+        }else if("Junio".equalsIgnoreCase(mes)){
+            return "06";
+        }else if("Julio".equalsIgnoreCase(mes)){
+            return "07";
+        }else if("Agosto".equalsIgnoreCase(mes)){
+            return "08";
+        }else if("Septiembre".equalsIgnoreCase(mes)){
+            return "09";
+        }else if("Octubre".equalsIgnoreCase(mes)){
+            return "10";
+        }else if("Noviembre".equalsIgnoreCase(mes)){
+            return "11";
+        }else if("Diciembre".equalsIgnoreCase(mes)){
+            return "12";
+        }else{
+            throw new Exception("Error al convertir el mes "+mes+" a número");
+        }
+            
+    }
 }

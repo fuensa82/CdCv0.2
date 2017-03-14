@@ -106,4 +106,92 @@ public class GestionFuncionesBD {
         }
         return auxResult;
     }
+    
+    /**
+     * Carga la sesion con idActividad e idSesion iguales a los pasados por parámetros
+     * @param idActividad
+     * @param idSesion
+     * @return Devuelve el Bean de sesion cargado con todos los datos de la sesion
+     */
+    public static SesionBean getSesion(String idActividad, String idSesion){
+        SesionBean result=null;
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement consulta = conexion.prepareStatement(
+                    "select a.idActividad, Descripcion, Compania, idSesion, Fecha, Hora, Precio " +
+                    "from actividades as a, sesiones as b " +
+                        "where a.idActividad=b.idActividad " +
+                            "and a.idActividad=? and b.idSesion=?");
+            consulta.setString(1, ""+idActividad);
+            consulta.setString(2, ""+idSesion);
+            ResultSet resultado = consulta.executeQuery();
+            resultado.next();
+            result=new SesionBean();
+            result.setIdActividad(resultado.getInt(1));
+            result.setDescripcion(resultado.getString(2));
+
+            result.setCompania(resultado.getString(3));
+            result.setIdSesion(resultado.getInt(4));
+            result.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
+            result.setHora(resultado.getString(6));
+            result.setPrecio(resultado.getInt(7));
+
+            
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //System.out.println("Saliendo de la base de datos");
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    public static SesionBean getSesionDefault(){
+        SesionBean result=null;
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement consulta = conexion.prepareStatement(
+                    "select a.idActividad, Descripcion, Compania, idSesion, Fecha, Hora, Precio " +
+                    "from actividades as a, sesiones as b " +
+                        "where a.idActividad=b.idActividad " +
+                            "Limit 1");
+            ResultSet resultado = consulta.executeQuery();
+            resultado.next();
+            result=new SesionBean();
+            result.setIdActividad(resultado.getInt(1));
+            result.setDescripcion(resultado.getString(2));
+
+            result.setCompania(resultado.getString(3));
+            result.setIdSesion(resultado.getInt(4));
+            result.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
+            result.setHora(resultado.getString(6));
+            result.setPrecio(resultado.getInt(7));
+
+            
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //System.out.println("Saliendo de la base de datos");
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 }
