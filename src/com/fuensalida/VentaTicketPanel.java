@@ -26,7 +26,8 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     public VentaTicketPanel(ArrayList butacas, SesionBean sesion) {
         initComponents();
         this.butacas=butacas;
-        jComboBox1.addItem(new OptionCombo(0, "Texto del combo"));
+        cargarComboDescuetos();
+        cargarListaButacas();
         jLabelObra.setText(sesion.getDescripcion());
         jLabelFecha.setText(sesion.getFecha());
         jLabelHora.setText(sesion.getHora());
@@ -192,4 +193,12 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private javax.swing.JPanel listaButacas;
     private javax.swing.JPanel principal;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarListaButacas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void cargarComboDescuetos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
