@@ -52,9 +52,9 @@ public class MiHasMap2 {
      */
     public void put(int key, JToggleButton bJT){
         butacaJT.put(key, bJT);
-        if(butaca.get(key)==null){
+        //if(butaca.get(key)==null){
             butaca.put(key, new ButacaSesion(key));
-        }
+        //}
     }
     /*public void put(int key, Butaca b){
         butaca.put(key, b);
