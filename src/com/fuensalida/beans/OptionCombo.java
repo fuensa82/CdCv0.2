@@ -31,7 +31,7 @@ public class OptionCombo {
 
     @Override
     public String toString() {
-        return texto;
+        return value+"% - "+texto;
     }
 
     public OptionCombo(int value, String texto) {

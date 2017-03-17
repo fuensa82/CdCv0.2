@@ -5,8 +5,11 @@
  */
 package com.fuensalida;
 
+import com.fuensalida.BaseDatos.GestionEntradasBD;
+import com.fuensalida.beans.DescuentosBean;
 import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
+import com.fuensalida.utils.PrecioUtils;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +22,7 @@ import javax.swing.event.ListDataListener;
 public class VentaTicketPanel extends javax.swing.JPanel {
 
     private ArrayList butacas;
+    private SesionBean sesion;
     
     /**
      * Creates new form VentaEntradasPanel
@@ -26,13 +30,16 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     public VentaTicketPanel(ArrayList butacas, SesionBean sesion) {
         initComponents();
         this.butacas=butacas;
+        this.sesion=sesion;
         cargarComboDescuetos();
         cargarListaButacas();
         jLabelObra.setText(sesion.getDescripcion());
         jLabelFecha.setText(sesion.getFecha());
         jLabelHora.setText(sesion.getHora());
         jLabelNEntrdas.setText(""+butacas.size());
-        jLabelPrecio.setText(""+sesion.getPrecio());
+        jLabelPrecio.setText(""+PrecioUtils.getPrecioEuros(sesion.getPrecio()));
+        int total=butacas.size()*sesion.getPrecio();
+        jLabelTotal.setText(PrecioUtils.getPrecioEuros(total));
     }
 
     /**
@@ -48,9 +55,8 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         jButtonCancelar = new javax.swing.JButton();
         principal = new javax.swing.JPanel();
         listaButacas = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabelObra = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -61,6 +67,8 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         jLabelPrecio = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabelTotal = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jButtonAceptar.setText("Aceptar");
 
@@ -70,42 +78,43 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         listaButacas.setLayout(listaButacasLayout);
         listaButacasLayout.setHorizontalGroup(
             listaButacasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 334, Short.MAX_VALUE)
         );
         listaButacasLayout.setVerticalGroup(
             listaButacasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
+            .addGap(0, 146, Short.MAX_VALUE)
         );
 
-        jPanel1.setLayout(new java.awt.GridLayout(5, 0, 10, 0));
-
-        jLabel2.setText("Obra:");
-        jPanel1.add(jLabel2);
-
+        jLabelObra.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelObra.setText("jLabel2");
-        jPanel1.add(jLabelObra);
+
+        jPanel1.setLayout(new java.awt.GridLayout(5, 0, 10, 0));
 
         jLabel3.setText("Fecha:");
         jPanel1.add(jLabel3);
 
+        jLabelFecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelFecha.setText("jLabel5");
         jPanel1.add(jLabelFecha);
 
         jLabel4.setText("Hora:");
         jPanel1.add(jLabel4);
 
+        jLabelHora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelHora.setText("jLabel6");
         jPanel1.add(jLabelHora);
 
         jLabel5.setText("Entradas:");
         jPanel1.add(jLabel5);
 
+        jLabelNEntrdas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelNEntrdas.setText("jLabel7");
         jPanel1.add(jLabelNEntrdas);
 
         jLabel6.setText("Precio uni.:");
         jPanel1.add(jLabel6);
 
+        jLabelPrecio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelPrecio.setText("jLabel8");
         jPanel1.add(jLabelPrecio);
 
@@ -115,24 +124,39 @@ public class VentaTicketPanel extends javax.swing.JPanel {
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(principalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listaButacas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(principalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelObra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listaButacas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         principalLayout.setVerticalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabelObra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listaButacas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Descuento:");
+
+        jLabelTotal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabelTotal.setText("jLabel7");
+
+        jLabel2.setText("Total:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,7 +165,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 208, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonAceptar))
@@ -154,7 +178,11 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelTotal)
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +192,9 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelTotal)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
@@ -172,6 +202,14 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        OptionCombo dto=jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
+        System.out.println("Dto: "+dto);
+        double total=butacas.size()*sesion.getPrecio()*(((100.00-(Long.parseLong(""+dto.getValue())))/100.00));
+        System.out.println("Dto: "+total);
+        jLabelTotal.setText(PrecioUtils.getPrecioEuros(""+total));
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -189,16 +227,20 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelNEntrdas;
     private javax.swing.JLabel jLabelObra;
     private javax.swing.JLabel jLabelPrecio;
+    private javax.swing.JLabel jLabelTotal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel listaButacas;
     private javax.swing.JPanel principal;
     // End of variables declaration//GEN-END:variables
 
     private void cargarListaButacas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private void cargarComboDescuetos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<DescuentosBean> listaDtos=GestionEntradasBD.getDtos();
+        for (DescuentosBean listaDto : listaDtos) {
+            jComboBox1.addItem(new OptionCombo(listaDto.getDto(), listaDto.getDescripcion()));
+        }
     }
 }
