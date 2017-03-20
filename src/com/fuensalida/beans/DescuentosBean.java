@@ -10,6 +10,15 @@ package com.fuensalida.beans;
  * @author vPalomo
  */
 public class DescuentosBean {
+    private int idDto;
+
+    public int getIdDto() {
+        return idDto;
+    }
+
+    public void setIdDto(int idDto) {
+        this.idDto = idDto;
+    }
     private int dto;
     private String descripcion;
 

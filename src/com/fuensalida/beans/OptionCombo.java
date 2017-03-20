@@ -12,6 +12,15 @@ package com.fuensalida.beans;
 public class OptionCombo {
     private int value;
     private String texto;
+    private int idDto;
+
+    public int getIdDto() {
+        return idDto;
+    }
+
+    public void setIdDto(int indDto) {
+        this.idDto = indDto;
+    }
 
     public int getValue() {
         return value;
@@ -34,7 +43,8 @@ public class OptionCombo {
         return value+"% - "+texto;
     }
 
-    public OptionCombo(int value, String texto) {
+    public OptionCombo(int idDto, int value, String texto) {
+        this.idDto=idDto;
         this.value = value;
         this.texto = texto;
     }

@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editor. 
  */
 package com.fuensalida;
 
@@ -10,10 +10,9 @@ import com.fuensalida.beans.DescuentosBean;
 import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
 import com.fuensalida.utils.PrecioUtils;
+import java.awt.Window;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.event.ListDataListener;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -23,6 +22,9 @@ public class VentaTicketPanel extends javax.swing.JPanel {
 
     private ArrayList butacas;
     private SesionBean sesion;
+    private int dto;
+    private int idDto;
+    
     
     /**
      * Creates new form VentaEntradasPanel
@@ -71,8 +73,18 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
 
         jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout listaButacasLayout = new javax.swing.GroupLayout(listaButacas);
         listaButacas.setLayout(listaButacasLayout);
@@ -205,11 +217,28 @@ public class VentaTicketPanel extends javax.swing.JPanel {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         OptionCombo dto=jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
+        this.dto=dto.getValue();
+        this.idDto=dto.getIdDto();
         System.out.println("Dto: "+dto);
-        double total=butacas.size()*sesion.getPrecio()*(((100.00-(Long.parseLong(""+dto.getValue())))/100.00));
+        System.out.println("idDto: "+idDto);
+        int total=(int)(butacas.size()*sesion.getPrecio()*(100.00-(Long.parseLong(""+dto.getValue())))/100.00);
+        
         System.out.println("Dto: "+total);
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(""+total));
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        int result=GestionEntradasBD.ventaButacas(butacas, sesion, idDto, dto);
+        if (result==1){
+            System.out.println("Saliendo de la venta");
+            Window w = SwingUtilities.getWindowAncestor(this);
+            w.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -240,7 +269,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private void cargarComboDescuetos() {
         ArrayList<DescuentosBean> listaDtos=GestionEntradasBD.getDtos();
         for (DescuentosBean listaDto : listaDtos) {
-            jComboBox1.addItem(new OptionCombo(listaDto.getDto(), listaDto.getDescripcion()));
+            jComboBox1.addItem(new OptionCombo(listaDto.getIdDto(),listaDto.getDto(), listaDto.getDescripcion()));
         }
     }
 }

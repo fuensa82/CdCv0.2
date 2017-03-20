@@ -22,7 +22,7 @@ public class SesionBean {
     }
 
     public String toString(){
-        return descripcion+" "+fecha+" "+hora;
+        return descripcion+" "+fecha+" "+hora+" idActi:"+idActividad+" idSes:"+idSesion+" Precio:"+precio;
     }
     public int getIdActividad() {
         return idActividad;

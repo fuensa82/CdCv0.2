@@ -37,7 +37,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentaEntradas extends javax.swing.JFrame {
 
-    private ArrayList butacasSel;
+    private ArrayList<ButacaSesion> butacasSel;
     private int numButacasSel;
     private int estadoButacasSel;
     private MiHasMap2 allButacas;
@@ -76,7 +76,7 @@ public class VentaEntradas extends javax.swing.JFrame {
         cargaAnos();
         selectMesActual();
         
-        butacasSel=new ArrayList();
+        butacasSel=new ArrayList<ButacaSesion>();
         allButacas.getButacaJT(1).setSelected(false);
         jButton2.requestFocus();
         
@@ -132,6 +132,9 @@ public class VentaEntradas extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         Depurar = new javax.swing.JMenuItem();
@@ -496,7 +499,7 @@ public class VentaEntradas extends javax.swing.JFrame {
         );
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
-        jButton4.setToolTipText("Deseleccionar todas las butacas");
+        jButton4.setToolTipText("Vender");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -504,10 +507,34 @@ public class VentaEntradas extends javax.swing.JFrame {
         });
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
-        jButton5.setToolTipText("Deseleccionar todas las butacas");
+        jButton5.setToolTipText("Reservar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton6.setToolTipText("Invitación");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton7.setToolTipText("Pagar reserva");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton8.setToolTipText("Eliminar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -563,7 +590,13 @@ public class VentaEntradas extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 10, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
@@ -588,7 +621,10 @@ public class VentaEntradas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addComponent(jButton1)
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -629,15 +665,24 @@ public class VentaEntradas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        final JDialog frame = new JDialog(this, "Venta de entradas", true);
-        frame.getContentPane().add(new VentaTicketPanel(butacasSel, sesionSelecionada));
-        frame.pack();
-        frame.setVisible(true);
+        venderTickets();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     
     /**
@@ -676,6 +721,9 @@ public class VentaEntradas extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
@@ -772,7 +820,7 @@ public class VentaEntradas extends javax.swing.JFrame {
         }
         this.numButacasSel=0;
         this.labelSeleccionadas.setText("0");
-        butacasSel=new ArrayList();
+        butacasSel=new ArrayList<ButacaSesion>();
     }
     /**
      * Añade la funcionalidad a las butacas, hace que se sumen, que se añadan al array de butacas sel, ...
@@ -923,7 +971,7 @@ public class VentaEntradas extends javax.swing.JFrame {
         
     }
     
-    private void cambiarSesion(SesionBean sesion){
+    public void cambiarSesion(SesionBean sesion){
         System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
         deseleccionarTodo();
         inicializarButacas(sesion, false);
@@ -953,5 +1001,19 @@ public class VentaEntradas extends javax.swing.JFrame {
 
     private SesionBean selecionaSesion() {
         return GestionFuncionesBD.getSesionDefault();
+    }
+
+    private void venderTickets() {
+        if(butacasSel.size()==0){
+            JOptionPane.showMessageDialog(null, "No tiene selecionada ninguna butaca");
+            return;
+        }
+        JDialog frame = new JDialog(this, "Venta de entradas", true);
+        frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.getContentPane().add(new VentaTicketPanel(butacasSel, sesionSelecionada));
+        frame.pack();
+        frame.setVisible(true);
+        this.cambiarSesion(sesionSelecionada);
+        frame.setVisible(false);
     }
 }
