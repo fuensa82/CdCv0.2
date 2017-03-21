@@ -7,6 +7,7 @@ package com.fuensalida.BaseDatos;
 
 import com.fuensalida.NewJFrame;
 import com.fuensalida.beans.ButacaSesion;
+import com.fuensalida.beans.SesionBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +39,7 @@ public class GestionAuditorioBD {
                 b.setIdEstado(Integer.parseInt(resultado.getString(4)));
                 result.add(b);
             }
-            System.out.println(result);
+            //System.out.println(result);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +65,7 @@ public class GestionAuditorioBD {
             while(resultado.next()){
                 result="Fila "+resultado.getString(1)+", asiento "+resultado.getString(2);
             }
-            System.out.println(result);
+            //System.out.println(result);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,20 +89,20 @@ public class GestionAuditorioBD {
      * @param sesion
      * @return 
      */
-    public static int getOcupadas(int actividad, int sesion){
+    public static int getOcupadas(SesionBean sesion){
         int result=0;
         Connection conexion = null;
         try {
             conexion=ConectorBD.getConnection();
             PreparedStatement consulta = conexion.prepareStatement("select count(idButaca) from butacassesion where idActividad=? and idSesion=? and idEstado!=1");
-            consulta.setString(1, ""+actividad);
-            consulta.setString(2, ""+sesion);
+            consulta.setString(1, ""+sesion.getIdActividad());
+            consulta.setString(2, ""+sesion.getIdSesion());
             ResultSet resultado = consulta.executeQuery();
             resultado.next();
             result=Integer.parseInt(resultado.getString(1));
             //result="Fila "+resultado.getString(1)+", asiento "+resultado.getString(1);
             
-            System.out.println("Total ocupadas: "+result);
+            //System.out.println("Total ocupadas: "+result);
             
         } catch (SQLException e) {
             e.printStackTrace();

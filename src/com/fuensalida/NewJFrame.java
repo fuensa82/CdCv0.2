@@ -5723,7 +5723,7 @@ public class NewJFrame extends javax.swing.JFrame {
      * tabla de butacas y colorea los botones de cada una
      */
     private void coloreaButacas(SesionBean sesion) {
-        System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
+       //System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
         ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas(sesion.getIdActividad(),sesion.getIdSesion());
         for (int i = 0; i < estadoButacas.size(); i++) {
             ButacaSesion b = (ButacaSesion) estadoButacas.get(i);
@@ -6276,7 +6276,7 @@ public class NewJFrame extends javax.swing.JFrame {
                             sumaButacaSel(false);
                         }
                         labelNButaca.setText("" + nBucata);
-                        System.out.println("Indice: " + nBucata);
+                        //System.out.println("Indice: " + nBucata);
                     }
                 });
             }
@@ -6291,17 +6291,14 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         labelSeleccionadas.setText("" + numButacasSel);
     }
-    private void imprimeArrayButacasSel(){
-        System.out.println("Array de butacas seleccionadas: "+butacasSel);
-    }
+    
     /**
      * Metodo para hacer pruebecillas
      */
     private void debug(){
         System.out.println("---------------------------------------------------------");
         System.out.println("Butacas sel: "+butacasSel.size());
-        imprimeArrayButacasSel();
-        
+        System.out.println("Array de butacas seleccionadas: "+butacasSel);        
         System.out.println("numButacasSel: "+numButacasSel);
         System.out.println("estadoButacasSel: "+estadoButacasSel);
         
@@ -6326,7 +6323,7 @@ public class NewJFrame extends javax.swing.JFrame {
             labelInvitaciones.setText("0");
             labelAbonos.setText("0");
         }else{
-            int ocupadas=GestionAuditorioBD.getOcupadas(sesion.getIdActividad(), sesion.getIdSesion());
+            int ocupadas=GestionAuditorioBD.getOcupadas(sesion);
             labelLibres.setText(""+(totalButacas-ocupadas));
             labelOcupadas.setText(""+ocupadas);
             labelVentas.setText(""+GestionAuditorioBD.getButacasVendidas(sesion.getIdActividad(), sesion.getIdSesion()));
@@ -6342,7 +6339,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void cargarTablaSesiones() {
         String ano=FechasUtils.dameAnoFechaActual();
         String mes=FechasUtils.dameMesFechaActual();
-        System.out.println("fecha por defecto: "+mes+" "+ano);
+        //System.out.println("fecha por defecto: "+mes+" "+ano);
         cargarTablaSesiones(ano, mes);
     }
     /**
@@ -6395,7 +6392,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     
     private void cambiarSesion(SesionBean sesion){
-        System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
+        //System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
         deseleccionarTodo();
         inicializarButacas(sesion, false);
         inicializarContadores(sesion);

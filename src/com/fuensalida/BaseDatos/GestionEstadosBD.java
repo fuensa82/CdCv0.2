@@ -70,7 +70,7 @@ public class GestionEstadosBD {
                 result.setDescripcion(resultado.getString(2));
                 result.setColor(resultado.getString(3));
             }
-            System.out.println(result);
+            //System.out.println(result);
             
         } catch (SQLException e) {
             e.printStackTrace();

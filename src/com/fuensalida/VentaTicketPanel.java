@@ -12,6 +12,7 @@ import com.fuensalida.beans.SesionBean;
 import com.fuensalida.utils.PrecioUtils;
 import java.awt.Window;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -219,25 +220,28 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         OptionCombo dto=jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
         this.dto=dto.getValue();
         this.idDto=dto.getIdDto();
-        System.out.println("Dto: "+dto);
-        System.out.println("idDto: "+idDto);
+        //System.out.println("Dto: "+dto);
+        //System.out.println("idDto: "+idDto);
         int total=(int)(butacas.size()*sesion.getPrecio()*(100.00-(Long.parseLong(""+dto.getValue())))/100.00);
         
-        System.out.println("Dto: "+total);
+        //System.out.println("Dto: "+total);
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(""+total));
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         int result=GestionEntradasBD.ventaButacas(butacas, sesion, idDto, dto);
         if (result==1){
-            System.out.println("Saliendo de la venta");
+            //System.out.println("Saliendo de la venta");
             Window w = SwingUtilities.getWindowAncestor(this);
             w.setVisible(false);
+        }else if(result==-1){
+            JOptionPane.showMessageDialog(null, "Error, no se han podido vender las entradas", "Error en la venta", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.setVisible(false);
+        Window w = SwingUtilities.getWindowAncestor(this);
+            w.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 

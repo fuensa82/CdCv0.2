@@ -89,7 +89,7 @@ public class GestionFuncionesBD {
             ResultSet resultado = consulta.executeQuery();
             resultado.next();
             auxResult=resultado.getString(1);
-            System.out.println("Año: "+auxResult);
+            //System.out.println("Año: "+auxResult);
             auxResult=auxResult.substring(0, auxResult.indexOf("-"));
             //result=Integer.parseInt(auxResult);
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class GestionFuncionesBD {
                     "from actividades as a, sesiones as b " +
                         "where a.idActividad=b.idActividad " +
                             "and a.idActividad=? and b.idSesion=?");
-            consulta.setString(1, ""+idActividad);
+            consulta.setString(1, idActividad);
             consulta.setString(2, ""+idSesion);
             ResultSet resultado = consulta.executeQuery();
             resultado.next();
@@ -136,9 +136,6 @@ public class GestionFuncionesBD {
             result.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
             result.setHora(resultado.getString(6));
             result.setPrecio(resultado.getInt(7));
-
-            
-            
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,10 +173,6 @@ public class GestionFuncionesBD {
             result.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
             result.setHora(resultado.getString(6));
             result.setPrecio(resultado.getInt(7));
-
-            
-            
-            
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {

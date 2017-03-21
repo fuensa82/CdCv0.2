@@ -6,6 +6,7 @@
 package com.fuensalida;
 
 import com.fuensalida.BaseDatos.GestionAuditorioBD;
+import com.fuensalida.BaseDatos.GestionEntradasBD;
 import com.fuensalida.BaseDatos.GestionEstadosBD;
 import com.fuensalida.BaseDatos.GestionFuncionesBD;
 import com.fuensalida.beans.ButacaSesion;
@@ -13,6 +14,7 @@ import com.fuensalida.beans.EstadoBean;
 import com.fuensalida.beans.SesionBean;
 import com.fuensalida.printer.Imprimir;
 import com.fuensalida.utils.FechasUtils;
+import com.fuensalida.utils.PrecioUtils;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -113,6 +115,8 @@ public class VentaEntradas extends javax.swing.JFrame {
         labelInvitaciones = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         labelAbonos = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        labelRecaudacion = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         labelSeleccionadas = new javax.swing.JLabel();
@@ -120,6 +124,16 @@ public class VentaEntradas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jAnos = new javax.swing.JComboBox<>();
@@ -213,6 +227,15 @@ public class VentaEntradas extends javax.swing.JFrame {
         labelAbonos.setText("12");
         labelAbonos.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel37.setText("Recauda.:");
+        jLabel37.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        labelRecaudacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelRecaudacion.setForeground(new java.awt.Color(204, 0, 0));
+        labelRecaudacion.setText("12");
+        labelRecaudacion.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
         jLayeredPane3.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(labelLibres, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel22, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -226,6 +249,8 @@ public class VentaEntradas extends javax.swing.JFrame {
         jLayeredPane3.setLayer(labelInvitaciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(labelAbonos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(jLabel37, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(labelRecaudacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
@@ -264,6 +289,10 @@ public class VentaEntradas extends javax.swing.JFrame {
                                     .addComponent(labelReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(10, 10, 10))
+            .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelRecaudacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane3Layout.setVerticalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +317,15 @@ public class VentaEntradas extends javax.swing.JFrame {
                     .addComponent(labelInvitaciones))
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelAbonos)))
+                    .addComponent(labelAbonos))
+                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelRecaudacion)
+                        .addGap(2, 2, 2))))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -335,7 +372,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             .addComponent(labelSeleccionadas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
         jButton2.setToolTipText("Deseleccionar todas las butacas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,15 +397,112 @@ public class VentaEntradas extends javax.swing.JFrame {
 
         jLabel24.setText("Libres");
 
+        jPanel8.setBackground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jLabel25.setText("Vendidas");
+
+        jPanel9.setBackground(new java.awt.Color(255, 153, 0));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jLabel26.setText("Reservadas");
+
+        jLabel27.setText("Abonos");
+
+        jPanel11.setBackground(new java.awt.Color(234, 137, 154));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jLabel29.setText("Invitaciones");
+
+        jPanel12.setBackground(new java.awt.Color(59, 131, 189));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jLabel30.setText("No vender");
+
+        jPanel13.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel24)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel25))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel26))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel27))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel29))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel30)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -378,7 +512,27 @@ public class VentaEntradas extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel27)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel30)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -498,7 +652,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             .addGap(0, 446, Short.MAX_VALUE)
         );
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
         jButton4.setToolTipText("Vender");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -506,7 +660,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
         jButton5.setToolTipText("Reservar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -514,7 +668,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
         jButton6.setToolTipText("Invitación");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -522,7 +676,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
         jButton7.setToolTipText("Pagar reserva");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -530,7 +684,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/del16x16.png"))); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
         jButton8.setToolTipText("Eliminar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -617,7 +771,7 @@ public class VentaEntradas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -627,7 +781,7 @@ public class VentaEntradas extends javax.swing.JFrame {
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addComponent(jButton1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -728,31 +882,43 @@ public class VentaEntradas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JComboBox<String> jMes;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAbonos;
     private javax.swing.JLabel labelInvitaciones;
     private javax.swing.JLabel labelLibres;
     private javax.swing.JLabel labelOcupadas;
+    private javax.swing.JLabel labelRecaudacion;
     private javax.swing.JLabel labelReservas;
     private javax.swing.JLabel labelSeleccionadas;
     private javax.swing.JLabel labelVentas;
@@ -766,7 +932,8 @@ public class VentaEntradas extends javax.swing.JFrame {
      * tabla de butacas y colorea los botones de cada una
      */
     private void coloreaButacas(SesionBean sesion) {
-        System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
+        //System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
+
         ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas(sesion.getIdActividad(),sesion.getIdSesion());
         for (int i = 0; i < estadoButacas.size(); i++) {
             ButacaSesion b = (ButacaSesion) estadoButacas.get(i);
@@ -853,7 +1020,7 @@ public class VentaEntradas extends javax.swing.JFrame {
                             sumaButacaSel(false);
                         }
                         patioButacas.setNumEtiquetaButacas("" + nBucata);
-                        System.out.println("Indice: " + nBucata);
+                        //System.out.println("Indice: " + nBucata);
                     }
                 });
             }
@@ -868,16 +1035,14 @@ public class VentaEntradas extends javax.swing.JFrame {
         }
         labelSeleccionadas.setText("" + numButacasSel);
     }
-    private void imprimeArrayButacasSel(){
-        System.out.println("Array de butacas seleccionadas: "+butacasSel);
-    }
+    
     /**
      * Metodo para hacer pruebecillas
      */
     private void debug(){
         System.out.println("---------------------------------------------------------");
         System.out.println("Butacas sel: "+butacasSel.size());
-        imprimeArrayButacasSel();
+        System.out.println("Array de butacas seleccionadas: "+butacasSel);
         
         System.out.println("numButacasSel: "+numButacasSel);
         System.out.println("estadoButacasSel: "+estadoButacasSel);
@@ -902,14 +1067,18 @@ public class VentaEntradas extends javax.swing.JFrame {
             labelReservas.setText("0");
             labelInvitaciones.setText("0");
             labelAbonos.setText("0");
+            labelRecaudacion.setText("0");
         }else{
-            int ocupadas=GestionAuditorioBD.getOcupadas(sesion.getIdActividad(), sesion.getIdSesion());
+            int ocupadas=GestionAuditorioBD.getOcupadas(sesion);
+            int recaudacion=GestionEntradasBD.getRecaudacionSesion(sesion);
             labelLibres.setText(""+(totalButacas-ocupadas));
             labelOcupadas.setText(""+ocupadas);
             labelVentas.setText(""+GestionAuditorioBD.getButacasVendidas(sesion.getIdActividad(), sesion.getIdSesion()));
             labelReservas.setText(""+GestionAuditorioBD.getButacasReservadas(sesion.getIdActividad(), sesion.getIdSesion()));
             labelInvitaciones.setText(""+GestionAuditorioBD.getButacasInvitaciones(sesion.getIdActividad(), sesion.getIdSesion()));
             labelAbonos.setText(""+GestionAuditorioBD.getButacasAbonos(sesion.getIdActividad(), sesion.getIdSesion()));
+            labelRecaudacion.setText(""+PrecioUtils.getPrecioEuros(recaudacion));
+            
         }
     }
 
@@ -919,7 +1088,7 @@ public class VentaEntradas extends javax.swing.JFrame {
     private void cargarTablaSesiones() {
         String ano=FechasUtils.dameAnoFechaActual();
         String mes=FechasUtils.dameMesFechaActual();
-        System.out.println("fecha por defecto: "+mes+" "+ano);
+        //System.out.println("fecha por defecto: "+mes+" "+ano);
         cargarTablaSesiones(ano, mes);
     }
     /**
@@ -972,7 +1141,7 @@ public class VentaEntradas extends javax.swing.JFrame {
     }
     
     public void cambiarSesion(SesionBean sesion){
-        System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
+        //System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
         deseleccionarTodo();
         inicializarButacas(sesion, false);
         inicializarContadores(sesion);
