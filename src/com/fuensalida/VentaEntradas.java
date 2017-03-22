@@ -942,6 +942,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             JToggleButton bJT = allButacas.getButacaJT(b.getIdButaca());
             ponColorButaca(b, bJT);
         }
+        jPanel7.repaint();
     }
 
     /**
