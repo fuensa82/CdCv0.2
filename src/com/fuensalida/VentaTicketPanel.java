@@ -6,6 +6,7 @@
 package com.fuensalida;
 
 import com.fuensalida.BaseDatos.GestionEntradasBD;
+import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.DescuentosBean;
 import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
@@ -30,7 +31,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     /**
      * Creates new form VentaEntradasPanel
      */
-    public VentaTicketPanel(ArrayList butacas, SesionBean sesion) {
+    public VentaTicketPanel(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
         initComponents();
         this.butacas=butacas;
         this.sesion=sesion;
@@ -43,6 +44,19 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         jLabelPrecio.setText(""+PrecioUtils.getPrecioEuros(sesion.getPrecio()));
         int total=butacas.size()*sesion.getPrecio();
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(total));
+        if(butacas.get(0).getIdEstado()==3){ //Todas las butacas deben tener el mismo estado
+            cargarMotivos(butacas, sesion);
+        }
+        
+    }
+    private void cargarMotivos(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
+        ArrayList<String> motivos=GestionEntradasBD.getMotivos(butacas, sesion);
+        String texto="<html><body>";
+        for (String motivo : motivos) {
+            texto=texto+motivo+"<BR/>";
+        }
+        texto=texto+"</body></html>";
+        jLabel7.setText(texto);
     }
 
     /**
@@ -58,6 +72,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         jButtonCancelar = new javax.swing.JButton();
         principal = new javax.swing.JPanel();
         listaButacas = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         jLabelObra = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -87,15 +102,23 @@ public class VentaTicketPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel7.setText("jLabel7");
+
         javax.swing.GroupLayout listaButacasLayout = new javax.swing.GroupLayout(listaButacas);
         listaButacas.setLayout(listaButacasLayout);
         listaButacasLayout.setHorizontalGroup(
             listaButacasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
+            .addGroup(listaButacasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         listaButacasLayout.setVerticalGroup(
             listaButacasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
+            .addGroup(listaButacasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jLabelObra.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -255,6 +278,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelNEntrdas;
