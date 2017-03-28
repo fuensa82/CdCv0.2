@@ -153,6 +153,56 @@ public class GestionEntradasBD {
         }
         return result;
     }
+    
+    public static int reservaButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, String motivo){
+        int result=0;
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement insert1 = conexion.prepareStatement(
+                "INSERT INTO `cdc`.`butacassesion` (`idButaca`, `idActividad`, `idSesion`, `idEstado`,`motivo`) VALUES (?, ?, ?, 3, ?)");            
+            PreparedStatement update = conexion.prepareStatement(
+                "UPDATE `cdc`.`butacassesion` SET `idEstado`=?,`motivo`=?  WHERE  `idButaca`=? AND `idActividad`=? AND `idSesion`=?");
+            for (ButacaSesion butaca : listaButacas) {
+                
+                int estadoButaca=existeEntrada(butaca, sesion);
+                switch (estadoButaca) {
+                    case 0:
+                        //Si la butaca está libre (inexistente) insertamos
+                        insert1.setString(1, ""+butaca.getIdButaca());
+                        insert1.setString(2, ""+sesion.getIdActividad());
+                        insert1.setString(3, ""+sesion.getIdSesion());
+                        insert1.setString(4, ""+motivo);
+                        insert1.executeUpdate();
+                        break;
+                    case 1:
+                        //Si la butaca esta en estado vendida (3) o estado libre (1) pero la butaca ya existe en la tabla, se hace un update
+                        update.setString(1, "3"); //Estado de reservada
+                        update.setString(2, ""+motivo);
+                        update.setString(3, ""+butaca.getIdButaca());
+                        update.setString(4, ""+sesion.getIdActividad());
+                        update.setString(5, ""+sesion.getIdSesion());
+                        update.executeUpdate();
+                        break;
+                    default:
+                        return -1;
+                }
+            }
+            return 1; //Correcto
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
     /**
      * Devuelve el estado de una butaca si existe dicha butaca, sino devuelve 0.
      * @param butaca Butaca a buscar
@@ -237,4 +287,6 @@ public class GestionEntradasBD {
         }
         return result;
     }
+
+    
 }

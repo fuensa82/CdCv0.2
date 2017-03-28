@@ -6,8 +6,6 @@
 package com.fuensalida.printer;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.io.File;
