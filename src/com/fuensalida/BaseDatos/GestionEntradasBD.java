@@ -253,7 +253,7 @@ public class GestionEntradasBD {
         try {
             conexion=ConectorBD.getConnection();
             StringBuilder builder = new StringBuilder();
-            for( int i = 0 ; i < listaButacas.size(); i++ ) {
+            for (ButacaSesion listaButaca : listaButacas) {
                 builder.append("?,");
             }
             String stmt = "select idButaca, Motivo from butacassesion where idActividad=? and idSesion=? and idButaca IN (" 
@@ -268,10 +268,12 @@ public class GestionEntradasBD {
             }
             System.out.println("SQL: "+pstmt.toString());
             ResultSet resultado = pstmt.executeQuery();
+            int i=listaButacas.size()-1;
             while (resultado.next()){
-                result.add(resultado.getString(2));
+                result.add(GestionAuditorioBD.getNumButaca(resultado.getInt(1))+": "+resultado.getString(2));
             }
-            
+            System.out.println("Butacas: "+listaButacas.size());
+            System.out.println("result: "+result);
             return result; //Correcto
             
         } catch (SQLException e) {

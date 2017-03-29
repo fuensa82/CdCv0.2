@@ -77,8 +77,6 @@
                               <Component id="jButton6" min="-2" pref="23" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton7" min="-2" pref="23" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton8" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -128,7 +126,6 @@
                   <Component id="jButton5" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jButton6" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jButton7" min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="jButton8" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -478,7 +475,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/fuensalida/images/del16x16.png"/>
+          <Image iconType="3" name="/com/fuensalida/images/deseleccion3.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Deseleccionar todas las butacas"/>
       </Properties>
@@ -948,7 +945,7 @@
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/fuensalida/images/del16x16.png"/>
+          <Image iconType="3" name="/com/fuensalida/images/compra3.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Vender"/>
       </Properties>
@@ -959,7 +956,7 @@
     <Component class="javax.swing.JButton" name="jButton5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/fuensalida/images/del16x16.png"/>
+          <Image iconType="3" name="/com/fuensalida/images/reservas3.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Reservar"/>
       </Properties>
@@ -970,7 +967,7 @@
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/fuensalida/images/del16x16.png"/>
+          <Image iconType="3" name="/com/fuensalida/images/Invitacion3.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Invitaci&#xf3;n"/>
       </Properties>
@@ -981,23 +978,12 @@
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/fuensalida/images/del16x16.png"/>
+          <Image iconType="3" name="/com/fuensalida/images/eliminar3.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Pagar reserva"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton8">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/fuensalida/images/del16x16.png"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Eliminar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

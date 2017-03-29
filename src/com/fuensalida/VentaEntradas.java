@@ -149,7 +149,6 @@ public class VentaEntradas extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         Depurar = new javax.swing.JMenuItem();
@@ -356,7 +355,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             .addComponent(labelSeleccionadas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/deseleccion3.png"))); // NOI18N
         jButton2.setToolTipText("Deseleccionar todas las butacas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -636,7 +635,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             .addGap(0, 446, Short.MAX_VALUE)
         );
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/compra3.png"))); // NOI18N
         jButton4.setToolTipText("Vender");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -644,7 +643,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/reservas3.png"))); // NOI18N
         jButton5.setToolTipText("Reservar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -652,7 +651,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/Invitacion3.png"))); // NOI18N
         jButton6.setToolTipText("Invitación");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -660,19 +659,11 @@ public class VentaEntradas extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/eliminar3.png"))); // NOI18N
         jButton7.setToolTipText("Pagar reserva");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/del16x16.png"))); // NOI18N
-        jButton8.setToolTipText("Eliminar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
             }
         });
 
@@ -722,9 +713,7 @@ public class VentaEntradas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,8 +750,7 @@ public class VentaEntradas extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -811,16 +799,12 @@ public class VentaEntradas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        invitarTickets();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     
     /**
@@ -861,7 +845,6 @@ public class VentaEntradas extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
@@ -1189,9 +1172,28 @@ public class VentaEntradas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solo se pueden reservar butacas libre");
             return;
         }
-        JDialog frame = new JDialog(this, "Reserva de entradas", true);
+        reservaInvitacionTickets(true);
+    }
+
+    private void invitarTickets() {
+        if(butacasSel.size()==0){
+            JOptionPane.showMessageDialog(null, "No tiene selecionada ninguna butaca");
+            return;
+        }else if(estadoButacasSel!=1){
+            JOptionPane.showMessageDialog(null, "Solo se puede invitar en butacas libre");
+            return;
+        }
+        reservaInvitacionTickets(false);
+    }
+    /**
+     * 
+     * @param isReserva Indica si es una reserva o una invitación. True es una reserva
+     */
+    private void reservaInvitacionTickets(boolean isReserva){
+        String titulo=isReserva?"Reserva de entradas":"Invitaciones de entradas";
+        JDialog frame = new JDialog(this, titulo, true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        frame.getContentPane().add(new ReservaTicketPanel(butacasSel, sesionSelecionada));
+        frame.getContentPane().add(new ReservaTicketPanel(butacasSel, sesionSelecionada, isReserva));
         frame.pack();
         frame.setVisible(true);
         this.cambiarSesion(sesionSelecionada);

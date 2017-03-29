@@ -5,6 +5,8 @@
  */
 package com.fuensalida.beans;
 
+import com.fuensalida.BaseDatos.GestionAuditorioBD;
+
 /**
  *
  * @author vPalomo
@@ -33,6 +35,10 @@ public class ButacaSesion {
     
     public int getIdButaca() {
         return idButaca;
+    }
+    
+    public String getNombreButaca(){
+        return GestionAuditorioBD.getNumButaca(this.idButaca);
     }
 
     public void setIdButaca(int idButaca) {
