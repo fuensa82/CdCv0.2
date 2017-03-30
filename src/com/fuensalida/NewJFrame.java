@@ -5730,6 +5730,7 @@ public class NewJFrame extends javax.swing.JFrame {
             allButacas.put(b);
             //System.out.println("Butaca " + b.getIdButaca() + " está " + GestionEstadosBD.getEstado(b.getIdEstado()));
             JToggleButton bJT = allButacas.getButacaJT(b.getIdButaca());
+
             ponColorButaca(b, bJT);
         }
     }

@@ -46,6 +46,8 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(total));
         if(butacas.get(0).getIdEstado()==3){ //Todas las butacas deben tener el mismo estado
             cargarMotivos(butacas, sesion);
+        }else{
+            cargarButacas(butacas);
         }
         
     }
@@ -299,5 +301,14 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         for (DescuentosBean listaDto : listaDtos) {
             jComboBox1.addItem(new OptionCombo(listaDto.getIdDto(),listaDto.getDto(), listaDto.getDescripcion()));
         }
+    }
+
+    private void cargarButacas(ArrayList<ButacaSesion> butacas) {
+        String texto="<html><body>";
+        for (ButacaSesion butaca : butacas) {
+            texto=texto+butaca.getNombreButaca()+"<BR/>";
+        }
+        texto=texto+"</body></html>";
+        jLabel7.setText(texto);
     }
 }

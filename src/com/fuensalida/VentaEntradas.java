@@ -907,6 +907,12 @@ public class VentaEntradas extends javax.swing.JFrame {
             allButacas.put(b);
             //System.out.println("Butaca " + b.getIdButaca() + " está " + GestionEstadosBD.getEstado(b.getIdEstado()));
             JToggleButton bJT = allButacas.getButacaJT(b.getIdButaca());
+            if(b.getIdEstado()==3){
+                System.out.println("Estado b="+b);
+                bJT.setToolTipText(GestionEntradasBD.getMotivo(b.getIdButaca(), sesion));
+            }else{
+                bJT.setToolTipText("");
+            }
             ponColorButaca(b, bJT);
         }
         jPanel7.repaint();
@@ -1153,6 +1159,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             return;
         }else if(estadoButacasSel!=1 && estadoButacasSel!=3){
             JOptionPane.showMessageDialog(null, "Solo se pueden vendes butacas libre o reservadas");
+            deseleccionarTodo();
             return;
         }
         JDialog frame = new JDialog(this, "Venta de entradas", true);
@@ -1170,6 +1177,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             return;
         }else if(estadoButacasSel!=1){
             JOptionPane.showMessageDialog(null, "Solo se pueden reservar butacas libre");
+            deseleccionarTodo();
             return;
         }
         reservaInvitacionTickets(true);
@@ -1181,6 +1189,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             return;
         }else if(estadoButacasSel!=1){
             JOptionPane.showMessageDialog(null, "Solo se puede invitar en butacas libre");
+            deseleccionarTodo();
             return;
         }
         reservaInvitacionTickets(false);

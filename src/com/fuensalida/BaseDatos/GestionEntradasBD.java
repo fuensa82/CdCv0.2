@@ -268,13 +268,45 @@ public class GestionEntradasBD {
             }
             System.out.println("SQL: "+pstmt.toString());
             ResultSet resultado = pstmt.executeQuery();
-            int i=listaButacas.size()-1;
             while (resultado.next()){
                 result.add(GestionAuditorioBD.getNumButaca(resultado.getInt(1))+": "+resultado.getString(2));
             }
             System.out.println("Butacas: "+listaButacas.size());
             System.out.println("result: "+result);
             return result; //Correcto
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    public static String getMotivo(int idButaca, SesionBean sesion){
+        String result="";
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            StringBuilder builder = new StringBuilder();
+            
+            String stmt = "select idButaca, Motivo from butacassesion where idActividad=? and idSesion=? and idButaca=?";
+            System.out.println("Select IN: "+stmt);
+            PreparedStatement pstmt=conexion.prepareStatement(stmt);
+            pstmt.setInt(1, sesion.getIdActividad());
+            pstmt.setInt(2, sesion.getIdSesion());
+            pstmt.setInt(3, idButaca);
+            
+            System.out.println("SQL: "+pstmt.toString());
+            ResultSet resultado = pstmt.executeQuery();
+            resultado.next();
+            return resultado.getString(2); //Correcto
             
         } catch (SQLException e) {
             e.printStackTrace();
