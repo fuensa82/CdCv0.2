@@ -46,19 +46,27 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
         jLabelPrecio.setText(""+PrecioUtils.getPrecioEuros(sesion.getPrecio()));
         int total=butacas.size()*sesion.getPrecio();
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(total));
-        if(butacas.get(0).getIdEstado()==3){ //Todas las butacas deben tener el mismo estado
-            cargarMotivos(butacas, sesion);
+        
+        System.out.println("Prueba cargarButacas");
+        cargarButacas(butacas);
+        if(!isReserva){ //Ocultamos lo relacionado con los precios y descuentos
+            jLabel1.setVisible(false);
+            jLabel10.setVisible(false);
+            jLabel2.setVisible(false);
+            jLabelTotal.setVisible(false);
+            jComboBox1.setVisible(false);
         }
         
     }
-    private void cargarMotivos(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
-        ArrayList<String> motivos=GestionEntradasBD.getMotivos(butacas, sesion);
+    
+    
+    private void cargarButacas(ArrayList<ButacaSesion> butacas) {
         String texto="<html><body>";
-        for (String motivo : motivos) {
-            texto=texto+motivo+"<BR/>";
+        for (ButacaSesion butaca : butacas) {
+            texto=texto+butaca.getNombreButaca()+"<BR/>";
         }
         texto=texto+"</body></html>";
-        jLabel7.setText(texto);
+        jLabel9.setText(texto);
     }
 
     /**
@@ -94,6 +102,9 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
         jLabelTotal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+
+        setMinimumSize(new java.awt.Dimension(500, 364));
+        setName(""); // NOI18N
 
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -287,16 +298,24 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         String motivo=this.jTextField1.getText();
         if("".equals(motivo)){
-            JOptionPane.showMessageDialog(null, "Es obligatorio poner algo en motivo de la reserva");
+            if(isReserva){
+                JOptionPane.showMessageDialog(null, "Es obligatorio poner algo en motivo de la reserva");
+            }else{
+                JOptionPane.showMessageDialog(null, "Es obligatorio poner algo en motivo de la invitavión");
+            }
             return;
         }
-        int result=GestionEntradasBD.reservaButacas(butacas, sesion, motivo);
+        int result=GestionEntradasBD.reservaInvitacionButacas(butacas, sesion, motivo, isReserva);
         if (result==1){
             //System.out.println("Saliendo de la venta");
             Window w = SwingUtilities.getWindowAncestor(this);
             w.setVisible(false);
         }else if(result==-1){
-            JOptionPane.showMessageDialog(null, "Error, no se han podido reservar las entradas", "Error en la reserva", JOptionPane.ERROR_MESSAGE);
+            if(isReserva){
+                JOptionPane.showMessageDialog(null, "Error, no se han podido reservar las entradas", "Error en la reserva", JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Error, no se han podido hacer las invitacion", "Error en la invitavión", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 

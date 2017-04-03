@@ -2368,7 +2368,7 @@ public class PatioButacas extends javax.swing.JPanel {
     }
     
     public void setNumEtiquetaButacas(String text){
-        labelLastSelect.setText(text);
+        labelNButaca.setText(text);
     }
     /**
      * Inicialica los array de butacas necesarios para la aplicacion. También añade los manejadores, pero hay que

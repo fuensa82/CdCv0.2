@@ -155,12 +155,28 @@ public class GestionEntradasBD {
     }
     
     public static int reservaButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, String motivo){
+        return reservaInvitacionButacas(listaButacas, sesion, motivo, true);
+    }
+    
+    public static int invitacionButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, String motivo){
+        return reservaInvitacionButacas(listaButacas, sesion, motivo, false);
+    }
+    /**
+     * 
+     * @param listaButacas
+     * @param sesion
+     * @param motivo
+     * @param isReserva Si es true es que se va a hacer una reserva, sino es una invitacion
+     * @return 
+     */
+    public static int reservaInvitacionButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, String motivo, boolean isReserva){
+        int estado = isReserva?3:5;
         int result=0;
         Connection conexion = null;
         try {
             conexion=ConectorBD.getConnection();
             PreparedStatement insert1 = conexion.prepareStatement(
-                "INSERT INTO `cdc`.`butacassesion` (`idButaca`, `idActividad`, `idSesion`, `idEstado`,`motivo`) VALUES (?, ?, ?, 3, ?)");            
+                "INSERT INTO `cdc`.`butacassesion` (`idButaca`, `idActividad`, `idSesion`, `idEstado`,`motivo`) VALUES (?, ?, ?, ?, ?)");            
             PreparedStatement update = conexion.prepareStatement(
                 "UPDATE `cdc`.`butacassesion` SET `idEstado`=?,`motivo`=?  WHERE  `idButaca`=? AND `idActividad`=? AND `idSesion`=?");
             for (ButacaSesion butaca : listaButacas) {
@@ -169,19 +185,20 @@ public class GestionEntradasBD {
                 switch (estadoButaca) {
                     case 0:
                         //Si la butaca está libre (inexistente) insertamos
-                        insert1.setString(1, ""+butaca.getIdButaca());
-                        insert1.setString(2, ""+sesion.getIdActividad());
-                        insert1.setString(3, ""+sesion.getIdSesion());
-                        insert1.setString(4, ""+motivo);
+                        insert1.setInt(1, butaca.getIdButaca());
+                        insert1.setInt(2, sesion.getIdActividad());
+                        insert1.setInt(3, sesion.getIdSesion());
+                        insert1.setInt(4, estado);
+                        insert1.setString(5, motivo);
                         insert1.executeUpdate();
                         break;
                     case 1:
                         //Si la butaca esta en estado vendida (3) o estado libre (1) pero la butaca ya existe en la tabla, se hace un update
-                        update.setString(1, "3"); //Estado de reservada
-                        update.setString(2, ""+motivo);
-                        update.setString(3, ""+butaca.getIdButaca());
-                        update.setString(4, ""+sesion.getIdActividad());
-                        update.setString(5, ""+sesion.getIdSesion());
+                        update.setInt(1, estado);
+                        update.setString(2, motivo);
+                        update.setInt(3, butaca.getIdButaca());
+                        update.setInt(4, sesion.getIdActividad());
+                        update.setInt(5, sesion.getIdSesion());
                         update.executeUpdate();
                         break;
                     default:
@@ -203,6 +220,7 @@ public class GestionEntradasBD {
         }
         return result;
     }
+    
     /**
      * Devuelve el estado de una butaca si existe dicha butaca, sino devuelve 0.
      * @param butaca Butaca a buscar
