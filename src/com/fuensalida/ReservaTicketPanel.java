@@ -25,8 +25,7 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
     private ArrayList butacas;
     private SesionBean sesion;
     private boolean isReserva;
-    private int dto;
-    private int idDto;
+    private int precioDto;  //Precio con descuento si se selecciona
     
     
     /**
@@ -38,7 +37,6 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
         this.butacas=butacas;
         this.sesion=sesion;
         cargarComboDescuetos();
-        cargarListaButacas();
         jLabelObra.setText(sesion.getDescripcion());
         jLabelFecha.setText(sesion.getFecha());
         jLabelHora.setText(sesion.getHora());
@@ -326,11 +324,11 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         OptionCombo dto=jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
-        this.dto=dto.getValue();
-        this.idDto=dto.getIdDto();
+        this.precioDto=dto.getValue();
+        //this.idDto=dto.getIdDto();
         //System.out.println("Dto: "+dto);
         //System.out.println("idDto: "+idDto);
-        int total=(int)(butacas.size()*sesion.getPrecio()*(100.00-(Long.parseLong(""+dto.getValue())))/100.00);
+        int total=(int)(butacas.size()*this.precioDto);
 
         //System.out.println("Dto: "+total);
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(""+total));
@@ -364,14 +362,17 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
     private javax.swing.JPanel principal;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarListaButacas() {
-        
-    }
-
     private void cargarComboDescuetos() {
-        ArrayList<DescuentosBean> listaDtos=GestionEntradasBD.getDtos();
-        for (DescuentosBean listaDto : listaDtos) {
-            jComboBox1.addItem(new OptionCombo(listaDto.getIdDto(),listaDto.getDto(), listaDto.getDescripcion()));
+        jComboBox1.addItem(new OptionCombo(sesion.getPrecio(), "Normal"));
+        
+        if(!"".equals(sesion.getDescPrecio1()) && sesion.getDescPrecio1()!=null){
+            jComboBox1.addItem(new OptionCombo(sesion.getPrecio1(), sesion.getDescPrecio1()));
+        }
+        if(!"".equals(sesion.getDescPrecio2()) && sesion.getDescPrecio2()!=null){
+            jComboBox1.addItem(new OptionCombo(sesion.getPrecio2(), sesion.getDescPrecio2()));
+        }
+        if(!"".equals(sesion.getDescPrecio3()) && sesion.getDescPrecio3()!=null){
+            jComboBox1.addItem(new OptionCombo(sesion.getPrecio3(), sesion.getDescPrecio3()));
         }
     }
 }

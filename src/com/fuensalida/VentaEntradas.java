@@ -801,7 +801,7 @@ public class VentaEntradas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        eliminarVenta();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     
@@ -1201,6 +1201,17 @@ public class VentaEntradas extends javax.swing.JFrame {
         JDialog frame = new JDialog(this, titulo, true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         frame.getContentPane().add(new ReservaTicketPanel(butacasSel, sesionSelecionada, isReserva));
+        frame.pack();
+        frame.setVisible(true);
+        this.cambiarSesion(sesionSelecionada);
+        frame.setVisible(false);
+    }
+
+    private void eliminarVenta() {
+        String titulo="Eliminar venta";
+        JDialog frame = new JDialog(this, titulo, true);
+        frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.getContentPane().add(new EliminarTicketPanel1(butacasSel, sesionSelecionada));
         frame.pack();
         frame.setVisible(true);
         this.cambiarSesion(sesionSelecionada);

@@ -23,21 +23,29 @@ import javax.naming.NamingException;
  * @author vPalomo
  */
 public class GestionEntradasBD {
-    public static ArrayList<DescuentosBean> getDtos(){
-        ArrayList<DescuentosBean> result=new ArrayList();
+    public static SesionBean getDtos(SesionBean sesion){
+        SesionBean result=new SesionBean();
         Connection conexion = null;
         try {
             conexion=ConectorBD.getConnection();
-            PreparedStatement consulta = conexion.prepareStatement("select idDto, dto, descripcion from descuentos");
+            PreparedStatement consulta = conexion.prepareStatement(
+                        "select precio1, descPrecio1,precio2, descPrecio2,precio3, descPrecio3 " +
+                        "from sesiones " +
+                        "where idActividad=? " +
+                        "	and idSesion=?");
+            
+            consulta.setInt(1, sesion.getIdActividad());
+            consulta.setInt(2, sesion.getIdSesion());
             ResultSet resultado = consulta.executeQuery();
-            while(resultado.next()){
-                DescuentosBean d=new DescuentosBean();
-                d.setIdDto(resultado.getInt(1));
-                d.setDto(resultado.getInt(2));
-                d.setDescripcion(resultado.getString(3));
-                result.add(d);
-            }
-            //System.out.println(result);
+            resultado.next();
+            
+            result.setDescPrecio1(resultado.getString("descPrecio1"));
+            result.setDescPrecio2(resultado.getString("descPrecio2"));
+            result.setDescPrecio3(resultado.getString("descPrecio3"));
+            result.setPrecio1(resultado.getInt("precio1"));
+            result.setPrecio2(resultado.getInt("precio2"));
+            result.setPrecio3(resultado.getInt("precio3"));
+            
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,7 +100,7 @@ public class GestionEntradasBD {
      * @param dto
      * @return 
      */
-    public static int ventaButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, int idDto, int dto){
+    public static int ventaButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, int precioDto){
         int result=0;
         Connection conexion = null;
         try {
@@ -102,7 +110,7 @@ public class GestionEntradasBD {
             PreparedStatement update = conexion.prepareStatement(
                 "UPDATE `cdc`.`butacassesion` SET `idEstado`=? WHERE  `idButaca`=? AND `idActividad`=? AND `idSesion`=?");
             PreparedStatement insert2 = conexion.prepareStatement(
-                "INSERT INTO `cdc`.`tickets` (`idButaca`, `idActividad`, `idSesion`, `importeVenta`, `idUsuario`, `motivo`,`idDto`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                "INSERT INTO `cdc`.`tickets` (`idButaca`, `idActividad`, `idSesion`, `importeVenta`, `idUsuario`, `motivo`) VALUES (?, ?, ?, ?, ?, ?)");
             for (ButacaSesion butaca : listaButacas) {
                 
                 int estadoButaca=existeEntrada(butaca, sesion);
@@ -129,12 +137,9 @@ public class GestionEntradasBD {
                 insert2.setString(1, ""+butaca.getIdButaca());
                 insert2.setString(2, ""+sesion.getIdActividad());
                 insert2.setString(3, ""+sesion.getIdSesion());
-                int importe=(int)(sesion.getPrecio()*((100.00-(Long.parseLong(""+dto)))/100.00));
-
-                insert2.setInt(4, importe);
+                insert2.setInt(4, precioDto);
                 insert2.setString(5, "0");
                 insert2.setString(6, "");
-                insert2.setString(7, ""+idDto);
 
                 insert2.executeUpdate();
             }
@@ -325,6 +330,73 @@ public class GestionEntradasBD {
             ResultSet resultado = pstmt.executeQuery();
             resultado.next();
             return resultado.getString(2); //Correcto
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * devuelve el precio al que se vendió una butaca. Si el importe es menor que 0 es un error.
+     * @param butaca
+     * @param sesion
+     * @return 
+     */
+    public static int getImporteTicket(ButacaSesion butaca, SesionBean sesion) {
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            String stmt = "select importeVenta " +
+                "from tickets " +
+                "where idButaca=?" +
+                "	and idActividad=?" +
+                "	and idSesion=?";
+            PreparedStatement pstmt=conexion.prepareStatement(stmt);
+            pstmt.setInt(2, sesion.getIdActividad());
+            pstmt.setInt(3, sesion.getIdSesion());
+            pstmt.setInt(1, butaca.getIdButaca());
+            
+            ResultSet resultado = pstmt.executeQuery();
+            resultado.next();
+            return resultado.getInt(1); //Correcto
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return -1;
+    }
+
+    public static int generaTicketAbono(ArrayList<ButacaSesion> butacas, SesionBean sesion, String motivo) {
+        int result=0;
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement insert1 = conexion.prepareStatement(
+                "INSERT INTO `cdc`.`tickets` (`idButaca`, `idActividad`, `idSesion`, `importeVenta`, `idUsuario`, `motivo`) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement update = conexion.prepareStatement(
+                "UPDATE `cdc`.`tickets` SET `isAnulada`=true WHERE  `idTicket`=593;");
+            for (ButacaSesion butaca : butacas) {
+                
+                
+            }
+            return 1; //Correcto
             
         } catch (SQLException e) {
             e.printStackTrace();

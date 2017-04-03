@@ -5,6 +5,8 @@
  */
 package com.fuensalida.beans;
 
+import com.fuensalida.utils.PrecioUtils;
+
 /**
  *
  * @author vPalomo
@@ -12,15 +14,6 @@ package com.fuensalida.beans;
 public class OptionCombo {
     private int value;
     private String texto;
-    private int idDto;
-
-    public int getIdDto() {
-        return idDto;
-    }
-
-    public void setIdDto(int indDto) {
-        this.idDto = indDto;
-    }
 
     public int getValue() {
         return value;
@@ -40,11 +33,12 @@ public class OptionCombo {
 
     @Override
     public String toString() {
-        return value+"% - "+texto;
+        //String valueTest=""+value;
+        //valueTest=valueTest.substring(0, valueTest.length()-2)+","+valueTest.substring(valueTest.length()-2);
+        return PrecioUtils.getPrecioEuros(value)+" - "+texto;
     }
 
-    public OptionCombo(int idDto, int value, String texto) {
-        this.idDto=idDto;
+    public OptionCombo(int value, String texto) {
         this.value = value;
         this.texto = texto;
     }
