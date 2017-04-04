@@ -7,8 +7,6 @@ package com.fuensalida;
 
 import com.fuensalida.BaseDatos.GestionEntradasBD;
 import com.fuensalida.beans.ButacaSesion;
-import com.fuensalida.beans.DescuentosBean;
-import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
 import com.fuensalida.utils.PrecioUtils;
 import java.awt.Window;
@@ -49,7 +47,7 @@ public class EliminarTicketPanel1 extends javax.swing.JPanel {
         for (ButacaSesion butaca : butacas) {
             imp1=GestionEntradasBD.getImporteTicket(butaca, sesion);
             impDevolver+=imp1;
-            texto=texto+butaca.getNombreButaca()+" - "+PrecioUtils.getPrecioEuros(imp1)+" <BR/>";
+            texto=texto+butaca.getNombreButaca()+"&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;"+PrecioUtils.getPrecioEuros(imp1)+" <BR/>";
         }
         texto=texto+"</body></html>";
         jLabel9.setText(texto);

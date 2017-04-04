@@ -359,7 +359,8 @@ public class GestionEntradasBD {
                 "from tickets " +
                 "where idButaca=?" +
                 "	and idActividad=?" +
-                "	and idSesion=?";
+                "	and idSesion=?"
+                    + " and isAnulada=false";
             PreparedStatement pstmt=conexion.prepareStatement(stmt);
             pstmt.setInt(2, sesion.getIdActividad());
             pstmt.setInt(3, sesion.getIdSesion());
@@ -391,10 +392,70 @@ public class GestionEntradasBD {
             PreparedStatement insert1 = conexion.prepareStatement(
                 "INSERT INTO `cdc`.`tickets` (`idButaca`, `idActividad`, `idSesion`, `importeVenta`, `idUsuario`, `motivo`) VALUES (?, ?, ?, ?, ?, ?)");
             PreparedStatement update = conexion.prepareStatement(
-                "UPDATE `cdc`.`tickets` SET `isAnulada`=true WHERE  `idTicket`=593;");
+                "UPDATE `cdc`.`tickets` SET `isAnulada`=true"
+                        + " WHERE `idButaca`=?"
+                        + " and `idActividad`=?"
+                        + " and `idSesion`=?;");
+            PreparedStatement update2 = conexion.prepareStatement(
+                "UPDATE `cdc`.`butacassesion` SET `idEstado`=?  "
+                        + "WHERE  `idButaca`=? "
+                        + "AND `idActividad`=? "
+                        + "AND `idSesion`=?");
             for (ButacaSesion butaca : butacas) {
-                
-                
+                int precio=GestionEntradasBD.getImporteTicket(butaca, sesion);
+                insert1.setString(1, ""+butaca.getIdButaca());
+                insert1.setString(2, ""+sesion.getIdActividad());
+                insert1.setString(3, ""+sesion.getIdSesion());
+                insert1.setInt(4, (precio*-1));
+                insert1.setString(5, "0");
+                insert1.setString(6, "");
+                insert1.execute();
+                update.setInt(1, butaca.getIdButaca());
+                update.setInt(2, sesion.getIdActividad());
+                update.setInt(3, sesion.getIdSesion());
+                update.execute();
+                System.out.println("Butaca: "+butaca);
+                System.out.println("Sesion: "+sesion);
+                update2.setInt(1, 1);
+                update2.setInt(2, butaca.getIdButaca());
+                update2.setInt(3, sesion.getIdActividad());
+                update2.setInt(4, sesion.getIdSesion());
+                update2.execute();
+            }
+            return 1; //Correcto
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    public static int eliminaReservaInvitacion(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
+        int result=0;
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement update2 = conexion.prepareStatement(
+                "UPDATE `cdc`.`butacassesion` SET `idEstado`=?  "
+                        + "WHERE  `idButaca`=? "
+                        + "AND `idActividad`=? "
+                        + "AND `idSesion`=?");
+            for (ButacaSesion butaca : butacas) {
+                System.out.println("Butaca: "+butaca);
+                System.out.println("Sesion: "+sesion);
+                update2.setInt(1, 1);
+                update2.setInt(2, butaca.getIdButaca());
+                update2.setInt(3, sesion.getIdActividad());
+                update2.setInt(4, sesion.getIdSesion());
+                update2.execute();
             }
             return 1; //Correcto
             
