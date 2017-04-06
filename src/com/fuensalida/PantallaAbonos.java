@@ -32,13 +32,13 @@ public class PantallaAbonos extends javax.swing.JFrame {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-        patioButacas=new PatioButacas();
+        patioButacas=new PatioButacasPanel();
         jPanel1.add(patioButacas);
         patioButacas.setSize(777, 434);
        
     }
     
-    PatioButacas patioButacas;
+    PatioButacasPanel patioButacas;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

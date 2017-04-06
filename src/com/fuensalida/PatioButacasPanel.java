@@ -16,7 +16,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author vPalomo
  */
-public class PatioButacas extends javax.swing.JPanel {
+public class PatioButacasPanel extends javax.swing.JPanel {
 
     //private ArrayList butacasSel;
     private MiHasMap2 allButacas;
@@ -2853,7 +2853,7 @@ public class PatioButacas extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
-    public PatioButacas() {
+    public PatioButacasPanel() {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } catch (ClassNotFoundException ex) {

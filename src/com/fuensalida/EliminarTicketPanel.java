@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
  *
  * @author vPalomo
  */
-public class EliminarTicketPanel1 extends javax.swing.JPanel {
+public class EliminarTicketPanel extends javax.swing.JPanel {
 
     private ArrayList butacas;
     private SesionBean sesion;
@@ -28,7 +28,7 @@ public class EliminarTicketPanel1 extends javax.swing.JPanel {
     /**
      * Creates new form VentaEntradasPanel
      */
-    public EliminarTicketPanel1(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
+    public EliminarTicketPanel(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
         initComponents();
         this.butacas=butacas;
         this.sesion=sesion;

@@ -38,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author vPalomo
  */
-public class VentaEntradas extends javax.swing.JFrame {
+public class VentaEntradasFrame extends javax.swing.JFrame {
 
     private ArrayList<ButacaSesion> butacasSel;
     private int numButacasSel;
@@ -47,28 +47,28 @@ public class VentaEntradas extends javax.swing.JFrame {
     private static final int totalButacas=466;
     private SesionBean sesionSelecionada;
     
-    private PatioButacas patioButacas;
+    private PatioButacasPanel patioButacas;
     //private int idActividad=4;
     //private int idSesion=1;
     /**
      * Creates new form NewJFrame
      */
-    public VentaEntradas() {
+    public VentaEntradasFrame() {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VentaEntradas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(VentaEntradas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(VentaEntradas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(VentaEntradas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         sesionSelecionada=selecionaSesion();
         initComponents();
         
-        patioButacas=new PatioButacas();
+        patioButacas=new PatioButacasPanel();
         jPanel7.add(patioButacas);
         allButacas=patioButacas.getAllButacas();
         patioButacas.setSize(777, 434);
@@ -788,7 +788,7 @@ public class VentaEntradas extends javax.swing.JFrame {
             this.cargarTablaSesiones(ano, mes);
             
         } catch (Exception ex) {
-            Logger.getLogger(VentaEntradas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -822,7 +822,7 @@ public class VentaEntradas extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JDialog frame = new JDialog(this, "Informe", true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        frame.getContentPane().add(new Informes());
+        frame.getContentPane().add(new InformesPanel());
         frame.pack();
         frame.setVisible(true);
         //this.cambiarSesion(sesionSelecionada);
@@ -847,13 +847,13 @@ public class VentaEntradas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentaEntradas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentaEntradasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaEntradas().setVisible(true);
+                new VentaEntradasFrame().setVisible(true);
             }
         });
     }
@@ -1237,7 +1237,7 @@ public class VentaEntradas extends javax.swing.JFrame {
         String titulo="Eliminar venta";
         JDialog frame = new JDialog(this, titulo, true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        frame.getContentPane().add(new EliminarTicketPanel1(butacasSel, sesionSelecionada));
+        frame.getContentPane().add(new EliminarTicketPanel(butacasSel, sesionSelecionada));
         frame.pack();
         frame.setVisible(true);
         this.cambiarSesion(sesionSelecionada);

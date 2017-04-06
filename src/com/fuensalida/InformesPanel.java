@@ -21,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author vPalomo
  */
-public class Informes extends javax.swing.JPanel {
+public class InformesPanel extends javax.swing.JPanel {
 
     private SesionBean sesionSelecionada;
     /**
      * Creates new form Informes
      */
-    public Informes() {
+    public InformesPanel() {
         initComponents();
         cargarTablaSesiones();
         cargaAnos();
@@ -192,7 +192,7 @@ public class Informes extends javax.swing.JPanel {
             this.cargarTablaSesiones(ano, mes);
 
         } catch (Exception ex) {
-            Logger.getLogger(VentaEntradas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
