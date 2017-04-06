@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 
-class Ticket implements Printable {
+public class Ticket implements Printable {
 
     public int print(Graphics g, PageFormat f, int pageIndex) {
         if (pageIndex == 0) {

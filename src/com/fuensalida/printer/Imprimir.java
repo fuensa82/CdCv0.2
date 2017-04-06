@@ -13,7 +13,7 @@ import java.awt.print.PrinterJob;
  * @author vPalomo
  */
 public class Imprimir {
-    static public void main(){
+    public static void main(){
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setPrintable(new Ticket());
         if(job.printDialog()){

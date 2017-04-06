@@ -100,7 +100,7 @@ public class GestionEntradasBD {
      * @param dto
      * @return 
      */
-    public static int ventaButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, int precioDto){
+    public static int ventaButacas(ArrayList<ButacaSesion> listaButacas, SesionBean sesion, int precioDto, String motivoPrecio){
         int result=0;
         Connection conexion = null;
         try {
@@ -139,7 +139,7 @@ public class GestionEntradasBD {
                 insert2.setString(3, ""+sesion.getIdSesion());
                 insert2.setInt(4, precioDto);
                 insert2.setString(5, "0");
-                insert2.setString(6, "");
+                insert2.setString(6, motivoPrecio);
 
                 insert2.executeUpdate();
             }
@@ -408,7 +408,7 @@ public class GestionEntradasBD {
                 insert1.setString(3, ""+sesion.getIdSesion());
                 insert1.setInt(4, (precio*-1));
                 insert1.setString(5, "0");
-                insert1.setString(6, "");
+                insert1.setString(6, motivo);
                 insert1.execute();
                 update.setInt(1, butaca.getIdButaca());
                 update.setInt(2, sesion.getIdActividad());

@@ -145,6 +145,7 @@ public class VentaEntradas extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         Depurar = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -664,6 +665,14 @@ public class VentaEntradas extends javax.swing.JFrame {
 
         jMenu2.setText("Archivo");
 
+        jMenuItem2.setText("Generar Informe");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         Depurar.setText("Depurar");
         Depurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -804,11 +813,21 @@ public class VentaEntradas extends javax.swing.JFrame {
                 GestionEntradasBD.eliminaReservaInvitacion(butacasSel, sesionSelecionada);
             }
         }else{
-            JOptionPane.showConfirmDialog(  null, "Solo se pueden eliminar ventas, reservas e invitaciones");
+            JOptionPane.showMessageDialog(null, "Solo se pueden eliminar ventas, reservas e invitaciones");
         }
         this.cambiarSesion(sesionSelecionada);
         deseleccionarTodo();
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        JDialog frame = new JDialog(this, "Informe", true);
+        frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.getContentPane().add(new Informes());
+        frame.pack();
+        frame.setVisible(true);
+        //this.cambiarSesion(sesionSelecionada);
+        frame.setVisible(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     /**
@@ -872,6 +891,7 @@ public class VentaEntradas extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JComboBox<String> jMes;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;

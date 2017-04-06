@@ -25,6 +25,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private ArrayList butacas;
     private SesionBean sesion;
     private int precioDto;
+    private String motivoPrecio;
     
     
     /**
@@ -243,6 +244,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         OptionCombo dto=jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
         this.precioDto=dto.getValue();
+        this.motivoPrecio=dto.getTexto();
         //System.out.println("Dto: "+dto);
         //System.out.println("idDto: "+idDto);
         int total=(int)(butacas.size()*this.precioDto);
@@ -252,7 +254,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        int result=GestionEntradasBD.ventaButacas(butacas, sesion, precioDto);
+        int result=GestionEntradasBD.ventaButacas(butacas, sesion, precioDto, motivoPrecio);
         if (result==1){
             //System.out.println("Saliendo de la venta");
             Window w = SwingUtilities.getWindowAncestor(this);
