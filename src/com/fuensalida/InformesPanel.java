@@ -7,12 +7,31 @@ package com.fuensalida;
 
 import com.fuensalida.BaseDatos.GestionFuncionesBD;
 import com.fuensalida.beans.SesionBean;
+import com.fuensalida.printer.Ticket;
 import com.fuensalida.utils.FechasUtils;
+import com.fuensalida.utils.PrecioUtils;
+import java.awt.Graphics;
+import java.awt.Window;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+import javax.print.attribute.standard.MediaPrintableArea;
+import javax.print.attribute.standard.MediaSize;
+import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.PrinterResolution;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -51,7 +70,6 @@ public class InformesPanel extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tActividades = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -104,11 +122,12 @@ public class InformesPanel extends javax.swing.JPanel {
         tActividades.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tActividades);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel2.setText("v 0.2");
-        jLabel2.setToolTipText("");
-
-        jButton2.setText("jButton2");
+        jButton2.setText("Imprimir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -131,31 +150,31 @@ public class InformesPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jButton2))
-                        .addGap(75, 75, 75))))
+                        .addComponent(jButton2)
+                        .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel33)
-                            .addComponent(jAnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel35)
-                            .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton2)))
-                    .addComponent(jLabel2))
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(jAnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35)
+                    .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -195,6 +214,15 @@ public class InformesPanel extends javax.swing.JPanel {
             Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Window w = SwingUtilities.getWindowAncestor(this);
+        w.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        imprimir();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
      /**
       * Carga la tabla con las sesiones del mes actual.
@@ -277,7 +305,6 @@ public class InformesPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JComboBox<String> jMes;
@@ -285,4 +312,52 @@ public class InformesPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tActividades;
     // End of variables declaration//GEN-END:variables
+
+    private void imprimir() {
+        PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+        int selectedService = 0;
+        for(int i = 0; i < services.length;i++){
+            System.out.println("Impresora: "+services[i].getName().toUpperCase());
+            if(services[i].getName().toUpperCase().contains("GESTDOC")){
+                selectedService = i;
+            }
+        }
+
+        try {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            HashMap<String, String> datosInforme=new HashMap();
+            
+            
+            datosInforme=cargarDatosInforme();
+            
+            
+            
+            
+            
+            job.setPrintable(new Ticket(datosInforme));
+            //Configurar papel
+            PrintRequestAttributeSet atributos = new HashPrintRequestAttributeSet();
+            atributos.add(new PrinterResolution(300, 300, PrinterResolution.DPI));
+            atributos.add(new MediaPrintableArea(0, 0, 210, 297, MediaPrintableArea.MM)); 
+            //Seleccionar impresora
+            job.setPrintService(services[selectedService]);
+            //Numero de copias
+            job.setCopies(1);
+            //Imprimimos con los atributos creados
+            job.print(atributos);
+        } catch (PrinterException ex) {
+            Logger.getLogger(InformesPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+    }
+
+    private HashMap<String, String> cargarDatosInforme() {
+        HashMap<String, String> datos=new HashMap();
+        datos.put("titulo",sesionSelecionada.getDescripcion());
+        datos.put("fecha",sesionSelecionada.getFecha());
+        datos.put("hora",sesionSelecionada.getHora());
+        datos.put("precio",PrecioUtils.getPrecioEuros(sesionSelecionada.getPrecio()));
+        return datos;
+    }
 }
