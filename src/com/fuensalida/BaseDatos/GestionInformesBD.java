@@ -79,7 +79,7 @@ public class GestionInformesBD {
     /**
      * Datos de recaudacion de la sesion agrupado en tipos
      * Genera un ArrayList donde cada uno de los item son HashMap con las siguientes keys
-     *      "N ENtradas"
+     *      "N Entradas"
      *      "motivo"
      *      "Importe Entrada"
      *      "Total"
@@ -96,8 +96,9 @@ public class GestionInformesBD {
                             "from tickets " +
                             "where idActividad=? " +
                             "	and idSesion=? " +
-                            "	and importeVenta<0 " +
-                            "group by motivo, importeVenta";
+                            //"	and importeVenta<0 " +
+                            "group by motivo, importeVenta "+
+                            "order by Total desc";
             PreparedStatement pstmt=conexion.prepareStatement(stmt);
             pstmt.setInt(1, sesion.getIdActividad());
             pstmt.setInt(2, sesion.getIdSesion());

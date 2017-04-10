@@ -5,15 +5,15 @@
  */
 package com.fuensalida;
 
+import com.fuensalida.BaseDatos.GestionAuditorioBD;
+import com.fuensalida.BaseDatos.GestionEntradasBD;
 import com.fuensalida.BaseDatos.GestionFuncionesBD;
+import com.fuensalida.BaseDatos.GestionInformesBD;
 import com.fuensalida.beans.SesionBean;
-import com.fuensalida.printer.Ticket;
+import com.fuensalida.printer.InformeSesion;
 import com.fuensalida.utils.FechasUtils;
 import com.fuensalida.utils.PrecioUtils;
-import java.awt.Graphics;
 import java.awt.Window;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
@@ -24,10 +24,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.MediaPrintableArea;
-import javax.print.attribute.standard.MediaSize;
-import javax.print.attribute.standard.MediaSizeName;
 import javax.print.attribute.standard.PrinterResolution;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ListSelectionModel;
@@ -325,26 +322,24 @@ public class InformesPanel extends javax.swing.JPanel {
 
         try {
             PrinterJob job = PrinterJob.getPrinterJob();
-            HashMap<String, String> datosInforme=new HashMap();
+            HashMap<String, Object> datosInforme;            
+            datosInforme=cargarDatosInforme();            
+            job.setPrintable(new InformeSesion(datosInforme));
             
-            
-            datosInforme=cargarDatosInforme();
-            
-            
-            
-            
-            
-            job.setPrintable(new Ticket(datosInforme));
             //Configurar papel
             PrintRequestAttributeSet atributos = new HashPrintRequestAttributeSet();
             atributos.add(new PrinterResolution(300, 300, PrinterResolution.DPI));
             atributos.add(new MediaPrintableArea(0, 0, 210, 297, MediaPrintableArea.MM)); 
+            
             //Seleccionar impresora
             job.setPrintService(services[selectedService]);
+            
             //Numero de copias
             job.setCopies(1);
+            
             //Imprimimos con los atributos creados
             job.print(atributos);
+            
         } catch (PrinterException ex) {
             Logger.getLogger(InformesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -352,12 +347,20 @@ public class InformesPanel extends javax.swing.JPanel {
         
     }
 
-    private HashMap<String, String> cargarDatosInforme() {
-        HashMap<String, String> datos=new HashMap();
+    private HashMap<String, Object> cargarDatosInforme() {
+        HashMap<String, Object> datos=new HashMap();
         datos.put("titulo",sesionSelecionada.getDescripcion());
         datos.put("fecha",sesionSelecionada.getFecha());
         datos.put("hora",sesionSelecionada.getHora());
         datos.put("precio",PrecioUtils.getPrecioEuros(sesionSelecionada.getPrecio()));
+        datos.put("compania",sesionSelecionada.getCompania());
+        datos.put("recaudacion", PrecioUtils.getPrecioEuros(GestionEntradasBD.getRecaudacionSesion(sesionSelecionada)));
+        datos.put("invitaciones",""+GestionAuditorioBD.getButacasReservadas(sesionSelecionada.getIdActividad(), sesionSelecionada.getIdSesion()));
+        HashMap<String,String> cifrasSesion=GestionInformesBD.getCifrasSesion(sesionSelecionada);
+        datos.putAll(cifrasSesion);
+        ArrayList<HashMap> cifrasImportes=GestionInformesBD.getImportesSesion(sesionSelecionada);
+        datos.put("cifrasImportes", cifrasImportes);
+        
         return datos;
     }
 }

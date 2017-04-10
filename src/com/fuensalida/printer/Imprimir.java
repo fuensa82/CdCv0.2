@@ -15,7 +15,7 @@ import java.awt.print.PrinterJob;
 public class Imprimir {
     public static void main(){
         PrinterJob job = PrinterJob.getPrinterJob();
-        job.setPrintable(new Ticket());
+        //job.setPrintable(new Ticket());
         if(job.printDialog()){
             try{
                 job.print();
