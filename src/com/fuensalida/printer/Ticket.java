@@ -5,6 +5,7 @@
  */
 package com.fuensalida.printer;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -18,31 +19,24 @@ import javax.imageio.ImageIO;
 
 public class Ticket implements Printable {
 
-    public Ticket(HashMap<String, String> datosInforme) {
+    public Ticket(HashMap<String, Object> datosInforme) {
         this.datosInforme = datosInforme;
     }
 
-    private HashMap<String, String> datosInforme;
+    private HashMap<String, Object> datosInforme;
     public int print(Graphics g, PageFormat f, int pageIndex) {
         System.out.println("pageIndex: "+pageIndex);
         if (pageIndex == 0) {
-            g.drawString("Fuensalida Casa de Cultura "+datosInforme.get("Titulo"), 0, 80);
-            g.drawLine(0, 20, 300, 20);
-            for(int i=1;i<100;i++){
-                g.drawString(""+(i+1), 0,(10*i));
-                g.drawLine(0, (10*i)+1, 600+i, (10*i)+1);
-            }
-            for(int i=1;i<100;i++){
-                g.drawString(""+(i+1),(20*i),10);
-                g.drawLine((10*i)+1, 0, (10*i)+1,600+i);
-            }
-            
-            /*try {
+            g.setFont( new Font( "Serif", Font.BOLD, 10 ) );
+            g.drawLine(0, 2, 350, 2);
+            g.drawString("Fuensalida - Casa de Cultura de Fuensalida 2017", 0, 15);
+            g.drawLine(0, 30, 200, 30);
+            try {
                 //Para poder pintar el escudo y las imagenes que necesitemos.
-                g.drawImage(ImageIO.read(new File("Recursos/Imagenes/ima.jpg")), 30, 0, null);
-            } catch (IOException ex) {
+                g.drawImage(ImageIO.read(new File("Recursos/Imagenes/CasaCulturaTicket.png")), 0, 50, null);
+            } catch (Exception ex) {
                 Logger.getLogger(Ticket.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
             return PAGE_EXISTS;
         } else {
             return NO_SUCH_PAGE;

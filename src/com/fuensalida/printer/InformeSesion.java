@@ -26,16 +26,16 @@ public class InformeSesion implements Printable {
     }
     
     String fechaInforme;
-    private HashMap<String, Object> datosInforme;
+    private final HashMap<String, Object> datosInforme;
     
-    private int tamanoBloque=60; //lo que ocupa un grupo de datos de entradas
-    private int tamanoHoja=840;
-    private int tamanoCabecera=220;
-    private int tamanoCabeceraRecaudacion=110;
-    private int bloquesPrimera=8;
-    private int bloquesResto=14;
+    private final int tamanoBloque=60; //lo que ocupa un grupo de datos de entradas
+    private final int tamanoHoja=840;
+    private final int tamanoCabecera=220;
+    private final int tamanoCabeceraRecaudacion=110;
+    private final int bloquesPrimera=8;
+    private final int bloquesResto=14;
     private ArrayList lista;
-    private ArrayList<Integer> cortePagina=new ArrayList();
+    private final ArrayList<Integer> cortePagina=new ArrayList();
     
     public void generaCabecera(Graphics g, PageFormat pf, int pageIndex){
         g.setFont( new Font( "Serif", Font.BOLD, 14 ) );

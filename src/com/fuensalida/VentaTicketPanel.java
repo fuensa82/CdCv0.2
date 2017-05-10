@@ -10,9 +10,22 @@ import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.DescuentosBean;
 import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
+import com.fuensalida.printer.InformeSesion;
+import com.fuensalida.printer.Ticket;
 import com.fuensalida.utils.PrecioUtils;
 import java.awt.Window;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.MediaPrintableArea;
+import javax.print.attribute.standard.PrinterResolution;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -255,6 +268,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         int result=GestionEntradasBD.ventaButacas(butacas, sesion, precioDto, motivoPrecio);
+        imprimirTicket();
         if (result==1){
             //System.out.println("Saliendo de la venta");
             Window w = SwingUtilities.getWindowAncestor(this);
@@ -313,5 +327,46 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         }
         texto=texto+"</body></html>";
         jLabel7.setText(texto);
+    }
+
+    private void imprimirTicket() {
+        PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+        int selectedService = 0;
+        for(int i = 0; i < services.length;i++){
+            System.out.println("Impresora: "+services[i].getName().toUpperCase());
+            if(services[i].getName().toUpperCase().contains("TSP100")){
+                selectedService = i;
+            }
+        }
+
+        try {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            HashMap<String, Object> datosTicket;            
+            datosTicket=cargarDatosTicket();            
+            job.setPrintable(new Ticket(datosTicket));
+            
+            //Configurar papel
+            PrintRequestAttributeSet atributos = new HashPrintRequestAttributeSet();
+            atributos.add(new PrinterResolution(203, 203, PrinterResolution.DPI));
+            atributos.add(new MediaPrintableArea(0, 0, 100, 200, MediaPrintableArea.MM)); 
+            
+            //Seleccionar impresora
+            job.setPrintService(services[selectedService]);
+            
+            //Numero de copias
+            job.setCopies(1);
+            
+            //Imprimimos con los atributos creados
+            job.print(atributos);
+            //job.print();
+            
+        } catch (PrinterException ex) {
+            Logger.getLogger(InformesPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private HashMap<String, Object> cargarDatosTicket() {
+        HashMap<String, Object> datos=new HashMap();
+        return datos;
     }
 }
