@@ -156,6 +156,10 @@ public class SesionBean {
         descPrecio3=sAux.getDescPrecio3();
         System.out.println(precio1+"\n"+precio2+"\n"+precio3+"\n"+descPrecio1+"\n"+descPrecio2+"\n"+descPrecio3);
     }
+
+    public String getHoraCorta() {
+        return getHora().substring(0, hora.lastIndexOf(":"));
+    }
     
     
 }

@@ -7,7 +7,6 @@ package com.fuensalida.BaseDatos;
 
 import com.fuensalida.NewJFrame;
 import com.fuensalida.beans.ButacaSesion;
-import com.fuensalida.beans.DescuentosBean;
 import com.fuensalida.beans.SesionBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

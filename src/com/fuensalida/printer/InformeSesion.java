@@ -148,7 +148,7 @@ public class InformeSesion implements Printable {
                 g.drawString("Nº Entradas:",70,40+anadir);
                 g.drawString("Importe uni.:",70,55+anadir);
                 g.drawString("Total:",70,70+anadir);
-                g.drawString("Motivo:",70,85+anadir);
+                //g.drawString("Motivo:",70,85+anadir);
                 if(Integer.parseInt((String)datos2.get("Total"))>0){
                     g.drawString("Tipo Ent.:",70,85+anadir);
                 }else{

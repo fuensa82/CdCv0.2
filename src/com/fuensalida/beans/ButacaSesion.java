@@ -40,6 +40,12 @@ public class ButacaSesion {
     public String getNombreButaca(){
         return GestionAuditorioBD.getNumButaca(this.idButaca);
     }
+    public String getFilaButaca(){
+        return GestionAuditorioBD.getFilaButaca(idButaca);
+    }
+    public String getNumAsientoButaca(){
+        return GestionAuditorioBD.getNumAsientoButaca(idButaca);
+    }
 
     public void setIdButaca(int idButaca) {
         this.idButaca = idButaca;

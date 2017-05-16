@@ -54,6 +54,11 @@ public class GestionAuditorioBD {
         }
         return result;
     }
+    /**
+     * Devuelve un String con el número de Fila y Butaca. "Fila X, asiento Y"
+     * @param idButaca
+     * @return 
+     */
     public static String getNumButaca(int idButaca){
         String result="nulo";
         Connection conexion = null;
@@ -64,6 +69,68 @@ public class GestionAuditorioBD {
             ResultSet resultado = consulta.executeQuery();
             while(resultado.next()){
                 result="Fila "+resultado.getString(1)+", asiento "+resultado.getString(2);
+            }
+            //System.out.println(result);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    /**
+     * Devuelve un String con el número de Fila."
+     * @param idButaca
+     * @return 
+     */
+    public static String getFilaButaca(int idButaca){
+        String result="nulo";
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement consulta = conexion.prepareStatement("select fila, asiento from butacas where idButaca=?");
+            consulta.setString(1, ""+idButaca);
+            ResultSet resultado = consulta.executeQuery();
+            while(resultado.next()){
+                result=resultado.getString(1);
+            }
+            //System.out.println(result);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    /**
+     * 
+     * @param idButaca
+     * @return 
+     */
+    public static String getNumAsientoButaca(int idButaca){
+        String result="nulo";
+        Connection conexion = null;
+        try {
+            conexion=ConectorBD.getConnection();
+            PreparedStatement consulta = conexion.prepareStatement("select fila, asiento from butacas where idButaca=?");
+            consulta.setString(1, ""+idButaca);
+            ResultSet resultado = consulta.executeQuery();
+            while(resultado.next()){
+                result=resultado.getString(2);
             }
             //System.out.println(result);
             
