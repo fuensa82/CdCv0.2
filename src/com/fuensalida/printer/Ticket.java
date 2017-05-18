@@ -35,6 +35,8 @@ public class Ticket implements Printable {
             try {
                 //Para poder pintar el escudo y las imagenes que necesitemos.
                 g.drawImage(ImageIO.read(new File("Recursos/Imagenes/CasaCulturaTicket.png")), 0, 0, null);
+                //
+                //g.drawImage(ImageIO.read(new File("Recursos/Imagenes/CasaCulturaAltaImp.bmp")), 0, 0, null);
             } catch (Exception ex) {
                 Logger.getLogger(Ticket.class.getName()).log(Level.SEVERE, null, ex);
             }

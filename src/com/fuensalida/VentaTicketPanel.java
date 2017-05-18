@@ -332,7 +332,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         int selectedService = 0;
         for(int i = 0; i < services.length;i++){
             System.out.println("Impresora: "+services[i].getName().toUpperCase());
-            if(services[i].getName().toUpperCase().contains("TSP100")){
+            if(services[i].getName().toUpperCase().contains("EPSON")){
                 selectedService = i;
             }
         }
