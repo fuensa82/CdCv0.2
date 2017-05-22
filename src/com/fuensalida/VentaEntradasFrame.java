@@ -15,6 +15,7 @@ import com.fuensalida.beans.SesionBean;
 import com.fuensalida.printer.Imprimir;
 import com.fuensalida.utils.FechasUtils;
 import com.fuensalida.utils.PrecioUtils;
+import com.fuensalida.vista.VistaPantalla;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -48,6 +50,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private SesionBean sesionSelecionada;
     
     private PatioButacasPanel patioButacas;
+    private VistaPantalla vistaP;
     //private int idActividad=4;
     //private int idSesion=1;
     /**
@@ -145,6 +148,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         Depurar = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -665,6 +669,14 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
 
         jMenu2.setText("Archivo");
 
+        jMenuItem3.setText("Pantalla Usuarios");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
         jMenuItem2.setText("Generar Informe");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -792,8 +804,13 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    /**
+     * Pantalla para la venta
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         venderTickets();
+        actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -829,6 +846,19 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         frame.setVisible(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        vistaP=new VistaPantalla(sesionSelecionada);
+        vistaP.setVisible(true);
+        vistaP.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void actualizaVistaUsuarios(){
+        System.out.println("Actualizar 1");
+        if(vistaP!=null){
+            System.out.println("Actualizar 2");
+            vistaP.actualizar(sesionSelecionada);
+        }
+    }
     
     /**
      * @param args the command line arguments
@@ -892,6 +922,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JComboBox<String> jMes;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;

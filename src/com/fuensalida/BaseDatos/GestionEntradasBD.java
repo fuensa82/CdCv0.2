@@ -280,7 +280,7 @@ public class GestionEntradasBD {
             }
             String stmt = "select idButaca, Motivo from butacassesion where idActividad=? and idSesion=? and idButaca IN (" 
                            + builder.deleteCharAt( builder.length() -1 ).toString()+" ) order by idButaca";
-            System.out.println("Select IN: "+stmt);
+            //System.out.println("Select IN: "+stmt);
             PreparedStatement pstmt=conexion.prepareStatement(stmt);
             int index = 3;
             pstmt.setInt(1, sesion.getIdActividad());
@@ -288,13 +288,13 @@ public class GestionEntradasBD {
             for(ButacaSesion butaca : listaButacas) {
                 pstmt.setInt(index++, butaca.getIdButaca());
             }
-            System.out.println("SQL: "+pstmt.toString());
+            //System.out.println("SQL: "+pstmt.toString());
             ResultSet resultado = pstmt.executeQuery();
             while (resultado.next()){
                 result.add(GestionAuditorioBD.getNumButaca(resultado.getInt(1))+": "+resultado.getString(2));
             }
-            System.out.println("Butacas: "+listaButacas.size());
-            System.out.println("result: "+result);
+            //System.out.println("Butacas: "+listaButacas.size());
+            //System.out.println("result: "+result);
             return result; //Correcto
             
         } catch (SQLException e) {
@@ -319,13 +319,13 @@ public class GestionEntradasBD {
             StringBuilder builder = new StringBuilder();
             
             String stmt = "select idButaca, Motivo from butacassesion where idActividad=? and idSesion=? and idButaca=?";
-            System.out.println("Select IN: "+stmt);
+            //System.out.println("Select IN: "+stmt);
             PreparedStatement pstmt=conexion.prepareStatement(stmt);
             pstmt.setInt(1, sesion.getIdActividad());
             pstmt.setInt(2, sesion.getIdSesion());
             pstmt.setInt(3, idButaca);
             
-            System.out.println("SQL: "+pstmt.toString());
+            //System.out.println("SQL: "+pstmt.toString());
             ResultSet resultado = pstmt.executeQuery();
             resultado.next();
             return resultado.getString(2); //Correcto
@@ -413,8 +413,8 @@ public class GestionEntradasBD {
                 update.setInt(2, sesion.getIdActividad());
                 update.setInt(3, sesion.getIdSesion());
                 update.execute();
-                System.out.println("Butaca: "+butaca);
-                System.out.println("Sesion: "+sesion);
+                //System.out.println("Butaca: "+butaca);
+                //System.out.println("Sesion: "+sesion);
                 update2.setInt(1, 1);
                 update2.setInt(2, butaca.getIdButaca());
                 update2.setInt(3, sesion.getIdActividad());
@@ -448,8 +448,8 @@ public class GestionEntradasBD {
                         + "AND `idActividad`=? "
                         + "AND `idSesion`=?");
             for (ButacaSesion butaca : butacas) {
-                System.out.println("Butaca: "+butaca);
-                System.out.println("Sesion: "+sesion);
+//                System.out.println("Butaca: "+butaca);
+//                System.out.println("Sesion: "+sesion);
                 update2.setInt(1, 1);
                 update2.setInt(2, butaca.getIdButaca());
                 update2.setInt(3, sesion.getIdActividad());

@@ -353,8 +353,9 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 //Numero de copias
                 job.setCopies(1);
                 //Imprimimos con los atributos creados
-                job.print(atributos);
-                //job.print();
+                
+                //job.print(atributos);
+                
             }
             
         } catch (PrinterException ex) {
