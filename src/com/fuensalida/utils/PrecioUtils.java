@@ -19,7 +19,7 @@ public class PrecioUtils {
         return texto.substring(0, texto.length()-2)+","+texto.substring(texto.length()-2)+" €";
     }
     public static String getPrecioEuros(int precio){
-        System.out.println("Precio: "+getPrecioEuros(""+precio));
+        //System.out.println("Precio: "+getPrecioEuros(""+precio));
         return getPrecioEuros(""+precio);
     }
     

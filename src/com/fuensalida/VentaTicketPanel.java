@@ -331,7 +331,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
         int selectedService = 0;
         for(int i = 0; i < services.length;i++){
-            System.out.println("Impresora: "+services[i].getName().toUpperCase());
+            //System.out.println("Impresora: "+services[i].getName().toUpperCase());
             if(services[i].getName().toUpperCase().contains("EPSON")){
                 selectedService = i;
             }
@@ -355,6 +355,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 //Imprimimos con los atributos creados
                 
                 //job.print(atributos);
+                
                 
             }
             

@@ -810,15 +810,23 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         venderTickets();
+        
+        vistaP.vaciaParpaeo();
         actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         reservarTickets();
+        
+        vistaP.vaciaParpaeo();
+        actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         invitarTickets();
+        
+        vistaP.vaciaParpaeo();
+        actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -834,6 +842,9 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
         this.cambiarSesion(sesionSelecionada);
         deseleccionarTodo();
+        vistaP.vaciaParpaeo();
+        actualizaVistaUsuarios();
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -847,7 +858,9 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        vistaP=new VistaPantalla(sesionSelecionada);
+        if(vistaP==null){
+            vistaP=new VistaPantalla(sesionSelecionada);
+        }
         vistaP.setVisible(true);
         vistaP.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -954,16 +967,12 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
      * tabla de butacas y colorea los botones de cada una
      */
     private void coloreaButacas(SesionBean sesion) {
-        //System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
-
         ArrayList estadoButacas = GestionAuditorioBD.getEstadoButacas(sesion.getIdActividad(),sesion.getIdSesion());
         for (int i = 0; i < estadoButacas.size(); i++) {
             ButacaSesion b = (ButacaSesion) estadoButacas.get(i);
             allButacas.put(b);
-            //System.out.println("Butaca " + b.getIdButaca() + " está " + GestionEstadosBD.getEstado(b.getIdEstado()));
             JToggleButton bJT = allButacas.getButacaJT(b.getIdButaca());
             if(b.getIdEstado()==3 || b.getIdEstado()==5 ){
-                System.out.println("Estado b="+b);
                 bJT.setToolTipText(GestionEntradasBD.getMotivo(b.getIdButaca(), sesion));
             }else{
                 bJT.setToolTipText("");
@@ -1016,7 +1025,10 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
         this.numButacasSel=0;
         this.labelSeleccionadas.setText("0");
+        if(vistaP!=null)
+            vistaP.removeAllParpadeo(butacasSel);
         butacasSel=new ArrayList<ButacaSesion>();
+        
     }
     /**
      * Añade la funcionalidad a las butacas, hace que se sumen, que se añadan al array de butacas sel, ...
@@ -1043,10 +1055,12 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
                                 butacasSel.add(b);
                                 patioButacas.setEtiquetaButacas(GestionAuditorioBD.getNumButaca(nBucata));
                                 sumaButacaSel(true);
+                                vistaP.addToParpadeo(nBucata);
                             }
                         } else {
                             butacasSel.remove(b);
                             sumaButacaSel(false);
+                            vistaP.removeToParpadeo(nBucata, b.getIdEstado());
                         }
                         patioButacas.setNumEtiquetaButacas("" + nBucata);
                         //System.out.println("Indice: " + nBucata);

@@ -9,8 +9,11 @@ import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.EstadoBean;
 import com.fuensalida.beans.SesionBean;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JToggleButton;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,6 +29,7 @@ public class VistaPantalla extends javax.swing.JFrame {
 
     private PatioButacasPanel patioButacas;
     private MiHasMap2 allButacas;
+    private ArrayList butacasParpadeo;
     private SesionBean sesionSeleccionada;
     /**
      * Creates new form VistaPantalla
@@ -33,34 +37,22 @@ public class VistaPantalla extends javax.swing.JFrame {
     public VistaPantalla() {
         initComponents();
         initPatioButacas();
-        //setTimeout((name) -> name.initPatioButacas(), 1000);
-        //setTimeout(() -> initPatioButacas(), 1000);
-        
-    }
-    public static void setTimeout(Runnable runnable, int delay){
-        new Thread(() -> {
-            try {
-                Thread.sleep(delay);
-                runnable.run();
-            }
-            catch (Exception e){
-                System.err.println(e);
-            }
-        }).start();
+        initParpadeo();
     }
 
     public VistaPantalla(SesionBean sesionSelecionada) {
         this.sesionSeleccionada=sesionSelecionada;
         initComponents();
         initPatioButacas();
+        initParpadeo();
     }
 
     public void actualizar(SesionBean sesion){
-        System.out.println("Actualizar 3");
+        //System.out.println("Actualizar 3");
         if(sesion==null){
             sesion=sesionSeleccionada;
         }
-        System.out.println("Coloreando en Actualizar");
+        //System.out.println("Coloreando en Actualizar");
         coloreaButacas(sesionSeleccionada);
     }
     /**
@@ -148,8 +140,12 @@ public class VistaPantalla extends javax.swing.JFrame {
         coloreaButacas(sesionSeleccionada);
 
         return true;
+    }
+    
+    private void hacerParpadear(){
         
     }
+    
     private void coloreaButacas(SesionBean sesion) {
         //System.out.println("Colorea butacas: "+sesion.getIdActividad()+" "+sesion.getIdSesion() );
 
@@ -160,7 +156,7 @@ public class VistaPantalla extends javax.swing.JFrame {
             //System.out.println("Butaca " + b.getIdButaca() + " está " + GestionEstadosBD.getEstado(b.getIdEstado()));
             JToggleButton bJT = allButacas.getButacaJT(b.getIdButaca());
             if(b.getIdEstado()==3 || b.getIdEstado()==5 ){
-                System.out.println("Estado b="+b);
+                //System.out.println("Estado b="+b);
                 bJT.setToolTipText(GestionEntradasBD.getMotivo(b.getIdButaca(), sesion));
             }else{
                 bJT.setToolTipText("");
@@ -178,7 +174,9 @@ public class VistaPantalla extends javax.swing.JFrame {
     private void ponColorButaca(ButacaSesion b, JToggleButton j) {
         j.setForeground(Color.BLACK);
         EstadoBean estado= GestionEstadosBD.getEstado(b.getIdEstado());
-        j.setBackground(new Color(255, 0,0));
+        if(estado.getIdEstado()!=1){
+            j.setBackground(new Color(255, 0,0));
+        }
 //                new Color(
 //                        Integer.valueOf(estado.getColor().substring(0, 2), 16),
 //                        Integer.valueOf(estado.getColor().substring(2, 4), 16),
@@ -190,4 +188,68 @@ public class VistaPantalla extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    public void addToParpadeo(int i){
+        if(butacasParpadeo==null){
+            butacasParpadeo=new ArrayList();
+        }
+        butacasParpadeo.add(allButacas.getButacaJT(i));
+        System.out.println("Parpadeando Array Size (+) ="+butacasParpadeo.size());
+    }
+    public void removeToParpadeo(int i, int estado){
+        if(butacasParpadeo==null){
+            return;
+        }
+        JToggleButton j=allButacas.getButacaJT(i);
+        butacasParpadeo.remove(j);
+        if(estado==1){
+            j.setBackground(new Color(0, 255,0));
+        }else{
+            j.setBackground(new Color(255, 0,0));
+        }
+        System.out.println("Parpadeando Array Size (-) ="+butacasParpadeo.size());
+    }
+    public void vaciaParpaeo(){
+        if(butacasParpadeo!=null){
+            removeAllParpadeo(butacasParpadeo);
+        }
+        butacasParpadeo=new ArrayList();
+    }
+    
+    private void initParpadeo() {
+        System.out.println("Parpadenado");
+        if(butacasParpadeo==null){
+            butacasParpadeo=new ArrayList();
+        }
+        
+        Timer timer = new Timer( 500 , new TimerListener());
+        timer.setInitialDelay(0);
+        timer.start();
+    }
+
+    public void removeAllParpadeo(ArrayList<ButacaSesion> butacasSel) {
+        for (ButacaSesion butacasSel1 : butacasSel) {
+            butacasParpadeo.remove(butacasSel1);
+            System.out.println("Remove: "+butacasParpadeo.size());
+        }
+    }
+    
+    private class TimerListener implements ActionListener {
+        boolean on=true;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Bliking="+butacasParpadeo.size());
+            for(int i=0;butacasParpadeo.size()>i;i++){
+                JToggleButton j=(JToggleButton) butacasParpadeo.get(i);
+                if(on){
+                    j.setBackground(new Color(255, 0,0));
+                }else{
+                    j.setBackground(new Color(0, 255,0));
+                }
+            }
+            on=!on;
+        }
+       
+    }
 }
+
