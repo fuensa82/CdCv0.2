@@ -18,8 +18,24 @@ public class FechaExternaNTP {
     //Declaramos el servidor de donde obtendremos la fecha
  
     //String servidor = "0.north-america.pool.ntp.org";
+    private static long time=System.currentTimeMillis();
+    private static Date fecha;
     
     public static Date getNTPDate() {
+        long timeNow=System.currentTimeMillis();
+        if((timeNow-time)>2000 || fecha==null){
+            time=System.currentTimeMillis();
+            System.out.println("Buscamos hora ROA");
+            fecha=getNTPDateROA();
+        }
+        return fecha;
+    }
+    
+    public static Date getNTPDateSYS() {
+        return new Date();
+    }
+    
+    public static Date getNTPDateROA() {
         String servidor="minuto.roa.es";         
         //Se le da un valor nulo por defecto a la variable
  

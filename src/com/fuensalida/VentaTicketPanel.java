@@ -10,12 +10,15 @@ import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
 import com.fuensalida.printer.Ticket;
+import com.fuensalida.utils.FechaExternaNTP;
 import com.fuensalida.utils.PrecioUtils;
 import java.awt.Window;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.PrintService;
@@ -354,7 +357,7 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 job.setCopies(1);
                 //Imprimimos con los atributos creados
                 
-                //job.print(atributos);
+                job.print(atributos);
                 
                 
             }
@@ -375,6 +378,9 @@ public class VentaTicketPanel extends javax.swing.JPanel {
         datos.put("asiento",butacas.get(i).getNumAsientoButaca());
         datos.put("fecha",sesion.getFecha());
         datos.put("hora",sesion.getHoraCorta());
+        SimpleDateFormat formateador = new SimpleDateFormat("HH:mm:ss '-' dd 'de' MMMM 'de' yyyy", new Locale("es","ES"));
+        String fechaImpresion=formateador.format(FechaExternaNTP.getNTPDateSYS());
+        datos.put("horaImpresion",fechaImpresion);
         
         return datos;
     }

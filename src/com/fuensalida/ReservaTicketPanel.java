@@ -10,9 +10,24 @@ import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.DescuentosBean;
 import com.fuensalida.beans.OptionCombo;
 import com.fuensalida.beans.SesionBean;
+import com.fuensalida.printer.Ticket;
+import com.fuensalida.utils.FechaExternaNTP;
 import com.fuensalida.utils.PrecioUtils;
 import java.awt.Window;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.MediaPrintableArea;
+import javax.print.attribute.standard.PrinterResolution;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -22,7 +37,7 @@ import javax.swing.SwingUtilities;
  */
 public class ReservaTicketPanel extends javax.swing.JPanel {
 
-    private ArrayList butacas;
+    private ArrayList<ButacaSesion> butacas;
     private SesionBean sesion;
     private boolean isReserva;
     private int precioDto;  //Precio con descuento si se selecciona
@@ -304,8 +319,11 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
             return;
         }
         int result=GestionEntradasBD.reservaInvitacionButacas(butacas, sesion, motivo, isReserva);
-        if (result==1){
-            //System.out.println("Saliendo de la venta");
+        if (result==1){ //Correcto
+            if(!isReserva){
+                imprimirTicket();
+            }
+            
             Window w = SwingUtilities.getWindowAncestor(this);
             w.setVisible(false);
         }else if(result==-1){
@@ -374,5 +392,60 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
         if(!"".equals(sesion.getDescPrecio3()) && sesion.getDescPrecio3()!=null){
             jComboBox1.addItem(new OptionCombo(sesion.getPrecio3(), sesion.getDescPrecio3()));
         }
+    }
+    
+    private void imprimirTicket() {
+        PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+        int selectedService = 0;
+        for(int i = 0; i < services.length;i++){
+            //System.out.println("Impresora: "+services[i].getName().toUpperCase());
+            if(services[i].getName().toUpperCase().contains("EPSON")){
+                selectedService = i;
+            }
+        }
+
+        try {
+            for(int i=0;i<butacas.size();i++){
+                
+                PrinterJob job = PrinterJob.getPrinterJob();
+                HashMap<String, String> datosTicket;            
+                datosTicket=cargarDatosTicket(i);            
+                job.setPrintable(new Ticket(datosTicket));
+                //Configurar papel
+                PrintRequestAttributeSet atributos = new HashPrintRequestAttributeSet();
+                atributos.add(new PrinterResolution(203, 203, PrinterResolution.DPI));
+                atributos.add(new MediaPrintableArea(0, 0, 100, 200, MediaPrintableArea.MM)); 
+                //Seleccionar impresora
+                job.setPrintService(services[selectedService]);
+                //Numero de copias
+                job.setCopies(1);
+                //Imprimimos con los atributos creados
+                
+                job.print(atributos);
+                
+                
+            }
+            
+        } catch (PrinterException ex) {
+            Logger.getLogger(InformesPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private HashMap<String, String> cargarDatosTicket(int i) {
+        HashMap<String, String> datos=new HashMap();
+        datos.put("titulo",sesion.getDescripcion());
+        datos.put("fecha",sesion.getFecha());
+        datos.put("hora",sesion.getHora());
+        datos.put("precio",PrecioUtils.getPrecioEuros(precioDto));
+        datos.put("tipoEntrada","Invitación");
+        datos.put("fila",butacas.get(i).getFilaButaca());
+        datos.put("asiento",butacas.get(i).getNumAsientoButaca());
+        datos.put("fecha",sesion.getFecha());
+        datos.put("hora",sesion.getHoraCorta());
+        SimpleDateFormat formateador = new SimpleDateFormat("HH:mm:ss '-' dd 'de' MMMM 'de' yyyy", new Locale("es","ES"));
+        String fechaImpresion=formateador.format(FechaExternaNTP.getNTPDateSYS());
+        datos.put("horaImpresion",fechaImpresion);
+        
+        return datos;
     }
 }

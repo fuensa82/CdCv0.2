@@ -41,12 +41,23 @@ public class Ticket implements Printable {
                 Logger.getLogger(Ticket.class.getName()).log(Level.SEVERE, null, ex);
             }
             int fila=65;
-            g.drawString("Ayuntamiento de Fuensalida", 35, fila);
+            g.drawString("Concejalía de Cultura", 50, fila);
+            g.drawString("Ayuntamiento de Fuensalida", 35, fila+=12);
             g.drawLine(0, fila+=2, 350, fila);
             g.setFont( new Font( "Cambria", Font.BOLD, 12 ) );
             g.drawString(datosTicket.get("titulo").toUpperCase(), 20, fila+=20);
-            g.drawString(datosTicket.get("fecha")+" - "+datosTicket.get("hora")  , 20, fila+=15);
+            //g.drawString(datosTicket.get("fecha")+" - "+datosTicket.get("hora")  , 20, fila+=15);
+            g.setFont( new Font( "Cambria", Font.PLAIN, 10 ) );
+            g.drawString("Fecha: ", 20, fila+=15);
             
+            g.setFont( new Font( "Cambria", Font.BOLD, 14));
+            g.drawString(datosTicket.get("fecha"), 60, fila);
+            
+            g.setFont( new Font( "Cambria", Font.PLAIN, 10 ) );
+            g.drawString("Hora: ", 20, fila+=15);
+            
+            g.setFont( new Font( "Cambria", Font.BOLD, 14));
+            g.drawString(datosTicket.get("hora"), 60, fila);
             
             g.setFont( new Font( "Cambria", Font.PLAIN, 10 ) );
             g.drawString("Fila: ", 20, fila+=15);
@@ -68,8 +79,10 @@ public class Ticket implements Printable {
             g.setFont( new Font( "Cambria", Font.BOLD, 20));
             g.drawString(datosTicket.get("precio"), 140, fila+=25);
             
+            g.setFont( new Font( "Calibri", Font.PLAIN, 7 ) );
+            g.drawString(datosTicket.get("horaImpresion"), 0, fila+=25);
+            g.drawLine(0, fila+=6, 350, fila);
             g.setFont( new Font( "Calibri", Font.BOLD, 8 ) );
-            g.drawLine(0, fila+=10, 350, fila);
             g.drawString("La presentación de esta entrada es imprescindible", 0, fila+=10);
             g.drawString("para el acceso al auditorio", 0, fila+=10);
             
