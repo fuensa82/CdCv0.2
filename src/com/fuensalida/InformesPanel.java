@@ -84,6 +84,11 @@ public class InformesPanel extends javax.swing.JPanel {
         jLabel35.setText("Mes:");
 
         jMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMesActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cargar Sesiones");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +140,7 @@ public class InformesPanel extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,8 +152,8 @@ public class InformesPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                        .addComponent(jButton2)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +203,14 @@ public class InformesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jAnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnosActionPerformed
-        // TODO add your handling code here:
+        try {
+            String ano=jAnos.getItemAt(jAnos.getSelectedIndex());
+            String mes=FechasUtils.getNumMes(jMes.getItemAt(jMes.getSelectedIndex()));
+            this.cargarTablaSesiones(ano, mes);
+
+        } catch (Exception ex) {
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jAnosActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -220,6 +232,17 @@ public class InformesPanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         imprimir();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMesActionPerformed
+        try {
+            String ano=jAnos.getItemAt(jAnos.getSelectedIndex());
+            String mes=FechasUtils.getNumMes(jMes.getItemAt(jMes.getSelectedIndex()));
+            this.cargarTablaSesiones(ano, mes);
+
+        } catch (Exception ex) {
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMesActionPerformed
 
      /**
       * Carga la tabla con las sesiones del mes actual.

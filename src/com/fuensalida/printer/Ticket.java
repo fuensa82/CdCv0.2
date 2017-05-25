@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,11 @@ public class Ticket implements Printable {
             try {
                 //Para poder pintar el escudo y las imagenes que necesitemos.
                 g.drawImage(ImageIO.read(new File("Recursos/Imagenes/CasaCulturaTicket.png")), 0, 0, null);
+                
+                //g.drawImage(ImageIO.read(new File("/com/fuensalida/images/CasaCulturaTicket.png")), 0, 0, null);
+                //g.drawImage(ImageIO.read(new File("/com/fuensalida/images/CasaCulturaTicket.png")), 0, 0, null);        
+                
+                //jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/Invitacion3.png")));
                 //
                 //g.drawImage(ImageIO.read(new File("Recursos/Imagenes/CasaCulturaAltaImp.bmp")), 0, 0, null);
             } catch (Exception ex) {

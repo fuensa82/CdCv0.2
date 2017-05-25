@@ -146,7 +146,6 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         jAnos = new javax.swing.JComboBox<>();
         jLabel35 = new javax.swing.JLabel();
         jMes = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tActividades = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -545,13 +544,6 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Cargar Sesiones");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         tActividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -610,8 +602,6 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
                         .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(131, 131, 131))))
@@ -626,8 +616,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
                             .addComponent(jLabel33)
                             .addComponent(jAnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel35)
-                            .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)))
+                            .addComponent(jMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
@@ -803,17 +792,6 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jAnosActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            String ano=jAnos.getItemAt(jAnos.getSelectedIndex());
-            String mes=FechasUtils.getNumMes(jMes.getItemAt(jMes.getSelectedIndex()));
-            this.cargarTablaSesiones(ano, mes);
-            
-        } catch (Exception ex) {
-            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     /**
      * Pantalla para la venta
      * @param evt 
@@ -933,7 +911,6 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem Depurar;
     private javax.swing.JComboBox<String> jAnos;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
