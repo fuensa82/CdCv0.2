@@ -7,6 +7,7 @@ package com.fuensalida.printer;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.io.File;
@@ -35,8 +36,9 @@ public class Ticket implements Printable {
             //g.drawLine(0, 30, 200, 30);
             try {
                 //Para poder pintar el escudo y las imagenes que necesitemos.
-                g.drawImage(ImageIO.read(new File("Recursos/Imagenes/CasaCulturaTicket.png")), 0, 0, null);
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/com/fuensalida/images/CasaCulturaTicket.png")), 0, 0, null);
                 
+                //Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/com/fuensalida/images/CasaCulturaTicket.png"));
                 //g.drawImage(ImageIO.read(new File("/com/fuensalida/images/CasaCulturaTicket.png")), 0, 0, null);
                 //g.drawImage(ImageIO.read(new File("/com/fuensalida/images/CasaCulturaTicket.png")), 0, 0, null);        
                 
