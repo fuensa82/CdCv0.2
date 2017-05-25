@@ -264,7 +264,7 @@ public class InformesPanel extends javax.swing.JPanel {
                     String idActividad=(String) tActividades.getModel().getValueAt(indice, 5);
                     String idSesion= (String) tActividades.getModel().getValueAt(indice, 6);
                     sesionSelecionada=GestionFuncionesBD.getSesion(idActividad, idSesion);
-                    System.out.println("1"+sesionSelecionada);
+                    //System.out.println("1"+sesionSelecionada);
                 }
             }
         });
@@ -314,7 +314,7 @@ public class InformesPanel extends javax.swing.JPanel {
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
         int selectedService = 0;
         for(int i = 0; i < services.length;i++){
-            System.out.println("Impresora: "+services[i].getName().toUpperCase());
+            //System.out.println("Impresora: "+services[i].getName().toUpperCase());
             if(services[i].getName().toUpperCase().contains("GESTDOC")){
                 selectedService = i;
             }

@@ -71,7 +71,7 @@ public class InformeSesion implements Printable {
         g.drawString("Recaudación:",70,300);
 
         g.setFont( new Font( "Serif", Font.BOLD, 12 ) );
-        System.out.println("datosInforme: "+datosInforme);
+        //System.out.println("datosInforme: "+datosInforme);
         g.drawString((String) datosInforme.get("ventas netas"),180,255);
         g.drawString((String) datosInforme.get("devoluciones"),180,270);
         g.drawString((String) datosInforme.get("invitaciones"),180,285);
@@ -160,12 +160,12 @@ public class InformeSesion implements Printable {
                 g.drawString(PrecioUtils.getPrecioEuros((String) datos2.get("Total")),150,70+anadir);
                 g.drawString((String) datos2.get("motivo"),150,85+anadir);
             }
-            System.out.println("Fin del documento");
+            //System.out.println("Fin del documento");
             return PAGE_EXISTS;
         }
     }
     public int printCuadricula(Graphics g, PageFormat f, int pageIndex) {
-        System.out.println("pageIndex: "+pageIndex);
+        //System.out.println("pageIndex: "+pageIndex);
         if (pageIndex == 0) {
             //g.setFont( new Font( "Serif", Font.BOLD, 12 ) );
             //g.drawString("Fuensalida Casa de Cultura "+datosInforme.get("Titulo"), 0, 80);

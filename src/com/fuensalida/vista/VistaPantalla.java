@@ -175,7 +175,7 @@ public class VistaPantalla extends javax.swing.JFrame {
         allButacas=patioButacas.getAllButacas();
         patioButacas.setSize(777, 434);
         coloreaButacas(sesionSeleccionada);
-        System.out.println("Repintando");
+        //System.out.println("Repintando");
         jPanel1.revalidate();
         jPanel1.repaint();
         pintaObra(sesionSeleccionada);
@@ -240,7 +240,7 @@ public class VistaPantalla extends javax.swing.JFrame {
             butacasParpadeo=new ArrayList();
         }
         butacasParpadeo.add(allButacas.getButacaJT(i));
-        System.out.println("Parpadeando Array Size (+) ="+butacasParpadeo.size());
+        //System.out.println("Parpadeando Array Size (+) ="+butacasParpadeo.size());
     }
     /**
      * Borra una sola butaca que esté parpadenado. Hay que pasar el ID de la butaca que se quiere quitar
@@ -258,13 +258,13 @@ public class VistaPantalla extends javax.swing.JFrame {
         }else{
             j.setBackground(new Color(255, 0,0));
         }
-        System.out.println("Parpadeando Array Size (-) ="+butacasParpadeo.size());
+        //System.out.println("Parpadeando Array Size (-) ="+butacasParpadeo.size());
     }
     /**
      * Inicializa el control de parpadeo de butacas (jToggleButton) de la pantalla para clientes.
      */
     private void initParpadeo() {
-        System.out.println("Parpadenado");
+        //System.out.println("Parpadenado");
         if(butacasParpadeo==null){
             butacasParpadeo=new ArrayList();
         }

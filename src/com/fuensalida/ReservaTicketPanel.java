@@ -60,7 +60,7 @@ public class ReservaTicketPanel extends javax.swing.JPanel {
         int total=butacas.size()*sesion.getPrecio();
         jLabelTotal.setText(PrecioUtils.getPrecioEuros(total));
         
-        System.out.println("Prueba cargarButacas");
+        //System.out.println("Prueba cargarButacas");
         cargarButacas(butacas);
         if(!isReserva){ //Ocultamos lo relacionado con los precios y descuentos
             jLabel1.setVisible(false);

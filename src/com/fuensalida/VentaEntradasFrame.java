@@ -534,6 +534,16 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         jLabel35.setText("Mes:");
 
         jMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMesActionPerformed(evt);
+            }
+        });
+        jMes.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jMesPropertyChange(evt);
+            }
+        });
 
         jButton3.setText("Cargar Sesiones");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -783,7 +793,14 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_DepurarActionPerformed
 
     private void jAnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnosActionPerformed
-        // TODO add your handling code here:
+        try {
+            String ano=jAnos.getItemAt(jAnos.getSelectedIndex());
+            String mes=FechasUtils.getNumMes(jMes.getItemAt(jMes.getSelectedIndex()));
+            this.cargarTablaSesiones(ano, mes);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jAnosActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -861,10 +878,25 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         vistaP.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jMesPropertyChange
+        
+    }//GEN-LAST:event_jMesPropertyChange
+
+    private void jMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMesActionPerformed
+        try {
+            String ano=jAnos.getItemAt(jAnos.getSelectedIndex());
+            String mes=FechasUtils.getNumMes(jMes.getItemAt(jMes.getSelectedIndex()));
+            this.cargarTablaSesiones(ano, mes);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMesActionPerformed
+
     private void actualizaVistaUsuarios(){
-        System.out.println("Actualizar 1");
+        //System.out.println("Actualizar 1");
         if(vistaP!=null){
-            System.out.println("Actualizar 2");
+            //System.out.println("Actualizar 2");
             vistaP.actualizar(sesionSelecionada);
         }
     }

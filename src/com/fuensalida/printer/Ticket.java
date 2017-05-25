@@ -24,7 +24,7 @@ public class Ticket implements Printable {
 
     private HashMap<String, String> datosTicket;
     public int print(Graphics g, PageFormat f, int pageIndex) {
-        System.out.println("pageIndex: "+pageIndex);
+        //System.out.println("pageIndex: "+pageIndex);
         //String[] fontNames=GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         //System.out.println(Arrays.toString(fontNames));
         if (pageIndex == 0) {
