@@ -782,7 +782,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        deseleccionarTodo();
+        deseleccionarTodo(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void DepurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepurarActionPerformed
@@ -811,38 +811,41 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         venderTickets();
         
-        vistaP.vaciaParpaeo();
+        vistaP.vaciaParpadeo();
         actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         reservarTickets();
         
-        vistaP.vaciaParpaeo();
+        vistaP.vaciaParpadeo();
         actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         invitarTickets();
         
-        vistaP.vaciaParpaeo();
+        vistaP.vaciaParpadeo();
         actualizaVistaUsuarios();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if(estadoButacasSel==2){
             eliminarVenta();
+            vistaP.removeAllParpadeo(1);
         }else if(estadoButacasSel==3 || estadoButacasSel==5){
             int respuesta=JOptionPane.showConfirmDialog(null, "Realmente quiere eliminar esta reserva o invitación","Aviso eliminación",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
             if(respuesta==0){ //respuesta: afirmativa=0, negativa=1
                 GestionEntradasBD.eliminaReservaInvitacion(butacasSel, sesionSelecionada);
+                vistaP.removeAllParpadeo(1);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Solo se pueden eliminar ventas, reservas e invitaciones");
+            vistaP.removeAllParpadeo(2);
         }
         this.cambiarSesion(sesionSelecionada);
-        deseleccionarTodo();
-        vistaP.vaciaParpaeo();
+        deseleccionarTodo(false);
+        
         actualizaVistaUsuarios();
         
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -1014,9 +1017,12 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     }
 
     /**
-     * 
+     * Deselecciona las butacas de la pantalla principal. Además si el parámetro es TRUE quita tambien los parpadeos de la vista
+     * de cliente. El false se utilizará cuando se elimine una reserva, ya que será el eliminarReserva el que se encargará de
+     * quitar el parpadeo y dejar el colo correcto.
+     * @param eliminarParpadeo 
      */
-    private void deseleccionarTodo(){
+    private void deseleccionarTodo(boolean eliminarParpadeo){
         Iterator it = allButacas.getButacaJT().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry par = (Map.Entry) it.next();
@@ -1025,10 +1031,11 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
         this.numButacasSel=0;
         this.labelSeleccionadas.setText("0");
-        if(vistaP!=null)
-            vistaP.removeAllParpadeo(butacasSel);
+        if(vistaP!=null && eliminarParpadeo)
+            vistaP.removeAllParpadeo(estadoButacasSel);
         butacasSel=new ArrayList<ButacaSesion>();
-        
+        if(vistaP!=null)
+            vistaP.reInitPatioButacas();
     }
     /**
      * Añade la funcionalidad a las butacas, hace que se sumen, que se añadan al array de butacas sel, ...
@@ -1192,7 +1199,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     
     public void cambiarSesion(SesionBean sesion){
         //System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
-        deseleccionarTodo();
+        deseleccionarTodo(true);
         inicializarButacas(sesion, false);
         inicializarContadores(sesion);
     }
@@ -1228,7 +1235,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             return;
         }else if(estadoButacasSel!=1 && estadoButacasSel!=3){
             JOptionPane.showMessageDialog(null, "Solo se pueden vendes butacas libre o reservadas");
-            deseleccionarTodo();
+            deseleccionarTodo(true);
             return;
         }
         JDialog frame = new JDialog(this, "Venta de entradas", true);
@@ -1246,7 +1253,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             return;
         }else if(estadoButacasSel!=1){
             JOptionPane.showMessageDialog(null, "Solo se pueden reservar butacas libre");
-            deseleccionarTodo();
+            deseleccionarTodo(true);
             return;
         }
         reservaInvitacionTickets(true);
@@ -1258,7 +1265,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             return;
         }else if(estadoButacasSel!=1){
             JOptionPane.showMessageDialog(null, "Solo se puede invitar en butacas libre");
-            deseleccionarTodo();
+            deseleccionarTodo(true);
             return;
         }
         reservaInvitacionTickets(false);

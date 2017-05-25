@@ -40,6 +40,9 @@ public class VistaPantalla extends javax.swing.JFrame {
         initParpadeo();
     }
 
+    public void vaciaParpadeo(){
+        butacasParpadeo=new ArrayList();
+    }
     public VistaPantalla(SesionBean sesionSelecionada) {
         this.sesionSeleccionada=sesionSelecionada;
         initComponents();
@@ -141,9 +144,18 @@ public class VistaPantalla extends javax.swing.JFrame {
 
         return true;
     }
-    
-    private void hacerParpadear(){
-        
+    public boolean reInitPatioButacas() {
+        jPanel1.remove(patioButacas);
+        patioButacas = new PatioButacasPanel();
+        jPanel1.add(patioButacas);
+        allButacas=patioButacas.getAllButacas();
+        patioButacas.setSize(777, 434);
+        coloreaButacas(sesionSeleccionada);
+        System.out.println("Repintando");
+        jPanel1.revalidate();
+        jPanel1.repaint();
+
+        return true;
     }
     
     private void coloreaButacas(SesionBean sesion) {
@@ -189,6 +201,10 @@ public class VistaPantalla extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Añade una butaca al array de parpadeo, con lo que el boton se pondrá a parpadear
+     * @param i 
+     */
     public void addToParpadeo(int i){
         if(butacasParpadeo==null){
             butacasParpadeo=new ArrayList();
@@ -196,6 +212,11 @@ public class VistaPantalla extends javax.swing.JFrame {
         butacasParpadeo.add(allButacas.getButacaJT(i));
         System.out.println("Parpadeando Array Size (+) ="+butacasParpadeo.size());
     }
+    /**
+     * Borra una sola butaca que esté parpadenado. Hay que pasar el ID de la butaca que se quiere quitar
+     * @param i
+     * @param estado 
+     */
     public void removeToParpadeo(int i, int estado){
         if(butacasParpadeo==null){
             return;
@@ -209,13 +230,9 @@ public class VistaPantalla extends javax.swing.JFrame {
         }
         System.out.println("Parpadeando Array Size (-) ="+butacasParpadeo.size());
     }
-    public void vaciaParpaeo(){
-        if(butacasParpadeo!=null){
-            removeAllParpadeo(butacasParpadeo);
-        }
-        butacasParpadeo=new ArrayList();
-    }
-    
+    /**
+     * Inicializa el control de parpadeo de butacas (jToggleButton) de la pantalla para clientes.
+     */
     private void initParpadeo() {
         System.out.println("Parpadenado");
         if(butacasParpadeo==null){
@@ -227,18 +244,28 @@ public class VistaPantalla extends javax.swing.JFrame {
         timer.start();
     }
 
-    public void removeAllParpadeo(ArrayList<ButacaSesion> butacasSel) {
-        for (ButacaSesion butacasSel1 : butacasSel) {
-            butacasParpadeo.remove(butacasSel1);
-            System.out.println("Remove: "+butacasParpadeo.size());
+    /**
+     * Borra todo el parpadeo de butacas. Borra el array y le pone el estado que se le pase por parámetro
+     * @param estado 
+     */
+    public void removeAllParpadeo(int estado) {
+        for (int i=butacasParpadeo.size()-1;i>=0;i--){
+            JToggleButton j=(JToggleButton) butacasParpadeo.get(i);
+            butacasParpadeo.remove(j);
+            if(estado==1){
+                j.setBackground(new Color(0, 255,0));
+            }else{
+                j.setBackground(new Color(255, 0,0));
+            }
         }
+        butacasParpadeo=new ArrayList();
     }
     
     private class TimerListener implements ActionListener {
         boolean on=true;
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Bliking="+butacasParpadeo.size());
+            //System.out.println("Bliking="+butacasParpadeo.size());
             for(int i=0;butacasParpadeo.size()>i;i++){
                 JToggleButton j=(JToggleButton) butacasParpadeo.get(i);
                 if(on){
