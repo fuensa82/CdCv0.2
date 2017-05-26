@@ -1174,19 +1174,22 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             });
         }     
         // Añadimos los listener a los botones de las butacas.
-        tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                int indice=lsm.getMinSelectionIndex();
-                if(!e.getValueIsAdjusting() && indice!=-1){
-                    String idActividad=(String) tActividades.getModel().getValueAt(indice, 5);
-                    String idSesion= (String) tActividades.getModel().getValueAt(indice, 6);
-                    sesionSelecionada=GestionFuncionesBD.getSesion(idActividad, idSesion);
-                    cambiarSesion(sesionSelecionada);
+        if(!tieneListener){
+            tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    int indice=lsm.getMinSelectionIndex();
+                    if(!e.getValueIsAdjusting() && indice!=-1){
+                        String idActividad=(String) tActividades.getModel().getValueAt(indice, 5);
+                        String idSesion= (String) tActividades.getModel().getValueAt(indice, 6);
+                        sesionSelecionada=GestionFuncionesBD.getSesion(idActividad, idSesion);
+                        cambiarSesion(sesionSelecionada);
+                    }
                 }
-            }
-        });
+            });
+            tieneListener=true;
+        }
         if(tActividades.getModel().getRowCount()>0){
             tActividades.getSelectionModel().setSelectionInterval(0, 0);
             patioButacas.setVisible(true);
@@ -1198,11 +1201,15 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         
     }
     
+    private boolean tieneListener=false;
+    
     public void cambiarSesion(SesionBean sesion){
-        //System.out.println("--- Cambiando sesion ("+sesion.getIdActividad()+","+sesion.getIdSesion()+")");
+        Long time=System.currentTimeMillis();
         deseleccionarTodo(true);
         inicializarButacas(sesion, false);
         inicializarContadores(sesion);
+        Long time2=System.currentTimeMillis();
+        System.out.println("Tiempo: "+(time2-time)+"ms");
     }
     /**
      * Carga los años en el combo de años. Se cargan todos los años existentes entre la mayor de las fechas y la menos de las fechas de las sesiones.
