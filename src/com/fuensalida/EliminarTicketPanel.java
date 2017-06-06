@@ -11,6 +11,7 @@ import com.fuensalida.beans.SesionBean;
 import com.fuensalida.utils.PrecioUtils;
 import java.awt.Window;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -30,6 +31,7 @@ public class EliminarTicketPanel extends javax.swing.JPanel {
      */
     public EliminarTicketPanel(ArrayList<ButacaSesion> butacas, SesionBean sesion) {
         initComponents();
+        
         this.butacas=butacas;
         this.sesion=sesion;
         jLabelObra.setText(sesion.getDescripcion());

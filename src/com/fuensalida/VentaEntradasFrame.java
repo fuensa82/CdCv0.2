@@ -12,7 +12,6 @@ import com.fuensalida.BaseDatos.GestionFuncionesBD;
 import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.EstadoBean;
 import com.fuensalida.beans.SesionBean;
-import com.fuensalida.printer.Imprimir;
 import com.fuensalida.utils.FechasUtils;
 import com.fuensalida.utils.PrecioUtils;
 import com.fuensalida.vista.VistaPantalla;
@@ -23,6 +22,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -51,6 +51,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     
     private PatioButacasPanel patioButacas;
     private VistaPantalla vistaP;
+    private static final String icono="/com/fuensalida/images/CdCEdifIco.png";
     //private int idActividad=4;
     //private int idSesion=1;
     /**
@@ -70,6 +71,8 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
         sesionSelecionada=selecionaSesion();
         initComponents();
+        
+        setIconImage(new ImageIcon(getClass().getResource("/com/fuensalida/images/CdCEdifIco.png")).getImage());
         
         patioButacas=new PatioButacasPanel();
         jPanel7.add(patioButacas);
@@ -841,6 +844,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JDialog frame = new JDialog(this, "Informe", true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         frame.getContentPane().add(new InformesPanel());
         frame.pack();
         frame.setVisible(true);
@@ -1248,6 +1252,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
         JDialog frame = new JDialog(this, "Venta de entradas", true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         frame.getContentPane().add(new VentaTicketPanel(butacasSel, sesionSelecionada));
         frame.pack();
         frame.setVisible(true);
@@ -1286,6 +1291,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         String titulo=isReserva?"Reserva de entradas":"Invitaciones de entradas";
         JDialog frame = new JDialog(this, titulo, true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         frame.getContentPane().add(new ReservaTicketPanel(butacasSel, sesionSelecionada, isReserva));
         frame.pack();
         frame.setVisible(true);
@@ -1297,6 +1303,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         String titulo="Eliminar venta";
         JDialog frame = new JDialog(this, titulo, true);
         frame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        frame.setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         frame.getContentPane().add(new EliminarTicketPanel(butacasSel, sesionSelecionada));
         frame.pack();
         frame.setVisible(true);

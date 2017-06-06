@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
@@ -32,12 +33,15 @@ public class VistaPantalla extends javax.swing.JFrame {
     private MiHasMap2 allButacas;
     private ArrayList butacasParpadeo;
     private SesionBean sesionSeleccionada;
+    private static final String icono="/com/fuensalida/images/CdCEdifIco.png";
     /**
      * Creates new form VistaPantalla
      */
     public VistaPantalla() {
         initComponents();
+        
         initPatioButacas(sesionSeleccionada);
+        setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         initParpadeo();
     }
 
@@ -47,6 +51,7 @@ public class VistaPantalla extends javax.swing.JFrame {
     public VistaPantalla(SesionBean sesionSelecionada) {
         this.sesionSeleccionada=sesionSelecionada;
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         //jLabel1.setHorizontalTextPosition(JLabel.CENTER);
         
         initPatioButacas(sesionSelecionada);
