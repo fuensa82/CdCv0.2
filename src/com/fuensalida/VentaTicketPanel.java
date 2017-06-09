@@ -333,9 +333,11 @@ public class VentaTicketPanel extends javax.swing.JPanel {
     private void imprimirTicket() {
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
         int selectedService = 0;
+
         for(int i = 0; i < services.length;i++){
-            //System.out.println("Impresora: "+services[i].getName().toUpperCase());
+            
             if(services[i].getName().toUpperCase().contains("EPSON")){
+                //System.out.println("Impresoras: "+services[i]);
                 selectedService = i;
             }
         }
@@ -349,10 +351,12 @@ public class VentaTicketPanel extends javax.swing.JPanel {
                 job.setPrintable(new Ticket(datosTicket));
                 //Configurar papel
                 PrintRequestAttributeSet atributos = new HashPrintRequestAttributeSet();
+                //Comentado solo para pruebas                
                 atributos.add(new PrinterResolution(203, 203, PrinterResolution.DPI));
                 atributos.add(new MediaPrintableArea(0, 0, 100, 200, MediaPrintableArea.MM)); 
                 //Seleccionar impresora
                 job.setPrintService(services[selectedService]);
+                
                 //Numero de copias
                 job.setCopies(1);
                 //Imprimimos con los atributos creados

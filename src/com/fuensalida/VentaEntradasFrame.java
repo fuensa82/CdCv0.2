@@ -72,7 +72,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         sesionSelecionada=selecionaSesion();
         initComponents();
         
-        setIconImage(new ImageIcon(getClass().getResource("/com/fuensalida/images/CdCEdifIco.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         
         patioButacas=new PatioButacasPanel();
         jPanel7.add(patioButacas);
@@ -664,7 +664,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         });
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/fuensalida/images/eliminar3.png"))); // NOI18N
-        jButton7.setToolTipText("Pagar reserva");
+        jButton7.setToolTipText("Eliminar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
