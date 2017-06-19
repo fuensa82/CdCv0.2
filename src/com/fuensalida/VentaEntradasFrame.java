@@ -77,7 +77,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         patioButacas=new PatioButacasPanel();
         jPanel7.add(patioButacas);
         allButacas=patioButacas.getAllButacas();
-        patioButacas.setSize(777, 434);
+        patioButacas.setSize(870, 434);
         
         inicializarButacas(sesionSelecionada, true);
         inicializarContadores(sesionSelecionada);
@@ -627,12 +627,14 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         );
 
         jPanel7.setAlignmentX(0.0F);
+        jPanel7.setName(""); // NOI18N
+        jPanel7.setPreferredSize(new java.awt.Dimension(810, 446));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 787, Short.MAX_VALUE)
+            .addGap(0, 810, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
