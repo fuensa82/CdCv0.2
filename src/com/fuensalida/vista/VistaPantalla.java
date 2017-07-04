@@ -179,7 +179,7 @@ public class VistaPantalla extends javax.swing.JFrame {
         patioButacas = new PatioButacasPanel();
         jPanel1.add(patioButacas);
         allButacas=patioButacas.getAllButacas();
-        patioButacas.setSize(777, 434);
+        patioButacas.setSize(870, 434);
         coloreaButacas(sesionSeleccionada);
         //System.out.println("Repintando");
         jPanel1.revalidate();
