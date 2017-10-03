@@ -1167,7 +1167,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             datosTabla.removeRow(i-1);
             
         }
-       
+        //datosTabla.addRow(new String[]{"","","","",""});
         for (int i=0;i<listaSesiones.size();i++){
             datosTabla.addRow(new String[]{
                 listaSesiones.get(i).getDescripcion(),
@@ -1236,7 +1236,11 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private void selectMesActual(){
         String mes=FechasUtils.dameMesFechaActual();
         jMes.setSelectedIndex(Integer.parseInt(mes)-1);
-        tActividades.getSelectionModel().setSelectionInterval(0, 0);
+        try{
+            tActividades.getSelectionModel().setSelectionInterval(0, 0);
+        }catch(Exception e){
+            
+        }
     }
 
     private SesionBean selecionaSesion() {

@@ -158,6 +158,7 @@ public class SesionBean {
     }
 
     public String getHoraCorta() {
+        if(getHora().length()<7) return getHora();
         return getHora().substring(0, hora.lastIndexOf(":"));
     }
     

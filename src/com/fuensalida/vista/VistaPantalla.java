@@ -169,8 +169,10 @@ public class VistaPantalla extends javax.swing.JFrame {
         jPanel1.add(patioButacas);
         allButacas=patioButacas.getAllButacas();
         patioButacas.setSize(870, 434);
-        coloreaButacas(sesionSeleccionada);
-        pintaObra(sesionSeleccionada);
+        if(sesionSeleccionada!=null){
+            coloreaButacas(sesionSeleccionada);
+            pintaObra(sesionSeleccionada);
+        }
         return true;
     }
     public boolean reInitPatioButacas(SesionBean sesionSeleccionada) {

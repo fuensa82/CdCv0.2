@@ -10,12 +10,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
-import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
