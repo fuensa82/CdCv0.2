@@ -52,6 +52,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
     private PatioButacasPanel patioButacas;
     private VistaPantalla vistaP;
     private static final String icono="/com/fuensalida/images/CdCEdifIco.png";
+    private int filasTabla;
     //private int idActividad=4;
     //private int idSesion=1;
     /**
@@ -69,24 +70,29 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(VentaEntradasFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sesionSelecionada=selecionaSesion();
+        
         initComponents();
         
         setIconImage(new ImageIcon(getClass().getResource(icono)).getImage());
         
-        patioButacas=new PatioButacasPanel();
-        jPanel7.add(patioButacas);
-        allButacas=patioButacas.getAllButacas();
-        patioButacas.setSize(870, 434);
+        sesionSelecionada=selecionaSesion();
+        if(sesionSelecionada!=null){
+            patioButacas=new PatioButacasPanel();
+            jPanel7.add(patioButacas);
+            allButacas=patioButacas.getAllButacas();
+            patioButacas.setSize(870, 434);
+
+            inicializarButacas(sesionSelecionada, true);
+            inicializarContadores(sesionSelecionada);
+            cargarTablaSesiones();
+            butacasSel=new ArrayList<ButacaSesion>();
+            allButacas.getButacaJT(1).setSelected(false);
+        }
         
-        inicializarButacas(sesionSelecionada, true);
-        inicializarContadores(sesionSelecionada);
-        cargarTablaSesiones();
         cargaAnos();
         selectMesActual();
         
-        butacasSel=new ArrayList<ButacaSesion>();
-        allButacas.getButacaJT(1).setSelected(false);
+        
         
         /**
          * Abrimos la vista para clientes
@@ -1164,6 +1170,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         ArrayList<SesionBean> listaSesiones=GestionFuncionesBD.getSesiones(ano, mes);
         DefaultTableModel datosTabla=(DefaultTableModel) tActividades.getModel();
         for (int i = datosTabla.getRowCount(); i >0 ; i--) {
+            filasTabla=0;
             datosTabla.removeRow(i-1);
             
         }
@@ -1178,14 +1185,33 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
                 ""+listaSesiones.get(i).getIdActividad(),
                 ""+listaSesiones.get(i).getIdSesion()
             });
-        }     
+        }
+        filasTabla=listaSesiones.size();
+        System.out.println("filasTabla: "+filasTabla);
+        //tActividades.setModel(datosTabla);
         // Añadimos los listener a los botones de las butacas.
+        
+        if(tActividades.getModel().getRowCount()>0){
+            tActividades.getSelectionModel().setSelectionInterval(0, 0);
+            patioButacas.setVisible(true);
+        }else{
+            patioButacas.setVisible(false);
+            sesionSelecionada=null;
+            inicializarContadores(sesionSelecionada);
+        }
         if(!tieneListener){
             tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                     int indice=lsm.getMinSelectionIndex();
+                    if(filasTabla!=tActividades.getModel().getRowCount() && indice!=-1){
+                        System.out.println("Indice 0");
+                        indice=0;
+                    }
+                    
+                    //if(indice>0)indice=0;
+                    //System.out.println("Indice1: "+indice);
                     if(!e.getValueIsAdjusting() && indice!=-1){
                         String idActividad=(String) tActividades.getModel().getValueAt(indice, 5);
                         String idSesion= (String) tActividades.getModel().getValueAt(indice, 6);
@@ -1195,14 +1221,6 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
                 }
             });
             tieneListener=true;
-        }
-        if(tActividades.getModel().getRowCount()>0){
-            tActividades.getSelectionModel().setSelectionInterval(0, 0);
-            patioButacas.setVisible(true);
-        }else{
-            patioButacas.setVisible(false);
-            sesionSelecionada=null;
-            inicializarContadores(sesionSelecionada);
         }
         
     }

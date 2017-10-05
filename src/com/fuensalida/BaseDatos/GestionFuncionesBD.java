@@ -163,16 +163,19 @@ public class GestionFuncionesBD {
                         "where a.idActividad=b.idActividad " +
                             "Limit 1");
             ResultSet resultado = consulta.executeQuery();
-            resultado.next();
-            result=new SesionBean();
-            result.setIdActividad(resultado.getInt(1));
-            result.setDescripcion(resultado.getString(2));
+            if(resultado.next()){
+                result=new SesionBean();
+                result.setIdActividad(resultado.getInt(1));
+                result.setDescripcion(resultado.getString(2));
 
-            result.setCompania(resultado.getString(3));
-            result.setIdSesion(resultado.getInt(4));
-            result.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
-            result.setHora(resultado.getString(6));
-            result.setPrecio(resultado.getInt(7));
+                result.setCompania(resultado.getString(3));
+                result.setIdSesion(resultado.getInt(4));
+                result.setFecha(com.fuensalida.utils.FechasUtils.fecha(resultado.getString(5)));
+                result.setHora(resultado.getString(6));
+                result.setPrecio(resultado.getInt(7));
+            }else{
+                return null;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {

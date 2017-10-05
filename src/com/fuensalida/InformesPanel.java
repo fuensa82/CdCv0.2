@@ -40,6 +40,7 @@ import javax.swing.table.DefaultTableModel;
 public class InformesPanel extends javax.swing.JPanel {
 
     private SesionBean sesionSelecionada;
+    private int filasTabla;
     /**
      * Creates new form Informes
      */
@@ -263,7 +264,7 @@ public class InformesPanel extends javax.swing.JPanel {
         DefaultTableModel datosTabla=(DefaultTableModel) tActividades.getModel();
         for (int i = datosTabla.getRowCount(); i >0 ; i--) {
             datosTabla.removeRow(i-1);
-            
+            filasTabla=0;
         }
        
         for (int i=0;i<listaSesiones.size();i++){
@@ -276,14 +277,21 @@ public class InformesPanel extends javax.swing.JPanel {
                 ""+listaSesiones.get(i).getIdActividad(),
                 ""+listaSesiones.get(i).getIdSesion()
             });
-        }     
+        }
+        filasTabla=listaSesiones.size();
         // Añadimos los listener a los botones de las butacas.
         tActividades.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                System.out.println("***filasTabla: "+filasTabla);
                 int indice=lsm.getMinSelectionIndex();
-                if(!e.getValueIsAdjusting() && indice!=-1){
+                System.out.println("***indice: "+indice);
+                if(filasTabla!=tActividades.getModel().getRowCount() && indice!=-1){
+                    indice=0;
+                }
+                
+                if(!e.getValueIsAdjusting() && indice!=-1 && filasTabla!=0){
                     String idActividad=(String) tActividades.getModel().getValueAt(indice, 5);
                     String idSesion= (String) tActividades.getModel().getValueAt(indice, 6);
                     sesionSelecionada=GestionFuncionesBD.getSesion(idActividad, idSesion);
