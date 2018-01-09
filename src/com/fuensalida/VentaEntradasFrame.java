@@ -590,7 +590,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
         }
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel2.setText("v 0.2");
+        jLabel2.setText("v 1.0");
         jLabel2.setToolTipText("");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1249,6 +1249,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
             indice++;
         }
         jAnos.setModel(new DefaultComboBoxModel<String>(modelo));
+        jAnos.setSelectedIndex(indice-1);
     }
     
     private void selectMesActual(){
