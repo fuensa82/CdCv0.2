@@ -336,8 +336,8 @@ public class VentaTicketPanel extends javax.swing.JPanel {
 
         for(int i = 0; i < services.length;i++){
             
-            //if(services[i].getName().toUpperCase().contains("EPSON")){
-            if(services[i].getName().toUpperCase().contains("Planta 2")){
+            if(services[i].getName().toUpperCase().contains("EPSON")){
+            //if(services[i].getName().toUpperCase().contains("Planta 2")){
                 //System.out.println("Impresoras: "+services[i]);
                 selectedService = i;
             }
