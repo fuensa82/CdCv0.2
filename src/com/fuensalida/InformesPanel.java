@@ -385,7 +385,8 @@ public class InformesPanel extends javax.swing.JPanel {
         datos.put("hora",sesionSelecionada.getHora());
         datos.put("precio",PrecioUtils.getPrecioEuros(sesionSelecionada.getPrecio()));
         datos.put("compania",sesionSelecionada.getCompania());
-        datos.put("recaudacion", PrecioUtils.getPrecioEuros(GestionEntradasBD.getRecaudacionSesion(sesionSelecionada)));
+        datos.put("recaudacion0", PrecioUtils.getPrecioEuros(GestionEntradasBD.getRecaudacionSesion(sesionSelecionada,0)));
+        datos.put("recaudacion1", PrecioUtils.getPrecioEuros(GestionEntradasBD.getRecaudacionSesion(sesionSelecionada,1)));
         datos.put("invitaciones",""+GestionAuditorioBD.getButacasInvitaciones(sesionSelecionada.getIdActividad(), sesionSelecionada.getIdSesion()));
         HashMap<String,String> cifrasSesion=GestionInformesBD.getCifrasSesion(sesionSelecionada);
         datos.putAll(cifrasSesion);

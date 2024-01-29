@@ -5,7 +5,7 @@
  */
 package com.fuensalida.BaseDatos;
 
-import com.fuensalida.NewJFrame;
+import com.fuensalida.NewJFrame_OLD;
 import com.fuensalida.beans.EstadoBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -75,7 +75,7 @@ public class GestionEstadosBD {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewJFrame_OLD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conexion.close();

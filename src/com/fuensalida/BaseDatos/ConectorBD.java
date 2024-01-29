@@ -17,13 +17,34 @@ public class ConectorBD {
     private static String contrasenia="CdC0217";
 
     
-    public static Connection getConnection() throws NamingException, SQLException {
+    public static Connection getConnection1() throws NamingException, SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser(ConectorBD.usuario);
         dataSource.setPassword(ConectorBD.contrasenia);
         dataSource.setDatabaseName(ConectorBD.baseDatos);
         dataSource.setServerName("localhost");
         //dataSource.setServerName("CDCDELLCONSER");
+
+        Connection conexion = dataSource.getConnection();
+        return conexion;
+    }
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
+
+    
+    public static Connection getConnection() throws NamingException, SQLException {
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setUser(ConectorBD.usuario);
+        dataSource.setPassword(ConectorBD.contrasenia);
+        dataSource.setDatabaseName(ConectorBD.baseDatos);
 
         Connection conexion = dataSource.getConnection();
         return conexion;

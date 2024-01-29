@@ -68,16 +68,18 @@ public class InformeSesion implements Printable {
         g.drawString("Entradas vendidas:",70,255);
         g.drawString("Entradas anuladas:",70,270);
         g.drawString("Invitaciones:",70,285);
-        g.drawString("Recaudación:",70,300);
+        g.drawString("Recaudación efectivo:",70,300);
+        g.drawString("Recaudación tarjeta:",70,315);
 
         g.setFont( new Font( "Serif", Font.BOLD, 12 ) );
         //System.out.println("datosInforme: "+datosInforme);
         g.drawString((String) datosInforme.get("ventas netas"),180,255);
         g.drawString((String) datosInforme.get("devoluciones"),180,270);
         g.drawString((String) datosInforme.get("invitaciones"),180,285);
-        g.drawString((String) datosInforme.get("recaudacion"),180,300);
+        g.drawString((String) datosInforme.get("recaudacion0"),180,300);
+        g.drawString((String) datosInforme.get("recaudacion1"),180,315);
         g.setFont( new Font( "Serif", Font.PLAIN, 12 ) );
-        g.drawString("- Tipos entradas",50,320);
+        g.drawString("- Tipos entradas",50,335);
     }
     
     public void cargaDatos(){
@@ -105,22 +107,22 @@ public class InformeSesion implements Printable {
                     return PAGE_EXISTS;
                 }
                 HashMap datos2=(HashMap) lista.get(i);
-                g.drawLine(70, 329+anadir, 270, 329+anadir);
+                g.drawLine(70, 344+anadir, 270, 344+anadir);
                 g.setFont( new Font( "Serif", Font.PLAIN, 12 ) );
-                g.drawString("Nº Entradas:",70,340+anadir);
-                g.drawString("Importe uni.:",70,355+anadir);
-                g.drawString("Total:",70,370+anadir);
+                g.drawString("Nº Entradas:",70,355+anadir);
+                g.drawString("Importe uni.:",70,370+anadir);
+                g.drawString("Total:",70,385+anadir);
                 if(Integer.parseInt((String)datos2.get("Total"))>0){
-                    g.drawString("Tipo Ent.:",70,385+anadir);
+                    g.drawString("Tipo Ent.:",70,400+anadir);
                 }else{
-                    g.drawString("Motivo dev.:",70,385+anadir);
+                    g.drawString("Motivo dev.:",70,400+anadir);
                 }
                 g.setFont( new Font( "Serif", Font.BOLD, 12 ) );
-                g.drawString((String) datos2.get("N Entradas"),150,340+anadir);
-                g.drawString(PrecioUtils.getPrecioEuros((String) datos2.get("Importe Entrada")),150,355+anadir);
+                g.drawString((String) datos2.get("N Entradas"),150,355+anadir);
+                g.drawString(PrecioUtils.getPrecioEuros((String) datos2.get("Importe Entrada")),150,370+anadir);
                 
-                g.drawString(PrecioUtils.getPrecioEuros((String) datos2.get("Total")),150,370+anadir);
-                g.drawString((String) datos2.get("motivo"),150,385+anadir);
+                g.drawString(PrecioUtils.getPrecioEuros((String) datos2.get("Total")),150,385+anadir);
+                g.drawString((String) datos2.get("motivo"),150,400+anadir);
             }
             return PAGE_EXISTS;
         } else {
@@ -150,9 +152,9 @@ public class InformeSesion implements Printable {
                 g.drawString("Total:",70,70+anadir);
                 //g.drawString("Motivo:",70,85+anadir);
                 if(Integer.parseInt((String)datos2.get("Total"))>0){
-                    g.drawString("Tipo Ent.:",70,85+anadir);
+                    g.drawString("Tipo Ent.:",70,100+anadir);
                 }else{
-                    g.drawString("Motivo dev.:",70,85+anadir);
+                    g.drawString("Motivo dev.:",70,100+anadir);
                 }
                 g.setFont( new Font( "Serif", Font.BOLD, 12));
                 g.drawString((String) datos2.get("N Entradas"),150,40+anadir);

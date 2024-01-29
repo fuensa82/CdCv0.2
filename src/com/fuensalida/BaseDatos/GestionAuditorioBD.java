@@ -5,7 +5,7 @@
  */
 package com.fuensalida.BaseDatos;
 
-import com.fuensalida.NewJFrame;
+import com.fuensalida.NewJFrame_OLD;
 import com.fuensalida.beans.ButacaSesion;
 import com.fuensalida.beans.SesionBean;
 import java.sql.Connection;
@@ -44,7 +44,7 @@ public class GestionAuditorioBD {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewJFrame_OLD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conexion.close();
@@ -75,7 +75,7 @@ public class GestionAuditorioBD {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewJFrame_OLD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conexion.close();
@@ -106,7 +106,7 @@ public class GestionAuditorioBD {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewJFrame_OLD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conexion.close();
@@ -137,7 +137,7 @@ public class GestionAuditorioBD {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NamingException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewJFrame_OLD.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conexion.close();
