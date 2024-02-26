@@ -97,6 +97,12 @@ public class GestionEntradasBD {
         }
         return result;
     }
+    /**
+     * 
+     * @param sesion
+     * @param tipo el tipo será un entero que representa si es en efectivo o con tarjeta (0-> Efectivo y 1 -> Tarjeta)
+     * @return 
+     */
     public static int getRecaudacionSesion(SesionBean sesion){
         int result=0;
         Connection conexion = null;
@@ -109,6 +115,44 @@ public class GestionEntradasBD {
                     "where idActividad=? and idSesion=? and isAnulada=false");
             consulta.setString(1, ""+sesion.getIdActividad());
             consulta.setString(2, ""+sesion.getIdSesion());
+            //System.out.println("SQL: "+consulta.toString());
+            ResultSet resultado = consulta.executeQuery();
+            resultado.next();
+            result=resultado.getInt(1);
+            conexion.close();
+            return result; 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException ex) {
+            Logger.getLogger(NewJFrame_OLD.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    /**
+     * 
+     * @param sesion
+     * @param tipoPago 0 si es efectivo y 1 si es tarjeta
+     * @return 
+     */
+    public static int getRecaudacionSesion(SesionBean sesion, String tipoPago){
+        int result=0;
+        Connection conexion = null;
+        try {
+            
+            conexion=ConectorBD.getConnection();
+            //System.out.println("Sesion: "+sesion);
+            PreparedStatement consulta = conexion.prepareStatement(
+                    "select sum(importeVenta) from tickets " +
+                    "where idActividad=? and idSesion=? and isAnulada=false and tipoPago=?");
+            consulta.setString(1, ""+sesion.getIdActividad());
+            consulta.setString(2, ""+sesion.getIdSesion());
+            consulta.setString(3, tipoPago);
             //System.out.println("SQL: "+consulta.toString());
             ResultSet resultado = consulta.executeQuery();
             resultado.next();
