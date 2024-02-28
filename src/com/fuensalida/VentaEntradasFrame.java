@@ -326,6 +326,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
 
         labelRecaudacionTotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelRecaudacionTotal.setForeground(new java.awt.Color(204, 0, 0));
+        labelRecaudacionTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelRecaudacionTotal.setText("12");
 
         labelRecaudacionEfectivo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -358,7 +359,7 @@ public class VentaEntradasFrame extends javax.swing.JFrame {
                     .addGroup(labelRecaudacionELayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelRecaudacionTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelRecaudacionTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         labelRecaudacionELayout.setVerticalGroup(

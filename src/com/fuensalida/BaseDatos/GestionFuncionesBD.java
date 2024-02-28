@@ -156,12 +156,15 @@ public class GestionFuncionesBD {
         SesionBean result=null;
         Connection conexion = null;
         try {
+            System.out.println("1");
             conexion=ConectorBD.getConnection();
+            System.out.println("2");
             PreparedStatement consulta = conexion.prepareStatement(
                     "select a.idActividad, Descripcion, Compania, idSesion, Fecha, Hora, Precio " +
                     "from actividades as a, sesiones as b " +
                         "where a.idActividad=b.idActividad " +
                             "Limit 1");
+            System.out.println("3");
             ResultSet resultado = consulta.executeQuery();
             if(resultado.next()){
                 result=new SesionBean();
@@ -183,7 +186,9 @@ public class GestionFuncionesBD {
         }finally{
             try {
                 //System.out.println("Saliendo de la base de datos");
+                if(conexion!=null){
                 conexion.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(GestionAuditorioBD.class.getName()).log(Level.SEVERE, null, ex);
             }
