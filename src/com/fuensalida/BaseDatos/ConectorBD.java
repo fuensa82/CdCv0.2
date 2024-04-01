@@ -5,7 +5,8 @@
  */
 package com.fuensalida.BaseDatos;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import org.mariadb.jdbc.MariaDbDataSource;
+//import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.naming.NamingException;
@@ -18,11 +19,13 @@ public class ConectorBD {
 
     
     public static Connection getConnection1() throws NamingException, SQLException {
-        MysqlDataSource dataSource = new MysqlDataSource();
+        MariaDbDataSource dataSource = new MariaDbDataSource();
         dataSource.setUser(ConectorBD.usuario);
         dataSource.setPassword(ConectorBD.contrasenia);
-        dataSource.setDatabaseName(ConectorBD.baseDatos);
-        dataSource.setServerName("localhost");
+        dataSource.setUrl("jdbc:mariadb://localhost:3306/"+baseDatos);
+        //dataSource.setDatabaseName(ConectorBD.baseDatos);
+        //dataSource.setServerName("localhost");
+        
         //dataSource.setServerName("CDCDELLCONSER");
 
         Connection conexion = dataSource.getConnection();
@@ -41,10 +44,10 @@ public class ConectorBD {
 
     
     public static Connection getConnection() throws NamingException, SQLException {
-        MysqlDataSource dataSource = new MysqlDataSource();
+        MariaDbDataSource dataSource = new MariaDbDataSource();
         dataSource.setUser(ConectorBD.usuario);
         dataSource.setPassword(ConectorBD.contrasenia);
-        dataSource.setDatabaseName(ConectorBD.baseDatos);
+        dataSource.setUrl("jdbc:mariadb://localhost:3306/"+baseDatos);
 
         Connection conexion = dataSource.getConnection();
         return conexion;
